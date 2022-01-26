@@ -67,7 +67,7 @@ Create an HTML placeholder
 
 Import SuperMarquee
 ```js
-import * from "sp-supermarquee";
+import SuperMarquee from "sp-supermarquee";
 ```
 
 ### Initialize 
