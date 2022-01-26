@@ -55,7 +55,7 @@ Run the following command in your terminal
 npm install sp-supermarquee
 ```
 
-You can also load the bundle directly from [jsDelivr](#).
+You can also load the bundle directly from [jsDelivr](https://www.jsdelivr.com/package/npm/sp-supermarquee).
 
 ### Create a placeholder
 
@@ -82,7 +82,7 @@ const sm = new SuperMarquee(container, {
 
 ## Support
 
-We provide support for developers working with commercial version via [support formular](https://superplug.in/support/supermarquee) or at support@superplg.in.
+We provide support for developers working with commercial version via [support formular](https://superplug.in/support/supermarquee) or at support@superplug.in.
 
 If you use a non-commercial version then please ask your tagged question on [StackOverflow](https://stackoverflow.com/questions/tagged/supermarquee).
 
