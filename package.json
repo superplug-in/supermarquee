@@ -1,0 +1,39 @@
+{
+  "name": "sp-supermarquee",
+  "version": "1.0.0",
+  "description": "Super smooth marquee library for your applications.",
+  "type" : "module",
+  "main": "src/core/SuperMarquee.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superplug-in/supermarquee.git"
+  },
+  "keywords": [
+    "marquee",
+    "scrolltext",
+    "scrollline",
+    "ticker",
+    "newsticker",
+    "jquery",
+    "vanilla",
+    "javascript",
+    "javascript",
+    "scrolling",
+    "starwars",
+    "scroller"
+  ],
+  "author": "SuperPlug.in^aheadware GmbH",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/superplug-in/supermarquee/issues"
+  },
+  "homepage": "https://github.com/superplug-in/supermarquee#readme",
+  "devDependencies": {
+    "rollup": "^1.32.0",
+    "rollup-plugin-uglify": "^5.0.2"
+  }
+}
