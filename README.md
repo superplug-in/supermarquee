@@ -1,6 +1,10 @@
 ![SuperMarquee](./res/github/SuperMarqueeLogoWhiteBg.png)
 
-**SuperMarquee** is the super smooth marquee JavaScript component for your web applications. 
+**SuperMarquee** is the super smooth marquee web component for your web applications. 
+
+[![npm](https://img.shields.io/npm/dt/sp-supermarquee.svg)](https://npmjs.com/package/sp-supermarquee)
+[![npm](https://img.shields.io/npm/dm/sp-supermarquee.svg)](https://npmjs.com/package/sp-supermarquee)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/sp-supermarquee/badge?style=rounded)](https://www.jsdelivr.com/package/npm/sp-supermarquee)
 
 ## Showcase
 
@@ -16,6 +20,8 @@ The most popular features of SuperMarquee:
 
 &nbsp;&nbsp;✓&nbsp; Fully Responsive. Perfect for every resolution <br>
 &nbsp;&nbsp;✓&nbsp; Easily customizable via CSS <br>
+&nbsp;&nbsp;✓&nbsp; Zero dependencies <br>
+&nbsp;&nbsp;✓&nbsp; Includes a vanilla Javascript version as well as a jQuery plugin  <br>
 &nbsp;&nbsp;✓&nbsp; Lightweight, simple yet powerful with no additional dependencies <br>
 &nbsp;&nbsp;✓&nbsp; Hardware accelerated for high performance <br>
 &nbsp;&nbsp;✓&nbsp; Extremely flexible. Endless possibilities <br>
@@ -65,7 +71,7 @@ Create an HTML placeholder
 <div id="supermarquee"></div>
 ```
 
-Import SuperMarquee
+### Import SuperMarquee
 ```js
 import SuperMarquee from "sp-supermarquee";
 ```
@@ -82,7 +88,7 @@ const sm = new SuperMarquee(container, {
 
 ## Support
 
-We provide support for developers working with commercial version via [support formular](https://superplug.in/support/supermarquee) or at support@superplug.in.
+We provide support for developers working with commercial version by email. Please write an email to [support@superplug.in](mailto://support@superplug.in) _(please include your license key for verification)_.
 
 If you use a non-commercial version then please ask your tagged question on [StackOverflow](https://stackoverflow.com/questions/tagged/supermarquee).
 

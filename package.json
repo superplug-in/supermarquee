@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/superplug-in/supermarquee/issues"
   },
-  "homepage": "https://github.com/superplug-in/supermarquee#readme",
+  "homepage": "https://superplug.in/supermarquee",
   "devDependencies": {
     "rollup": "^1.32.0",
     "rollup-plugin-uglify": "^5.0.2"
