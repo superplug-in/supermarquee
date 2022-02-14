@@ -13,6 +13,8 @@ Get some inspiration of what is possible with the following showcase demos.
 - [Newsticker](https://superplug.in/supermarquee/showcase/breakingnews)
 - [eCommere](https://superplug.in/supermarquee/showcase/ecommerce)
 - [3D Hero](https://superplug.in/supermarquee/showcase/starwars)
+- [MarqueeWall (codepen.io)](https://codepen.io/benny00100/pen/podybRG)
+- [MarqueeWiggle (codepen.io)](https://codepen.io/benny00100/pen/JjObvZK)
 
 ## Features
 
@@ -21,12 +23,14 @@ The most popular features of SuperMarquee:
 &nbsp;&nbsp;✓&nbsp; Fully Responsive. Perfect for every resolution <br>
 &nbsp;&nbsp;✓&nbsp; Easily customizable via CSS <br>
 &nbsp;&nbsp;✓&nbsp; Zero dependencies <br>
-&nbsp;&nbsp;✓&nbsp; Includes a vanilla Javascript version as well as a jQuery plugin  <br>
 &nbsp;&nbsp;✓&nbsp; Lightweight, simple yet powerful with no additional dependencies <br>
 &nbsp;&nbsp;✓&nbsp; Hardware accelerated for high performance <br>
 &nbsp;&nbsp;✓&nbsp; Extremely flexible. Endless possibilities <br>
 &nbsp;&nbsp;✓&nbsp; Works on every modern device <br>
 &nbsp;&nbsp;✓&nbsp; Supports 3D transformations <br>
+&nbsp;&nbsp;✓&nbsp; Support for vanilla Javascript, jQuery and Web Components <br>
+
+
 
 ## Examples
 
@@ -49,6 +53,7 @@ List of single feature examples
 
 - [Getting Started with Javascript](https://superplug.in/supermarquee/docs#start-javascript)
 - [Getting Started with jQuery](https://superplug.in/supermarquee/docs#start-jquery)
+- [Getting Started with Web Component](https://superplug.in/supermarquee/docs#start-webcomponent)
 - [API Reference](https://superplug.in/supermarquee/docs#instantiation)
 - [Changelog](https://superplug.in/supermarquee/docs#changelog)
 - [Examples](https://superplug.in/supermarquee#demos)
@@ -80,8 +85,9 @@ import SuperMarquee from "sp-supermarquee";
 
 Now turn your placeholder into a SuperMarquee instance and let the magic begin.
 ```js
-const container = document.getElementById('example');
-const sm = new SuperMarquee(container, {
+
+const sm = new SuperMarquee( 
+  document.getElementById('example'), {
   content : "SuperMarquee by SuperPlug.in is Super!!!"
 });
 ```

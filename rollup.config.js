@@ -42,5 +42,26 @@ export default [
                 plugins: []
             }
         ]
+    },
+    {
+        input : 'src/wrapper/SuperMarqueeWC.js',
+        output : [
+            {
+                format: 'iife',
+                name : 'SuperMarquee',
+                file : 'dist/SuperScrollWC.min.js',
+                indent: '\t',
+                plugins: [
+                    uglify()
+                ]
+            },
+            {
+                format: 'iife',
+                name : 'SuperMarquee',
+                file : 'dist/SuperScrollWC.js',
+                indent: '\t',
+                plugins: []
+            }
+        ]
     }
 ];

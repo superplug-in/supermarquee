@@ -1,6 +1,6 @@
 {
   "name": "sp-supermarquee",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Super smooth marquee library for your applications.",
   "type" : "module",
   "main": "src/core/SuperMarquee.js",
@@ -19,6 +19,7 @@
     "ticker",
     "newsticker",
     "jquery",
+    "jquery-plugin",
     "vanilla",
     "javascript",
     "javascript",

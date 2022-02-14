@@ -3,8 +3,7 @@ const templateVertical = document.createElement( 'template' );
 
 templateHorizontal.innerHTML = `
     <style>
-        .
--container
+        .supermarquee-container
         {
             display: block;
             pointer-events: all;

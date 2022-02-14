@@ -1,8 +1,5 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.SuperMarquee = factory());
-}(this, (function () { 'use strict';
+(function () {
+	'use strict';
 
 	const templateHorizontal = document.createElement( 'template' );
 	const templateVertical = document.createElement( 'template' );
@@ -1212,89 +1209,111 @@
 	    console[ level ]( message );
 	};
 
-	function SuperMarquee( rootElement, cfg = {} )
+	class SuperMarquee extends HTMLElement
 	{
-	    if ( !rootElement || false === ( rootElement instanceof HTMLElement ) )
+	    constructor()
 	    {
-	        throw new Error( 'Missing/invalid rootElement: ', rootElement );
+	        // Setup
+	        super();
+
+	        let configData = {},
+	            config,
+	            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
+
+	        for ( let ci = 0; ci < configAttributes.length; ci++ )
+	        {
+	            if ( this.hasAttribute( configAttributes[ ci ] ) )
+	            {
+	                configData[ configAttributes[ ci ] ] = this.getAttribute( configAttributes[ ci ] );
+	            }
+	        }
+
+	        configData.system = Configuration.SYSTEM_WEBCOMPONENT;
+	        config = new Configuration( configData );
+
+	        this._core = new Core( this, config );
 	    }
 
-	    const configData = JSON.parse( JSON.stringify( Configuration.DEFAULT ) );
-	    let config;
-
-	    for ( let k in configData )
+	    connectedCallback()
 	    {
-	        if ( cfg.hasOwnProperty( k ) )
-	        {
-	            configData[ k ] = cfg[ k ];
-	        }
-	        else if ( rootElement.hasAttribute( 'data-' + k ) )
-	        {
-	            configData[ k ] = rootElement.getAttribute( 'data-' + k );
-	        }
-	    }
-
-	    configData.system = Configuration.SYSTEM_VANILLA;
-	    config = new Configuration( configData );
-	    this._core = new Core( rootElement, config );
-	    this._core.init();
-	    setTimeout( () =>
-	    {
+	        this._core.init();
 	        if ( this._core.config.autostart )
 	        {
 	            this._core.tick();
 	        }
-	    }, 150 );
+	    }
 
-	    return this;
+	    static get observedAttributes()
+	    {
+	        return [ 'speed', 'content', 'position', 'pauseonhover', 'perspective' ];
+	    }
+
+	    attributeChangedCallback( name, oldVal, newVal )
+	    {
+	        switch ( name )
+	        {
+	            case 'content':
+	                this.setScrollContent( newVal );
+	                break;
+
+	            case 'speed':
+	                this.setScrollSpeed( newVal );
+	                break;
+
+	            case 'position':
+	                this.setPosition( newVal );
+	                break;
+
+	            case 'pauseonhover':
+	                this.setPauseOnHover( newVal );
+	            break;
+
+	            case 'perspective':
+	                this.setPerspective( newVal );
+	            break;
+
+	        }
+	    }
+
+	    disconnectedCallback()
+	    {
+	        this._core.destroy();
+	    }
+
+
+	    // Public core methods
+	    play()
+	    {
+	        this._core.play();
+	    }
+
+	    pause()
+	    {
+	        this._core.pause();
+	    }
+
+	    setScrollContent( content )
+	    {
+	        this._core.setScrollContent( content );
+	    }
+
+	    setScrollSpeed( speed )
+	    {
+	        this._core.setScrollSpeed( speed);
+	    }
+
+	    setPosition( position )
+	    {
+	        this._core.setPosition( position );
+	    }
+
+	    setPauseOnHover( pauseonhover )
+	    {
+	        this._core.setPauseOnHover( pauseonhover );
+	    }
+
 	}
 
-	SuperMarquee.getDefaultConfiguration = function()
-	{
-	    return JSON.parse( JSON.stringify( Configuration.DEFAULT ) );
-	};
+	window.customElements.define( 'super-marquee', SuperMarquee );
 
-	// Public core methods
-	SuperMarquee.prototype.play = function()
-	{
-	    this._core.play();
-	};
-
-	SuperMarquee.prototype.pause = function()
-	{
-	    this._core.pause();
-	};
-
-	SuperMarquee.prototype.setScrollContent = function( content )
-	{
-	    this._core.setScrollContent( content );
-	};
-
-	SuperMarquee.prototype.setScrollSpeed = function( speed )
-	{
-	    this._core.setScrollSpeed( speed);
-	};
-
-	SuperMarquee.prototype.setPosition = function( position )
-	{
-	    this._core.setPosition( position );
-	};
-
-	SuperMarquee.prototype.setPauseOnHover = function( pauseonhover )
-	{
-	    this._core.setPauseOnHover( pauseonhover );
-	};
-
-	SuperMarquee.prototype.setPerspective = function( perspective )
-	{
-	    this._core.setPerspective( perspective );
-	};
-
-	SuperMarquee.prototype.destroy = function()
-	{
-	    this._core.destroy();
-	};
-
-	return SuperMarquee;
-
-})));
+}());
