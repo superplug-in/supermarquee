@@ -195,6 +195,7 @@ function Core( root, config )
             this.updateDimensions();
             this.updateTickLogic();
             this.elems.container.style.visibility = 'visible';
+            this.onIntoView();
         }, 100 );
 
         // Init
@@ -399,7 +400,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "1.2";
+Core.prototype.VERSION = "2.0";
 
 Core.prototype.play = function()
 {
