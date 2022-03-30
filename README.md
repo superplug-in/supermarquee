@@ -23,14 +23,12 @@ The most popular features of SuperMarquee:
 &nbsp;&nbsp;✓&nbsp; Fully Responsive. Perfect for every resolution <br>
 &nbsp;&nbsp;✓&nbsp; Easily customizable via CSS <br>
 &nbsp;&nbsp;✓&nbsp; Zero dependencies <br>
-&nbsp;&nbsp;✓&nbsp; Lightweight, simple yet powerful with no additional dependencies <br>
+&nbsp;&nbsp;✓&nbsp; Lightweight, simple yet powerful <br>
 &nbsp;&nbsp;✓&nbsp; Hardware accelerated for high performance <br>
 &nbsp;&nbsp;✓&nbsp; Extremely flexible. Endless possibilities <br>
 &nbsp;&nbsp;✓&nbsp; Works on every modern device <br>
 &nbsp;&nbsp;✓&nbsp; Supports 3D transformations <br>
-&nbsp;&nbsp;✓&nbsp; Support for vanilla Javascript, jQuery and Web Components <br>
-
-
+&nbsp;&nbsp;✓&nbsp; Works with every major frontend framework <br>
 
 ## Examples
 

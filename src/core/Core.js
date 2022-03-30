@@ -399,7 +399,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "1.0";
+Core.prototype.VERSION = "1.2";
 
 Core.prototype.play = function()
 {

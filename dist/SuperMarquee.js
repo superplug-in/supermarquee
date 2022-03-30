@@ -131,7 +131,7 @@
 	            {
 	                this.speed = +Configuration.SPEED_HORIZONTAL[ speed ];
 	            }
-	            else if ( +speed >= 0 )
+	            else if ( +speed > 0 )
 	            {
 	                this.speed = +speed;
 	            }
@@ -146,7 +146,7 @@
 	            {
 	                this.speed = +Configuration.SPEED_VERTICAL[ speed ];
 	            }
-	            else if ( +speed >= 0 )
+	            else if ( +speed > 0 )
 	            {
 	                this.speed = +speed;
 	            }
@@ -1101,7 +1101,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.0";
+	Core.prototype.VERSION = "1.2";
 
 	Core.prototype.play = function()
 	{

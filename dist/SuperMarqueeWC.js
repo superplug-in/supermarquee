@@ -128,7 +128,7 @@
 	            {
 	                this.speed = +Configuration.SPEED_HORIZONTAL[ speed ];
 	            }
-	            else if ( +speed >= 0 )
+	            else if ( +speed > 0 )
 	            {
 	                this.speed = +speed;
 	            }
@@ -143,7 +143,7 @@
 	            {
 	                this.speed = +Configuration.SPEED_VERTICAL[ speed ];
 	            }
-	            else if ( +speed >= 0 )
+	            else if ( +speed > 0 )
 	            {
 	                this.speed = +speed;
 	            }
@@ -1098,7 +1098,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.0";
+	Core.prototype.VERSION = "1.2";
 
 	Core.prototype.play = function()
 	{
@@ -1231,11 +1231,14 @@
 	        configData.system = Configuration.SYSTEM_WEBCOMPONENT;
 	        config = new Configuration( configData );
 
+	        console.log( config );
+
 	        this._core = new Core( this, config );
 	    }
 
 	    connectedCallback()
 	    {
+	        console.log(" Conntected" );
 	        this._core.init();
 	        if ( this._core.config.autostart )
 	        {

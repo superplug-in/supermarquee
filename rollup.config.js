@@ -49,7 +49,7 @@ export default [
             {
                 format: 'iife',
                 name : 'SuperMarquee',
-                file : 'dist/SuperScrollWC.min.js',
+                file : 'dist/SuperMarqueeWC.min.js',
                 indent: '\t',
                 plugins: [
                     uglify()
@@ -58,7 +58,7 @@ export default [
             {
                 format: 'iife',
                 name : 'SuperMarquee',
-                file : 'dist/SuperScrollWC.js',
+                file : 'dist/SuperMarqueeWC.js',
                 indent: '\t',
                 plugins: []
             }
