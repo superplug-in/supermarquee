@@ -13,7 +13,7 @@ function Configuration( cd = {} )
             {
                 this.speed = +Configuration.SPEED_HORIZONTAL[ speed ]
             }
-            else if ( +speed >= 0 )
+            else if ( +speed > 0 )
             {
                 this.speed = +speed;
             }
@@ -28,7 +28,7 @@ function Configuration( cd = {} )
             {
                 this.speed = +Configuration.SPEED_VERTICAL[ speed ]
             }
-            else if ( +speed >= 0 )
+            else if ( +speed > 0 )
             {
                 this.speed = +speed;
             }
