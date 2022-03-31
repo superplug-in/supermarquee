@@ -400,7 +400,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "2.0";
+Core.prototype.VERSION = "1.3";
 
 Core.prototype.play = function()
 {

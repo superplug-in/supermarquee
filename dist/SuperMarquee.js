@@ -897,6 +897,7 @@
 	            this.updateDimensions();
 	            this.updateTickLogic();
 	            this.elems.container.style.visibility = 'visible';
+	            this.onIntoView();
 	        }, 100 );
 
 	        // Init
@@ -1101,7 +1102,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.2";
+	Core.prototype.VERSION = "1.3";
 
 	Core.prototype.play = function()
 	{
