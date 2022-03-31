@@ -1,10 +1,20 @@
 ![SuperMarquee](./res/github/SuperMarqueeLogoWhiteBg.png)
 
-**SuperMarquee** is the super smooth marquee web component for your web applications. 
+![SupportedFrameworkIcons](./res/github/sp-supported-frameworks.jpg)
 
 [![npm](https://img.shields.io/npm/dt/sp-supermarquee.svg)](https://npmjs.com/package/sp-supermarquee)
 [![npm](https://img.shields.io/npm/dm/sp-supermarquee.svg)](https://npmjs.com/package/sp-supermarquee)
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/sp-supermarquee/badge?style=rounded)](https://www.jsdelivr.com/package/npm/sp-supermarquee)
+
+## About
+
+**SuperMarquee** is the super smooth marquee web component for your web applications.
+
+It covers all features for marquee usages, like horizontal- and vertical scrolling, different scroll speeds, custom styling etc.
+
+In addition, SuperMarquee comes with features which no other solution have. This includes 3D hardware acceleration, inbuilt 3D transformation functionalities and the unique ping-pong mode.
+
+Needless to say that SuperMarquee supports all your favourite frontend frameworks.
 
 ## Showcase
 
@@ -52,6 +62,10 @@ List of single feature examples
 - [Getting Started with Javascript](https://superplug.in/supermarquee/docs#start-javascript)
 - [Getting Started with jQuery](https://superplug.in/supermarquee/docs#start-jquery)
 - [Getting Started with Web Component](https://superplug.in/supermarquee/docs#start-webcomponent)
+- [Getting Started with Angular](https://superplug.in/supermarquee/docs#start-angular)
+- [Getting Started with React](https://superplug.in/supermarquee/docs#start-react)
+- [Getting Started with Svelte](https://superplug.in/supermarquee/docs#start-svelte)
+- [Getting Started with Vue](https://superplug.in/supermarquee/docs#start-vue)
 - [API Reference](https://superplug.in/supermarquee/docs#instantiation)
 - [Changelog](https://superplug.in/supermarquee/docs#changelog)
 - [Examples](https://superplug.in/supermarquee#demos)
@@ -89,6 +103,8 @@ const sm = new SuperMarquee(
   content : "SuperMarquee by SuperPlug.in is Super!!!"
 });
 ```
+
+Refer to the [official documentation](https://superplug.in/supermarquee/docs) for more details.
 
 ## Support
 
