@@ -1,3 +1,5 @@
+import { Util } from "./Util.js";
+
 function Configuration( cd = {} )
 {
     // Helper flag for gapped mode
@@ -169,13 +171,20 @@ function Configuration( cd = {} )
 
     // Resolve spacer
     this.spacer = cd.hasOwnProperty( 'spacer' ) ? cd.spacer : null;
-    if ( !this.spacer )
+    if ( this.type === Configuration.TYPE_HORIZONTAL )
     {
-        if ( this.type === Configuration.TYPE_HORIZONTAL )
+        if ( !this.spacer )
         {
             this.spacer = '&nbsp;';
         }
         else
+        {
+            this.spacer = Util.forceNbspInHtml( this.spacer );
+        }
+    }
+    else
+    {
+        if ( !this.spacer )
         {
             this.spacer = '<br />';
         }
@@ -251,6 +260,11 @@ function Configuration( cd = {} )
         this.easing = false;
         this.getSpeed = this.getSpeedNoEasing;
     }
+
+    // Resolve rssFeedUrl
+    this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
+    this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
+    console.log( this.rssFeedTemplate );
 }
 
 Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -324,6 +338,8 @@ Configuration.DEFAULT = {
     "autostart" : true,
     "easing" : false,
     "content" : "SuperMarquee By SuperPlug.in Is Super !!!",
+    "rssFeedUrl" : null,
+    "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
     "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
     "spacer" : null
 };

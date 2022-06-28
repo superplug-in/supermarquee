@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Most simple example using uncompiled module code</title>
+</head>
+<body>
+
+    <div id="sm"></div>
+
+    <script type="module">
+        import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
+
+        window.onload = function()
+        {
+            const smInstance = new SuperMarquee(
+                document.getElementById( 'sm' ),
+                {
+                    "content" : "Read the latest headlines from our blog.",
+                    "spacer" : " +++ ",
+                    "rssFeedUrl" : "https://blog.superplug.in/feed",
+                    "rssFeedTemplate" : '${pubDate.getDate()}.${pubDate.getMonth()+1}.${pubDate.getFullYear()}     -      <a href="${link}" target="_blank">${title}</a>&nbsp;${description}'
+                }
+            );
+        };
+    </script>
+</body>
+</html>
