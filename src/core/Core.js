@@ -3,7 +3,6 @@ import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
 import { RssFeedReader } from "./RssFeedReader.js";
-import { Util } from "./Util.js";
 
 let hasLicenseTextBeenShown = false;
 
@@ -134,15 +133,6 @@ function Core( root, config )
                     scrollContent += this.config.spacer;
                 }
             }
-
-            /*
-
-            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
-            if( rssFeedContent && rssFeedContent.length > 0 )
-            {
-                scrollContent += rssFeedContent;
-            }
-             */
         }
 
         if ( Configuration.TYPE_HORIZONTAL === this.config.type )
@@ -405,7 +395,7 @@ function Core( root, config )
             case Configuration.SYSTEM_JQUERY:
             case Configuration.SYSTEM_VANILLA:
             case Configuration.SYSTEM_WEBCOMPONENT:
-                self.elems.shadowRoot = self.elems.rootElement.attachShadow( { mode : 'open' } );
+                self.elems.shadowRoot = self.elems.rootElement; //.attachShadow( { mode : 'open' } );
                 if ( self.config.type === Configuration.TYPE_VERTICAL )
                 {
                     self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
@@ -432,7 +422,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "1.4";
+Core.prototype.VERSION = "1.4.2";
 
 Core.prototype.play = function()
 {

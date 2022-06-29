@@ -10,7 +10,7 @@ class SuperMarquee extends HTMLElement
 
         let configData = {},
             config,
-            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
+            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'rssFeedTemplate', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
 
         for ( let ci = 0; ci < configAttributes.length; ci++ )
         {
@@ -30,7 +30,6 @@ class SuperMarquee extends HTMLElement
 
     connectedCallback()
     {
-        console.log(" Conntected" );
         this._core.init();
         if ( this._core.config.autostart )
         {

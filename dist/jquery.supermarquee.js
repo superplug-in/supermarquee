@@ -389,7 +389,6 @@
 	    // Resolve rssFeedUrl
 	    this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
 	    this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
-	    console.log( this.rssFeedTemplate );
 	}
 
 	Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -756,18 +755,19 @@
 	        {
 	            for ( let i = 0; i < items.length; i++ )
 	            {
-	                console.log( items[ i ] );
 	                feedData.push(
 	                    {
 	                        "title" : 0 < items[ i ].getElementsByTagName( 'title' ).length ? items[ i ].getElementsByTagName( 'title' )[ 0 ].innerHTML : null,
 	                        "link" : 0 < items[ i ].getElementsByTagName( 'link' ).length ? items[ i ].getElementsByTagName( 'link' )[ 0 ].innerHTML : null,
 	                        "pubDate" : 0 < items[ i ].getElementsByTagName( 'pubDate' ).length ? new Date( items[ i ].getElementsByTagName( 'pubDate' )[ 0 ].innerHTML ) : null,
-	                        "description" : 0 < items[ i ].getElementsByTagName( 'description' ).length && items[ i ].getElementsByTagName( 'description' )[ 0 ].hasOwnProperty( 'firstChild' ) ? items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild.wholeText.trim() : null,
+	                        "description" : 0 < items[ i ].getElementsByTagName( 'description' ).length && items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild ? items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild.wholeText.trim() : null,
 	                        "content" : 0 < items[ i ].getElementsByTagName( 'content' ).length ? items[ i ].getElementsByTagName( 'content' )[ 0 ].innerHTML : null
 	                    }
 	                );
 	            }
 	        }
+
+	        console.log( feedData );
 
 	        return feedData;
 	    },
@@ -922,15 +922,6 @@
 	                    scrollContent += this.config.spacer;
 	                }
 	            }
-
-	            /*
-
-	            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
-	            if( rssFeedContent && rssFeedContent.length > 0 )
-	            {
-	                scrollContent += rssFeedContent;
-	            }
-	             */
 	        }
 
 	        if ( Configuration.TYPE_HORIZONTAL === this.config.type )
@@ -1193,7 +1184,7 @@
 	            case Configuration.SYSTEM_JQUERY:
 	            case Configuration.SYSTEM_VANILLA:
 	            case Configuration.SYSTEM_WEBCOMPONENT:
-	                self.elems.shadowRoot = self.elems.rootElement.attachShadow( { mode : 'open' } );
+	                self.elems.shadowRoot = self.elems.rootElement; //.attachShadow( { mode : 'open' } );
 	                if ( self.config.type === Configuration.TYPE_VERTICAL )
 	                {
 	                    self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
@@ -1220,7 +1211,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.4";
+	Core.prototype.VERSION = "1.4.2";
 
 	Core.prototype.play = function()
 	{
