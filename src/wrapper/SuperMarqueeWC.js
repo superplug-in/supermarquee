@@ -10,7 +10,7 @@ class SuperMarquee extends HTMLElement
 
         let configData = {},
             config,
-            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
+            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
 
         for ( let ci = 0; ci < configAttributes.length; ci++ )
         {

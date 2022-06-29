@@ -39,6 +39,7 @@ The most popular features of SuperMarquee:
 &nbsp;&nbsp;✓&nbsp; Works on every modern device <br>
 &nbsp;&nbsp;✓&nbsp; Supports 3D transformations <br>
 &nbsp;&nbsp;✓&nbsp; Works with every major frontend framework <br>
+&nbsp;&nbsp;✓&nbsp; RSS feed support <br>
 
 ## Examples
 

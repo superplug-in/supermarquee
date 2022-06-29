@@ -2,6 +2,8 @@ import { templateVertical, templateHorizontal } from "./Template.js";
 import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
+import { RssFeedReader } from "./RssFeedReader.js";
+import { Util } from "./Util.js";
 
 let hasLicenseTextBeenShown = false;
 
@@ -112,6 +114,36 @@ function Core( root, config )
         this.elems.scrollItemClone.innerHTML = "";
 
         let scrollContent = this.config.content;
+
+        if ( this.config.rssFeedUrl )
+        {
+            const feedItemData = RssFeedReader.getFeedItemData( this.config.rssFeedUrl );
+            if ( feedItemData && feedItemData.length > 0 )
+            {
+
+                let title, link, pubDate, description, content;
+                for ( let fi = 0; fi < feedItemData.length; fi++ )
+                {
+                    title = feedItemData[ fi ].hasOwnProperty( 'title' ) && feedItemData[ fi ].title ? feedItemData[ fi ].title : '';
+                    link = feedItemData[ fi ].hasOwnProperty( 'link' ) && feedItemData[ fi ][ 'link' ] ? feedItemData[ fi ][ 'link' ] : '#';
+                    pubDate = feedItemData[ fi ].hasOwnProperty( 'pubDate' ) && feedItemData[ fi ].pubDate ? feedItemData[ fi ].pubDate : new Date();
+                    description = feedItemData[ fi ].hasOwnProperty( 'description' ) && feedItemData[ fi ].description ? feedItemData[ fi ].description : '';
+                    content = feedItemData[ fi ].hasOwnProperty( 'content' ) && feedItemData[ fi ].content ? feedItemData[ fi ].content : '';
+
+                    scrollContent += eval( "`" + this.config.rssFeedTemplate + "`" );
+                    scrollContent += this.config.spacer;
+                }
+            }
+
+            /*
+
+            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
+            if( rssFeedContent && rssFeedContent.length > 0 )
+            {
+                scrollContent += rssFeedContent;
+            }
+             */
+        }
 
         if ( Configuration.TYPE_HORIZONTAL === this.config.type )
         {
@@ -400,7 +432,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "1.3";
+Core.prototype.VERSION = "1.4";
 
 Core.prototype.play = function()
 {

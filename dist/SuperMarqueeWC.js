@@ -113,6 +113,16 @@
     </div>
 `;
 
+	const Util = {
+	    forceNbspInHtml : function( htmlString )
+	    {
+	        var searchWord = ' ';
+	        var regEx = new RegExp("(" + searchWord + ")(?!([^<]+)?>)", "gi");
+	        var output = htmlString.replace(regEx, "&nbsp;");
+	        return output;
+	    }
+	};
+
 	function Configuration( cd = {} )
 	{
 	    // Helper flag for gapped mode
@@ -284,13 +294,20 @@
 
 	    // Resolve spacer
 	    this.spacer = cd.hasOwnProperty( 'spacer' ) ? cd.spacer : null;
-	    if ( !this.spacer )
+	    if ( this.type === Configuration.TYPE_HORIZONTAL )
 	    {
-	        if ( this.type === Configuration.TYPE_HORIZONTAL )
+	        if ( !this.spacer )
 	        {
 	            this.spacer = '&nbsp;';
 	        }
 	        else
+	        {
+	            this.spacer = Util.forceNbspInHtml( this.spacer );
+	        }
+	    }
+	    else
+	    {
+	        if ( !this.spacer )
 	        {
 	            this.spacer = '<br />';
 	        }
@@ -366,6 +383,11 @@
 	        this.easing = false;
 	        this.getSpeed = this.getSpeedNoEasing;
 	    }
+
+	    // Resolve rssFeedUrl
+	    this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
+	    this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
+	    console.log( this.rssFeedTemplate );
 	}
 
 	Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -439,6 +461,8 @@
 	    "autostart" : true,
 	    "easing" : false,
 	    "content" : "SuperMarquee By SuperPlug.in Is Super !!!",
+	    "rssFeedUrl" : null,
+	    "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
 	    "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
 	    "spacer" : null
 	};
@@ -702,6 +726,71 @@
 	    }
 	};
 
+	const RssFeedReader =
+	{
+	    getFeed : function getFeed( url )
+	    {
+	        let xmlHttp = new XMLHttpRequest();
+	        try
+	        {
+	            xmlHttp.open( "GET", url, false ); // in sync mode
+	            xmlHttp.send( null );
+	        }
+	        catch (e )
+	        {
+	            console.error( e );
+	            xmlHttp = null;
+	        }
+	        return xmlHttp ? xmlHttp.responseXML : null;
+	    },
+
+	    getFeedItemData : function( url )
+	    {
+	        const feedXml = this.getFeed( url ),
+	              items = feedXml ? feedXml.getElementsByTagName( 'item' ) : null,
+	              feedData = [];
+
+	        if ( items && items.length > 0 )
+	        {
+	            for ( let i = 0; i < items.length; i++ )
+	            {
+	                console.log( items[ i ] );
+	                feedData.push(
+	                    {
+	                        "title" : 0 < items[ i ].getElementsByTagName( 'title' ).length ? items[ i ].getElementsByTagName( 'title' )[ 0 ].innerHTML : null,
+	                        "link" : 0 < items[ i ].getElementsByTagName( 'link' ).length ? items[ i ].getElementsByTagName( 'link' )[ 0 ].innerHTML : null,
+	                        "pubDate" : 0 < items[ i ].getElementsByTagName( 'pubDate' ).length ? new Date( items[ i ].getElementsByTagName( 'pubDate' )[ 0 ].innerHTML ) : null,
+	                        "description" : 0 < items[ i ].getElementsByTagName( 'description' ).length && items[ i ].getElementsByTagName( 'description' )[ 0 ].hasOwnProperty( 'firstChild' ) ? items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild.wholeText.trim() : null,
+	                        "content" : 0 < items[ i ].getElementsByTagName( 'content' ).length ? items[ i ].getElementsByTagName( 'content' )[ 0 ].innerHTML : null
+	                    }
+	                );
+	            }
+	        }
+
+	        return feedData;
+	    },
+
+	    getScrollContentOfFeed : function( url, spacer = '&nbsp;' )
+	    {
+	        const feedXml = this.getFeed( url ),
+	              items = feedXml ? feedXml.getElementsByTagName( 'item' ) : null;
+
+	        let feedContent = '';
+
+	        if ( items && items.length > 0 )
+	        {
+	            for ( let i = 0; i < items.length; i++ )
+	            {
+	                feedContent += '<a href="' + items[ i ].getElementsByTagName( 'link' )[ 0 ].innerHTML + '" target="_blank">';
+	                feedContent += items[ i ].getElementsByTagName( 'title' )[ 0 ].innerHTML + '</a>';
+	                feedContent += spacer;
+	            }
+	        }
+
+	        return feedContent;
+	    }
+	};
+
 	let hasLicenseTextBeenShown = false;
 
 	function Core( root, config )
@@ -811,6 +900,36 @@
 	        this.elems.scrollItemClone.innerHTML = "";
 
 	        let scrollContent = this.config.content;
+
+	        if ( this.config.rssFeedUrl )
+	        {
+	            const feedItemData = RssFeedReader.getFeedItemData( this.config.rssFeedUrl );
+	            if ( feedItemData && feedItemData.length > 0 )
+	            {
+
+	                let title, link, pubDate, description, content;
+	                for ( let fi = 0; fi < feedItemData.length; fi++ )
+	                {
+	                    title = feedItemData[ fi ].hasOwnProperty( 'title' ) && feedItemData[ fi ].title ? feedItemData[ fi ].title : '';
+	                    link = feedItemData[ fi ].hasOwnProperty( 'link' ) && feedItemData[ fi ][ 'link' ] ? feedItemData[ fi ][ 'link' ] : '#';
+	                    pubDate = feedItemData[ fi ].hasOwnProperty( 'pubDate' ) && feedItemData[ fi ].pubDate ? feedItemData[ fi ].pubDate : new Date();
+	                    description = feedItemData[ fi ].hasOwnProperty( 'description' ) && feedItemData[ fi ].description ? feedItemData[ fi ].description : '';
+	                    content = feedItemData[ fi ].hasOwnProperty( 'content' ) && feedItemData[ fi ].content ? feedItemData[ fi ].content : '';
+
+	                    scrollContent += eval( "`" + this.config.rssFeedTemplate + "`" );
+	                    scrollContent += this.config.spacer;
+	                }
+	            }
+
+	            /*
+
+	            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
+	            if( rssFeedContent && rssFeedContent.length > 0 )
+	            {
+	                scrollContent += rssFeedContent;
+	            }
+	             */
+	        }
 
 	        if ( Configuration.TYPE_HORIZONTAL === this.config.type )
 	        {
@@ -1099,7 +1218,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.3";
+	Core.prototype.VERSION = "1.4";
 
 	Core.prototype.play = function()
 	{
@@ -1219,7 +1338,7 @@
 
 	        let configData = {},
 	            config,
-	            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
+	            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
 
 	        for ( let ci = 0; ci < configAttributes.length; ci++ )
 	        {
