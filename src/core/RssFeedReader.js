@@ -38,8 +38,6 @@ const RssFeedReader =
             }
         }
 
-        console.log( feedData );
-
         return feedData;
     },
 
