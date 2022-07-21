@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <title>SuperMarquee Generator</title>
+  <style>
+    .preview {
+      background-color: #8089ff;
+      color: white;
+      height: 20vh;
+      position: fixed;
+      top: 0;
+      color: white;
+      z-index: 100;
+      font-size: 32px;
+      width: 100%;
+    }
+
+    .main {
+      margin-top: 26vh;
+    }
+
+    /*
+    button,
+    [type=radio]:checked {
+      background-color: #8089ff!important;
+    }
+     */
+  </style>
+</head>
+<body>
+<div id="preview"
+     class="preview">
+</div>
+<div class="main">
+  <main class="container">
+    <article>
+      <form id="form-editor">
+        <label for="content">Content</label>
+        <input type="text"
+               id="content"
+               name="content"
+               placeholder="SuperMarquee By SuperPlug.in Is Super !!!" />
+        <fieldset>
+          <legend>Type</legend>
+          <div class="grid">
+            <label for="type-horizontal">
+              <input type="radio"
+                     id="type-horizontal"
+                     name="type"
+                     value="horizontal" checked>
+              Horizontal
+            </label>
+            <label for="type-vertical">
+              <input type="radio"
+                     id="type-vertical"
+                     name="type"
+                     value="vertical">
+              Vertical
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Direction</legend>
+          <div class="grid">
+            <label for="type-ltr">
+              <input type="radio"
+                     id="type-ltr"
+                     name="direction"
+                     value="ltr" checked>
+              Left-To-Right
+            </label>
+            <label for="type-rtl">
+              <input type="radio"
+                     id="type-rtl"
+                     name="direction"
+                     value="rtl">
+              Right-To-Left
+            </label>
+            <label for="type-btt">
+              <input type="radio"
+                     id="type-btt"
+                     name="direction"
+                     value="btt" disabled>
+              Bottom-To-Top
+            </label>
+            <label for="type-ttb">
+              <input type="radio"
+                     id="type-ttb"
+                     name="direction"
+                     value="ttb" disabled>
+              Top-To-Bottom
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <input type="hidden"
+                 id="speed"
+                 name="speed"
+                 value="0.1" />
+          <legend>Speed</legend>
+          <div class="grid">
+            <label for="speed-superslow">
+              <input type="radio"
+                     id="speed-superslow"
+                     name="speed-flag"
+                     value="superslow">
+              Superslow
+            </label>
+            <label for="speed-slow">
+              <input type="radio"
+                     id="speed-slow"
+                     name="speed-flag"
+                     value="slow">
+              Slow
+            </label>
+            <label for="speed-medium">
+              <input type="radio"
+                     id="speed-medium"
+                     name="speed-flag"
+                     value="medium" checked>
+              Medium
+            </label>
+            <label for="speed-fast">
+              <input type="radio"
+                     id="speed-fast"
+                     name="speed-flag"
+                     value="fast">
+              Fast
+            </label>
+            <label for="speed-superfast">
+              <input type="radio"
+                     id="speed-superfast"
+                     name="speed-flag"
+                     value="superfast">
+              Superfast
+            </label>
+            <label for="speed-custom">
+              <input type="radio"
+                     id="speed-custom"
+                     name="speed-flag"
+                     value="custom">
+              Custom
+            </label>
+          </div>
+          <label for="speed-custom-range">&nbsp;
+            <input type="range"
+                   min="0"
+                   max="0.75"
+                   value="0.125"
+                   step="0.001"
+                   id="speed-custom-range"
+                   name="speed-custom-range" disabled>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Mode</legend>
+          <div class="grid">
+            <label for="mode-continuous">
+              <input type="radio"
+                     id="mode-continuous"
+                     name="mode"
+                     value="continuous" checked>
+              Continuous
+            </label>
+            <label for="mode-gapped">
+              <input type="radio"
+                     id="mode-gapped"
+                     name="mode"
+                     value="gapped">
+              Gapped
+            </label>
+            <label for="mode-pingpong">
+              <input type="radio"
+                     id="mode-pingpong"
+                     name="mode"
+                     value="pingpong">
+              Ping-Pong
+            </label>
+          </div>
+        </fieldset>
+        <label for="spacer">Spacer&nbsp;<small>- Spacer content used in continuous mode</small></label>
+        <input type="text"
+               id="spacer"
+               name="spacer"
+               placeholder="&amp;nbsp;" />
+        <fieldset>
+          <legend>Position</legend>
+          <div class="grid">
+            <label for="position-custom">
+              <input type="radio"
+                     id="position-custom"
+                     name="position"
+                     value="custom" checked>
+              Custom
+            </label>
+            <label for="position-fixedTop">
+              <input type="radio"
+                     id="position-fixedTop"
+                     name="position"
+                     value="fixedTop">
+              Fixed Top
+            </label>
+            <label for="position-fixedBottom">
+              <input type="radio"
+                     id="position-fixedBottom"
+                     name="position"
+                     value="fixedBottom">
+              Fixed Bottom
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          Perspective
+        </fieldset>
+        <fieldset>
+          Z
+          <label for="perspective.z">
+            <input type="range"
+                   id="perspective.z"
+                   name="perspective.z"
+                   min="0"
+                   max="1200"
+                   value="0" />
+          </label>
+        </fieldset>
+        <fieldset>
+          Transform Origin X (%)
+          <label for="perspective.originX">
+            <input type="range"
+                   id="perspective.originX"
+                   name="perspective.originX"
+                   min="0"
+                   max="100"
+                   value="50" />
+          </label>
+        </fieldset>
+        <fieldset>
+          Transform Origin Y (%)
+          <label for="perspective.originY">
+            <input type="range"
+                   id="perspective.originY"
+                   name="perspective.originY"
+                   min="0"
+                   max="100"
+                   value="50" />
+          </label>
+        </fieldset>
+        <fieldset>
+          Transform Axis X (%)
+          <label for="perspective.rotateX">
+            <input type="range"
+                   id="perspective.rotateX"
+                   name="perspective.rotateX"
+                   min="0"
+                   max="100"
+                   value="0" />
+          </label>
+        </fieldset>
+        <fieldset>
+          Transform Axis Y (%)
+          <label for="perspective.rotateY">
+            <input type="range"
+                   id="perspective.rotateY"
+                   name="perspective.rotateY"
+                   min="0"
+                   max="100"
+                   value="0" />
+          </label>
+        </fieldset>
+        <fieldset>
+          Transform Axis Z (%)
+          <label for="perspective.rotateZ">
+            <input type="range"
+                   id="perspective.rotateZ"
+                   name="perspective.rotateZ"
+                   min="0"
+                   max="100"
+                   value="0" />
+          </label>
+        </fieldset>
+        <fieldset>
+          <label for="pauseonhover">
+            <input type="checkbox"
+                   id="pauseonhover"
+                   name="pauseonhover"
+                   role="switch">
+            Pause on hover
+          </label>
+        </fieldset>
+        <button type="button"
+                style="background-color: #8089ff"
+                onclick="">Generate Code</button>
+      </form>
+    </article>
+  </main>
+</div>
+<!--
+<script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
+-->>
+<script type="module">
+  import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
+  window.onload = function()
+  {
+    let sm = new SuperMarquee( document.getElementById( 'preview' ) ),
+        self = this;
+
+    self.updatePreview = function()
+    {
+      let fd = new FormData( document.getElementById( 'form-editor' ) ),
+          p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
+          opts = Object.fromEntries( fd );
+
+      if ( "on" === opts.pauseonhover )
+      {
+        opts.pauseonhover = true;
+      }
+      else
+      {
+        opts.pauseonhover = false;
+      }
+
+      // Perspective
+      for ( let pKey in p )
+      {
+        p[ pKey ] = document.getElementById( 'perspective.' + pKey ).value;
+        delete opts[ 'perspective.' + pKey ];
+      }
+      delete opts[ 'speed-flag' ];
+      opts.perspective = JSON.stringify( p );
+
+      console.log( opts );
+
+      sm.destroy();
+      sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
+
+      //window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+
+    document.querySelectorAll( 'input' ).forEach( ( i ) =>
+    {
+      switch ( i.getAttribute( 'name' ) )
+      {
+        case 'type':
+          i.addEventListener( 'change', (e) => {
+            if ( 'horizontal' === document.querySelector( 'input[name="type"]:checked' ).value )
+            {
+              document.getElementById( 'type-ltr' ).disabled = false;
+              document.getElementById( 'type-rtl' ).disabled = false;
+              document.getElementById( 'type-ttb' ).disabled = true;
+              document.getElementById( 'type-btt' ).disabled = true;
+              document.getElementById( 'type-ltr' ).checked = true;
+              document.getElementById( 'spacer' ).placeholder = '&nbsp;'
+            }
+            else
+            {
+              document.getElementById( 'type-ltr' ).disabled = true;
+              document.getElementById( 'type-rtl' ).disabled = true;
+              document.getElementById( 'type-ttb' ).disabled = false;
+              document.getElementById( 'type-btt' ).disabled = false;
+              document.getElementById( 'type-btt' ).checked = true;
+              document.getElementById( 'spacer' ).placeholder = '<br />';
+            }
+          });
+        break;
+
+        case 'mode':
+          i.addEventListener( 'change', (e) => {
+            if ( 'continuous' === document.querySelector( 'input[name="mode"]:checked' ).value )
+            {
+              document.getElementById( 'spacer' ).disabled = false;
+            }
+            else
+            {
+              document.getElementById( 'spacer' ).disabled = true;
+            }
+          });
+        break;
+
+        case 'speed-flag':
+          i.addEventListener( 'change', (e) => {
+            if ( 'custom' === document.querySelector( 'input[name="speed-flag"]:checked' ).value )
+            {
+              document.getElementById( 'speed-custom-range' ).disabled = false;
+              document.getElementById( 'speed' ).value = document.getElementById( 'speed-custom-range' ).value;
+            }
+            else
+            {
+              document.getElementById( 'speed-custom-range' ).disabled = true;
+              document.getElementById( 'speed' ).value = i.value;
+            }
+          });
+        break;
+
+        case 'speed-custom-range':
+          i.addEventListener( 'change', ( e ) =>
+          {
+            document.getElementById( 'speed' ).value = i.value;
+          });
+        break;
+      }
+
+      i.addEventListener( 'change', ( e ) => { self.updatePreview(); } )
+
+    });
+  };
+</script>
+</body>
+</html>

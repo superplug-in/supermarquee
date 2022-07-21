@@ -264,7 +264,6 @@ function Configuration( cd = {} )
     // Resolve rssFeedUrl
     this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
     this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
-    console.log( this.rssFeedTemplate );
 }
 
 Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
