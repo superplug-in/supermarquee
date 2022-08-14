@@ -3,31 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <link rel="stylesheet" href="pico/pico.min.css">
   <title>SuperMarquee Generator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.css" integrity="sha512-jtWR3pdYjGwfw9df601YF6uGrKdhXV37c+/6VNzNctmrXoO0nkgHcS03BFxfkWycOa2P2Nw9Y9PCT9vjG9jkVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .preview {
       background-color: #8089ff;
       color: white;
-      height: 20vh;
+      height: 256px;
       position: fixed;
       top: 0;
       color: white;
       z-index: 100;
-      font-size: 32px;
+      font-size: 148px;
       width: 100%;
+      filter: drop-shadow(0px 0px 4px #444);
     }
 
     .main {
-      margin-top: 26vh;
+      margin-top: 292px;
     }
 
-    /*
-    button,
-    [type=radio]:checked {
+    h5 {
+      margin-bottom: 12px!important;
+    }
+    button {
       background-color: #8089ff!important;
     }
-     */
+
+    [type=radio]:checked {
+      border-color: #8089ff!important;
+    }
+
+    [role=link], a {
+      color: #8089ff!important;
+    }
+
+    :is(button,input[type=submit],input[type=button],[role=button]).secondary, input[type=reset]
+    {
+      color: white!important;
+    }
+
   </style>
 </head>
 <body>
@@ -38,6 +54,24 @@
   <main class="container">
     <article>
       <form id="form-editor">
+        <h5>Example Settings</h5>
+        <p style="margin-bottom: 0">Press buttons below to see some example settings. Find more fantastic examples in our <a href="https://superplug.in/supermarquee#showcase" target="_blank">showcase</a>.</p>
+        <div class="grid" style="margin-top: 12px">
+          <button data-type="example-setting"
+                  data-value="default"
+                  type="button">Default</button>
+          <button data-type="example-setting"
+                  data-value="rtl"
+                  type="button">RTL</button>
+          <button data-type="example-setting"
+                  data-value="starwars"
+                  type="button">Starwars</button>
+          <button data-type="example-setting"
+                  data-value="appearing"
+                  type="button">Appearing</button>
+        </div>
+        <h5>Customize</h5>
+        <p style="margin-bottom: 12px">Use form elements below to customize SuperMarquee. Have a look at the <a href="https://superplug.in/supermarquee/docs" target="_blank">documentation</a> to find out all possibilities of SuperMarquee.</p>
         <label for="content">Content</label>
         <input type="text"
                id="content"
@@ -102,49 +136,25 @@
                  value="0.1" />
           <legend>Speed</legend>
           <div class="grid">
-            <label for="speed-superslow">
-              <input type="radio"
-                     id="speed-superslow"
-                     name="speed-flag"
-                     value="superslow">
-              Superslow
-            </label>
-            <label for="speed-slow">
-              <input type="radio"
-                     id="speed-slow"
-                     name="speed-flag"
-                     value="slow">
-              Slow
-            </label>
-            <label for="speed-medium">
-              <input type="radio"
-                     id="speed-medium"
-                     name="speed-flag"
-                     value="medium" checked>
-              Medium
-            </label>
-            <label for="speed-fast">
-              <input type="radio"
-                     id="speed-fast"
-                     name="speed-flag"
-                     value="fast">
-              Fast
-            </label>
-            <label for="speed-superfast">
-              <input type="radio"
-                     id="speed-superfast"
-                     name="speed-flag"
-                     value="superfast">
-              Superfast
-            </label>
-            <label for="speed-custom">
-              <input type="radio"
-                     id="speed-custom"
-                     name="speed-flag"
-                     value="custom">
-              Custom
-            </label>
+            <button data-type="speed-preset"
+                    data-value="superslow"
+                    type="button">Superslow</button>
+            <button data-type="speed-preset"
+                    data-value="slow"
+                    type="button">Slow</button>
+            <button data-type="speed-preset"
+                    data-value="medium"
+                    type="button">Medium</button>
+            <button data-type="speed-preset"
+                    data-value="fast"
+                    type="button">Fast</button>
+            <button data-type="speed-preset"
+                    data-value="superfast"
+                    type="button">Superfast</button>
           </div>
+          <p>
+            <mark><small>Either use presets by buttons above or customize the speed value using the slider below.</small></mark>
+          </p>
           <label for="speed-custom-range">&nbsp;
             <input type="range"
                    min="0"
@@ -152,7 +162,7 @@
                    value="0.125"
                    step="0.001"
                    id="speed-custom-range"
-                   name="speed-custom-range" disabled>
+                   name="speed-custom-range" />
           </label>
         </fieldset>
         <fieldset>
@@ -249,7 +259,7 @@
           </label>
         </fieldset>
         <fieldset>
-          Transform Axis X (%)
+          Rotate X (%)
           <label for="perspective.rotateX">
             <input type="range"
                    id="perspective.rotateX"
@@ -260,7 +270,7 @@
           </label>
         </fieldset>
         <fieldset>
-          Transform Axis Y (%)
+          Rotate Y (%)
           <label for="perspective.rotateY">
             <input type="range"
                    id="perspective.rotateY"
@@ -271,7 +281,7 @@
           </label>
         </fieldset>
         <fieldset>
-          Transform Axis Z (%)
+          Rotate Z (%)
           <label for="perspective.rotateZ">
             <input type="range"
                    id="perspective.rotateZ"
@@ -290,21 +300,64 @@
             Pause on hover
           </label>
         </fieldset>
-        <button type="button"
-                style="background-color: #8089ff"
-                onclick="">Generate Code</button>
+        <h5>Code Generator</h5>
+        <p style="margin-bottom: 12px;">Use buttons below to generate source of your created SuperMarquee instance.</p>
+        <div class="grid">
+          <button type="button"
+                  data-type="code-generate"
+                  data-value="js"
+                  data-target="modal-code"
+                  onclick="">Vanilla JS</button>
+          <button type="button"
+                  data-type="code-generate"
+                  data-value="jq"
+                  data-target="modal-code"
+                  onclick="">jQuery</button>
+          <button type="button"
+                  data-type="code-generate"
+                  data-value="wc"
+                  data-target="modal-code"
+                  onclick="">Web Component</button>
+        </div>
       </form>
     </article>
   </main>
 </div>
+<!-- Modal -->
+<dialog id="modal-code">
+  <article>
+    <a href="#close"
+       aria-label="Close"
+       class="close"
+       data-target="modal-code"
+       onClick="toggleModal(event)">
+    </a>
+    <h5>Generated code</h5>
+    <div>
+      <pre><code class="language-javascript" id="generated-code">
+      </code></pre>
+    </div>
+    <footer>
+      <a href="#cancel"
+         role="button"
+         class="secondary"
+         data-target="modal-code"
+         onClick="toggleModal(event)">
+        Cancel
+      </a>
+    </footer>
+  </article>
+</dialog>
 <!--
 <script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
 -->>
+<script src="pico/modal.min.js"></script>
 <script type="module">
   import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
   window.onload = function()
   {
     let sm = new SuperMarquee( document.getElementById( 'preview' ) ),
+        currentOpts = {},
         self = this;
 
     self.updatePreview = function()
@@ -336,8 +389,94 @@
       sm.destroy();
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
 
-      //window.scrollTo({top: 0, behavior: 'smooth'});
+      currentOpts = opts;
     };
+
+    document.querySelectorAll( '[data-type="speed-preset"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) => {
+        document.getElementById( 'speed' ).value = btn.getAttribute( 'data-value' );
+        self.updatePreview();
+        console.log( sm.getScrollSpeed() );
+        document.getElementById( 'speed-custom-range' ).value = sm.getScrollSpeed();
+      });
+    });
+
+    document.querySelectorAll( '[data-type="example-setting"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) =>
+      {
+        document.getElementById( 'form-editor' ).reset();
+
+        switch ( btn.getAttribute( 'data-value' ) )
+        {
+          case 'default':
+            // Nothing to set
+          break;
+
+          case 'rtl':
+            document.getElementById( 'content' ).value = 'שכל לחיבור קרימינולוגיה אנתרופולוגיה אם. בה כתב לחבר וכמקובל, ב שנתי רפואה ויקימדיה מתן, בה אחר ציור תרבות המדינה. ביוני המלחמה בלשנות מה ויש, ספרדית האנציקלופדיה כתב אם, בקר מדעי כימיה גם. שימושי האטמוספירה שמו על, גם אחר הטבע בחירות לעריכה. ראשי אנגלית תיקונים עזה של, על מפתח קסאם מיזמים זכר.';
+            document.getElementById( 'type-rtl' ).checked = true;
+          break;
+
+          case 'starwars':
+            document.getElementById( 'content' ).value = 'May the force be with you!';
+            document.getElementById( 'type-vertical' ).checked = true;
+            document.getElementById( 'perspective.z' ).value = 400;
+            document.getElementById( 'perspective.rotateX' ).value = 60;
+          break;
+
+          case 'appearing':
+            document.getElementById( 'perspective.z' ).value = 400;
+            document.getElementById( 'perspective.rotateY' ).value = 40;
+          break;
+        }
+
+        self.updatePreview();
+      });
+    });
+
+    document.querySelectorAll( '[data-type="code-generate"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) =>
+      {
+        e.preventDefault();
+
+        let code = '';
+
+        switch ( btn.getAttribute( 'data-value' ) )
+        {
+          case 'js':
+            code = '// Vanilla javascript \n' +
+                    'const sm = new SuperMarquee(\n' +
+                    '  document.getElementById( \'your-element\' ),\n' +
+                    '  ' + JSON.stringify( currentOpts, null, 4 ) + '\n' +
+                    ');\n';
+            break;
+
+          case 'jq':
+            code = '// jQuery \n' +
+                    '$( \'#your-element\' ).supermarquee( \n' +
+                    '  ' + JSON.stringify( currentOpts, null, 4 ) + '\n' +
+                    ');\n';
+            break;
+
+          case 'wc':
+            code = '// WebComponent (Angular, Svelte, React, Vue.js)\n' +
+                    '&lt;super-marquee \n';
+            for ( let oKey in currentOpts )
+            {
+              code += '  ' + oKey + '="' + currentOpts[ oKey ] + '"\n';
+            }
+            code += '>&lt;/super-marquee>;\n';
+          break;
+        }
+
+        document.getElementById( 'generated-code' ).innerHTML = code;
+        toggleModal( e );
+        Prism.highlightAll();
+      });
+    });
 
     document.querySelectorAll( 'input' ).forEach( ( i ) =>
     {
@@ -379,21 +518,6 @@
           });
         break;
 
-        case 'speed-flag':
-          i.addEventListener( 'change', (e) => {
-            if ( 'custom' === document.querySelector( 'input[name="speed-flag"]:checked' ).value )
-            {
-              document.getElementById( 'speed-custom-range' ).disabled = false;
-              document.getElementById( 'speed' ).value = document.getElementById( 'speed-custom-range' ).value;
-            }
-            else
-            {
-              document.getElementById( 'speed-custom-range' ).disabled = true;
-              document.getElementById( 'speed' ).value = i.value;
-            }
-          });
-        break;
-
         case 'speed-custom-range':
           i.addEventListener( 'change', ( e ) =>
           {
@@ -407,5 +531,6 @@
     });
   };
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" integrity="sha512-RDQSW3KoqJMiX0L/UBgwBmH1EmRYp8LBOiLaA8rBHIy+7OGP/7Gxg8vbt8wG4ZYd29P0Fnoq6+LOytCqx3cyoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
