@@ -64,6 +64,11 @@ SuperMarquee.prototype.setScrollSpeed = function( speed )
     this._core.setScrollSpeed( speed);
 };
 
+SuperMarquee.prototype.getScrollSpeed = function()
+{
+    return +this._core.config.speed;
+};
+
 SuperMarquee.prototype.setPosition = function( position )
 {
     this._core.setPosition( position );
