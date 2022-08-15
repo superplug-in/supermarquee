@@ -8,6 +8,7 @@
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             overflow: hidden;
@@ -64,6 +65,7 @@
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             height: inherit;
@@ -251,7 +253,7 @@
 
 	    this.setPauseOnHover = function( pauseonhover )
 	    {
-	        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover ) )
+	        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover || true === pauseonhover ) )
 	        {
 	            this.pauseonhover = true;
 	        }
@@ -753,19 +755,18 @@
 	        {
 	            for ( let i = 0; i < items.length; i++ )
 	            {
+	                console.log( items[ i ] );
 	                feedData.push(
 	                    {
 	                        "title" : 0 < items[ i ].getElementsByTagName( 'title' ).length ? items[ i ].getElementsByTagName( 'title' )[ 0 ].innerHTML : null,
 	                        "link" : 0 < items[ i ].getElementsByTagName( 'link' ).length ? items[ i ].getElementsByTagName( 'link' )[ 0 ].innerHTML : null,
 	                        "pubDate" : 0 < items[ i ].getElementsByTagName( 'pubDate' ).length ? new Date( items[ i ].getElementsByTagName( 'pubDate' )[ 0 ].innerHTML ) : null,
-	                        "description" : 0 < items[ i ].getElementsByTagName( 'description' ).length && items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild ? items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild.wholeText.trim() : null,
+	                        "description" : 0 < items[ i ].getElementsByTagName( 'description' ).length && items[ i ].getElementsByTagName( 'description' )[ 0 ].hasOwnProperty( 'firstChild' ) ? items[ i ].getElementsByTagName( 'description' )[ 0 ].firstChild.wholeText.trim() : null,
 	                        "content" : 0 < items[ i ].getElementsByTagName( 'content' ).length ? items[ i ].getElementsByTagName( 'content' )[ 0 ].innerHTML : null
 	                    }
 	                );
 	            }
 	        }
-
-	        console.log( feedData );
 
 	        return feedData;
 	    },
@@ -920,6 +921,15 @@
 	                    scrollContent += this.config.spacer;
 	                }
 	            }
+
+	            /*
+
+	            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
+	            if( rssFeedContent && rssFeedContent.length > 0 )
+	            {
+	                scrollContent += rssFeedContent;
+	            }
+	             */
 	        }
 
 	        if ( Configuration.TYPE_HORIZONTAL === this.config.type )
@@ -1168,6 +1178,9 @@
 	        this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
 	        observer.unobserve( this.elems.container );
+
+	        this.elems.rootElement.innerHTML = "";
+
 	    };
 
 	    this.getScrollContent = function()
@@ -1182,7 +1195,7 @@
 	            case Configuration.SYSTEM_JQUERY:
 	            case Configuration.SYSTEM_VANILLA:
 	            case Configuration.SYSTEM_WEBCOMPONENT:
-	                self.elems.shadowRoot = self.elems.rootElement; //.attachShadow( { mode : 'open' } );
+	                self.elems.shadowRoot = self.elems.rootElement;//self.elems.rootElement.attachShadow( { mode : 'open' } );
 	                if ( self.config.type === Configuration.TYPE_VERTICAL )
 	                {
 	                    self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
@@ -1209,7 +1222,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.4.2";
+	Core.prototype.VERSION = "2.0";
 
 	Core.prototype.play = function()
 	{
@@ -1329,7 +1342,7 @@
 
 	        let configData = {},
 	            config,
-	            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'rssFeedTemplate', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
+	            configAttributes = [ 'type', 'direction', 'mode', 'speed', 'content', 'rssFeedUrl', 'pauseonhover', 'autostart', 'easing', 'perspective' ];
 
 	        for ( let ci = 0; ci < configAttributes.length; ci++ )
 	        {
@@ -1349,6 +1362,7 @@
 
 	    connectedCallback()
 	    {
+	        console.log(" Conntected" );
 	        this._core.init();
 	        if ( this._core.config.autostart )
 	        {

@@ -3,6 +3,7 @@ import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
 import { RssFeedReader } from "./RssFeedReader.js";
+import { Util } from "./Util.js";
 
 let hasLicenseTextBeenShown = false;
 
@@ -381,6 +382,9 @@ function Core( root, config )
         this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
         observer.unobserve( this.elems.container );
+
+        this.elems.rootElement.innerHTML = "";
+
     };
 
     this.getScrollContent = function()
@@ -395,7 +399,7 @@ function Core( root, config )
             case Configuration.SYSTEM_JQUERY:
             case Configuration.SYSTEM_VANILLA:
             case Configuration.SYSTEM_WEBCOMPONENT:
-                self.elems.shadowRoot = self.elems.rootElement; //.attachShadow( { mode : 'open' } );
+                self.elems.shadowRoot = self.elems.rootElement;//self.elems.rootElement.attachShadow( { mode : 'open' } );
                 if ( self.config.type === Configuration.TYPE_VERTICAL )
                 {
                     self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
@@ -422,7 +426,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "1.4.2";
+Core.prototype.VERSION = "2.0";
 
 Core.prototype.play = function()
 {

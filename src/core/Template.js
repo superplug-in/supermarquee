@@ -5,6 +5,7 @@ templateHorizontal.innerHTML = `
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             overflow: hidden;
@@ -61,6 +62,7 @@ templateVertical.innerHTML = `
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             height: inherit;

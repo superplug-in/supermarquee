@@ -128,7 +128,7 @@ function Configuration( cd = {} )
 
     this.setPauseOnHover = function( pauseonhover )
     {
-        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover ) )
+        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover || true === pauseonhover ) )
         {
             this.pauseonhover = true;
         }
