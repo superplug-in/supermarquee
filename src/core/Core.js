@@ -134,15 +134,6 @@ function Core( root, config )
                     scrollContent += this.config.spacer;
                 }
             }
-
-            /*
-
-            const rssFeedContent = RssFeedReader.getScrollContentOfFeed( this.config.rssFeedUrl, this.config.spacer );
-            if( rssFeedContent && rssFeedContent.length > 0 )
-            {
-                scrollContent += rssFeedContent;
-            }
-             */
         }
 
         if ( Configuration.TYPE_HORIZONTAL === this.config.type )
