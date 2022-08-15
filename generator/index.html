@@ -389,8 +389,6 @@
       delete opts[ 'speed-flag' ];
       opts.perspective = JSON.stringify( p );
 
-      console.log( opts );
-
       sm.destroy();
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
 
@@ -402,7 +400,6 @@
       btn.addEventListener( 'click', ( e ) => {
         document.getElementById( 'speed' ).value = btn.getAttribute( 'data-value' );
         self.updatePreview();
-        console.log( sm.getScrollSpeed() );
         document.getElementById( 'speed-custom-range' ).value = sm.getScrollSpeed();
       });
     });
