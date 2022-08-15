@@ -8,6 +8,7 @@
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             overflow: hidden;
@@ -64,6 +65,7 @@
     <style>
         .supermarquee-container
         {
+            width: 100%;
             display: block;
             pointer-events: all;
             height: inherit;
@@ -251,7 +253,7 @@
 
 	    this.setPauseOnHover = function( pauseonhover )
 	    {
-	        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover ) )
+	        if ( pauseonhover && ( 'true' === pauseonhover || '1' === pauseonhover || true === pauseonhover ) )
 	        {
 	            this.pauseonhover = true;
 	        }
@@ -387,7 +389,6 @@
 	    // Resolve rssFeedUrl
 	    this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
 	    this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
-	    console.log( this.rssFeedTemplate );
 	}
 
 	Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -1177,6 +1178,9 @@
 	        this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
 	        observer.unobserve( this.elems.container );
+
+	        this.elems.rootElement.innerHTML = "";
+
 	    };
 
 	    this.getScrollContent = function()
@@ -1191,7 +1195,7 @@
 	            case Configuration.SYSTEM_JQUERY:
 	            case Configuration.SYSTEM_VANILLA:
 	            case Configuration.SYSTEM_WEBCOMPONENT:
-	                self.elems.shadowRoot = self.elems.rootElement.attachShadow( { mode : 'open' } );
+	                self.elems.shadowRoot = self.elems.rootElement;//self.elems.rootElement.attachShadow( { mode : 'open' } );
 	                if ( self.config.type === Configuration.TYPE_VERTICAL )
 	                {
 	                    self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
@@ -1218,7 +1222,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "1.4";
+	Core.prototype.VERSION = "2.0";
 
 	Core.prototype.play = function()
 	{
