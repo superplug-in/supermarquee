@@ -352,7 +352,10 @@ function Core( root, config )
         const deltaTime = currentTime - this._time;
         this._time = currentTime;
 
-        fnTick( deltaTime );
+        if ( this._shouldPlay )
+        {
+            fnTick( deltaTime );
+        }
 
         this._rafId = window.requestAnimationFrame( this.tick );
     }.bind ( this );

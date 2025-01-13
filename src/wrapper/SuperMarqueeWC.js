@@ -23,8 +23,6 @@ class SuperMarquee extends HTMLElement
         configData.system = Configuration.SYSTEM_WEBCOMPONENT;
         config = new Configuration( configData );
 
-        console.log( config );
-
         this._core = new Core( this, config );
     }
 
