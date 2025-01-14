@@ -1215,7 +1215,7 @@
 	    }
 	}
 
-	Core.prototype.VERSION = "2.0";
+	Core.prototype.VERSION = "2.1";
 
 	Core.prototype.play = function()
 	{
