@@ -104,6 +104,11 @@ class SuperMarquee extends HTMLElement
         this._core.setPauseOnHover( pauseonhover );
     }
 
+    setPingPongDelay( ppd )
+    {
+        this._core.setPingPongDelay( ppd );
+    }
+
 }
 
 window.customElements.define( 'super-marquee', SuperMarquee );

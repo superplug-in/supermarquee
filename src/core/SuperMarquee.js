@@ -84,6 +84,11 @@ SuperMarquee.prototype.setPerspective = function( perspective )
     this._core.setPerspective( perspective );
 };
 
+SuperMarquee.prototype.setPingPongDelay = function( ppd )
+{
+    this._core.setPingPongDelay( ppd );
+};
+
 SuperMarquee.prototype.destroy = function()
 {
     this._core.destroy();

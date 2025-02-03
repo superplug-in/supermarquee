@@ -31,6 +31,10 @@
       font-weight: bolder;
     }
 
+    #div-pingpongdelay {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
@@ -44,7 +48,6 @@
         Configuration
       </div>
       <div class="card-body">
-        <h3 style="margin-bottom: 0; padding-bottom: 0">Configuration</h3>
         <p>
           Use form elements below to customize the SuperMarquee instance and auto-generate the code. Please have a look at the documentation to find out all possibilities of SuperMarquee.
         </p>
@@ -81,75 +84,90 @@
                      placeholder="SuperMarquee By SuperPlug.in Is Super !!!" />
             </div>
             <div class="col-md-4">
-              <fieldset>
                 <label class="form-label form-label-head">Mode</label>
-                <div class="grid">
-                  <label for="mode-continuous"
-                         class="form-check-label">
-                    <input type="radio"
-                           class="form-check-input"
-                           id="mode-continuous"
-                           name="mode"
-                           value="continuous" checked>
-                    Continuous
-                  </label>
-                  <label for="mode-gapped"
-                         class="form-check-label">
-                    <input type="radio"
-                           class="form-check-input"
-                           id="mode-gapped"
-                           name="mode"
-                           value="gapped">
-                    Gapped
-                  </label>
-                  <label for="mode-pingpong"
-                         class="form-check-label">
-                    <input type="radio"
-                           class="form-check-input"
-                           id="mode-pingpong"
-                           name="mode"
-                           value="pingpong">
-                    Ping-Pong
-                  </label>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-continuous"
+                             name="mode"
+                             value="continuous" checked>
+                      <label class="form-check-label"
+                             for="mode-continuous">Continuous</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-gapped"
+                             name="mode"
+                             value="gapped">
+                      <label class="form-check-label"
+                             for="mode-gapped">Gapped</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-pingpong"
+                             name="mode"
+                             value="pingpong">
+                      <label class="form-check-label"
+                             for="mode-pingpong">Ping-Pong</label>
+                    </div>
+                  </div>
                 </div>
-              </fieldset>
-              <div class="row">
-                <div class="col-auto">
-                  <label for="spacer" class="form-label">Spacer</label>
+                <div class="row" id="div-spacer">
+                  <div class="col-auto">
+                    <label for="spacer" class="form-label">Spacer</label>
+                  </div>
+                  <div class="col">
+                    <input type="text"
+                           class="form-control form-control-sm"
+                           id="spacer"
+                           name="spacer"
+                           placeholder="&amp;nbsp;" />
+                  </div>
                 </div>
-                <div class="col">
-                  <input type="text"
-                         class="form-control form-control-sm"
-                         id="spacer"
-                         name="spacer"
-                         placeholder="&amp;nbsp;" />
+                <div class="row" id="div-pingpongdelay">
+                  <div class="col-auto">
+                    <label for="pingPongDelay" class="form-label">PingPong Delay</label>
+                  </div>
+                  <div class="col">
+                    <div class="input-group">
+                      <input type="number"
+                             class="form-control form-control-sm"
+                             id="pingPongDelay"
+                             value="2000"
+                             name="pingPongDelay" />
+                      <span class="input-group-text">ms</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
           <div class="row" style="margin-bottom: 2rem">
             <div class="col-md-4">
-              <fieldset>
-                <label class="form-label form-label-head">Type</label>
-                <div class="grid">
-                  <label for="type-horizontal">
+              <label class="form-label form-label-head">Type</label>
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
                     <input type="radio"
                            class="form-check-input"
                            id="type-horizontal"
                            name="type"
                            value="horizontal" checked>
-                    Horizontal
-                  </label>
-                  <label for="type-vertical">
+                    <label class="form-check-label" for="type-horizontal">Horizontal</label>
+                  </div>
+                  <div class="form-check form-check-inline">
                     <input type="radio"
                            class="form-check-input"
                            id="type-vertical"
                            name="type"
                            value="vertical">
-                    Vertical
-                  </label>
+                    <label class="form-check-label" for="type-vertical">Vertical</label>
+                  </div>
                 </div>
-              </fieldset>
+              </div>
             </div>
             <div class="col-md-4">
               <fieldset>
@@ -485,6 +503,8 @@
           p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
           opts = Object.fromEntries( fd );
 
+      console.log( "UPDATE" );
+
       if ( "on" === opts.pauseonhover )
       {
         opts.pauseonhover = true;
@@ -505,6 +525,24 @@
 
       sm.destroy();
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
+
+      switch( opts.mode )
+      {
+        case "continuous":
+          document.getElementById( 'div-spacer' ).style.display = "block";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "none";
+        break;
+
+        case "pingpong":
+          document.getElementById( 'div-spacer' ).style.display = "none";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "block";
+          sm.setPingPongDelay( +document.getElementById( 'pingPongDelay' ).value );
+        break;
+
+        default:
+          document.getElementById( 'div-spacer' ).style.display = "none";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "none";
+      }
 
       currentOpts = opts;
     };

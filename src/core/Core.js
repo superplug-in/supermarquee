@@ -467,6 +467,16 @@ Core.prototype.pause = function()
     }
 };
 
+Core.prototype.setPingPongDelay = function( pingPongDelay )
+{
+    let ppd = +pingPongDelay;
+    if ( ppd <= 0 )
+    {
+        ppd = Configuration.PINGPONG_DELAY_DEFAULT;
+    }
+    this.config.pingPongDelay = ppd;
+};
+
 Core.prototype.setScrollContent = function( content )
 {
     this.config.setContent( content );
