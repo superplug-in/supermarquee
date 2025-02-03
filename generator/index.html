@@ -35,6 +35,10 @@
       display: none;
     }
 
+    input[type=radio][disabled] + label {
+      color: #ccc;
+    }
+
   </style>
 </head>
 <body>
@@ -45,7 +49,7 @@
   <div class="container">
     <div class="card shadow">
       <div class="card-header">
-        Configuration
+        <h6>Configuration</h6>
       </div>
       <div class="card-body">
         <p>
@@ -118,7 +122,9 @@
                 </div>
                 <div class="row" id="div-spacer">
                   <div class="col-auto">
-                    <label for="spacer" class="form-label">Spacer</label>
+                    <label for="spacer"
+                           class="form-label"
+                           style="font-weight: bolder; font-size: x-small">Spacer</label>
                   </div>
                   <div class="col">
                     <input type="text"
@@ -130,7 +136,9 @@
                 </div>
                 <div class="row" id="div-pingpongdelay">
                   <div class="col-auto">
-                    <label for="pingPongDelay" class="form-label">PingPong Delay</label>
+                    <label for="pingPongDelay"
+                           class="form-label"
+                           style="font-weight: bolder; font-size: x-small">PingPong Delay</label>
                   </div>
                   <div class="col">
                     <div class="input-group">
@@ -174,46 +182,49 @@
                 <label class="form-label form-label-head">Direction</label>
                 <div class="row">
                   <div class="col-md-6">
-                    <label for="type-ltr">
+                    <div class="form-check">
                       <input type="radio"
                              class="form-check-input"
                              id="type-ltr"
                              name="direction"
                              value="ltr" checked>
-                      Left-To-Right
-                    </label>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="type-rtl">
+                      <label class="form-label" for="type-ltr">
+                        Left-To-Right
+                      </label>
+                    </div>
+                    <div class="form-check">
                       <input type="radio"
                              class="form-check-input"
                              id="type-rtl"
                              name="direction"
                              value="rtl">
-                      Right-To-Left
-                    </label>
+                      <label class="form-label" for="type-rtl">
+                        Right-To-Left
+                      </label>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-md-6">
-                    <label for="type-btt">
+                    <div class="form-check">
                       <input type="radio"
                              id="type-btt"
                              class="form-check-input"
                              name="direction"
                              value="btt" disabled>
-                      Bottom-To-Top
-                    </label>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="type-ttb">
+                      <label class="form-label" for="type-btt">
+                        Bottom-To-Top
+                      </label>
+                    </div>
+                    <div class="form-check">
                       <input type="radio"
                              class="form-check-input"
                              id="type-ttb"
                              name="direction"
                              value="ttb" disabled>
-                      Top-To-Bottom
-                    </label>
+                      <label class="form-label"
+                             for="type-ttb">
+                        Top-To-Bottom
+                      </label>
+                    </div>
                   </div>
                 </div>
               </fieldset>
@@ -424,34 +435,35 @@
               </fieldset>
             </div>
           </div>
-
-          <h5>Code Generation</h5>
-          <div class="row">
-            <div class="col-md-6">
-              <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
-            </div>
-            <div class="col-md-6" style="text-align: right">
-              <button type="button"
-                      class="btn btn-primary"
-                      data-type="code-generate"
-                      data-value="js"
-                      data-target="modal-code"
-                      onclick="">Vanilla JS</button>
-              <button type="button"
-                      data-type="code-generate"
-                      class="btn btn-primary"
-                      data-value="jq"
-                      data-target="modal-code"
-                      onclick="">jQuery</button>
-              <button type="button"
-                      class="btn btn-primary"
-                      data-type="code-generate"
-                      data-value="wc"
-                      data-target="modal-code"
-                      onclick="">Web Component</button>
-            </div>
-          </div>
         </form>
+      </div>
+      <div class="card-footer">
+        <h6>Code Generation</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
+          </div>
+          <div class="col-md-6" style="text-align: right">
+            <button type="button"
+                    class="btn btn-primary"
+                    data-type="code-generate"
+                    data-value="js"
+                    data-target="modal-code"
+                    onclick="">Vanilla JS</button>
+            <button type="button"
+                    data-type="code-generate"
+                    class="btn btn-primary"
+                    data-value="jq"
+                    data-target="modal-code"
+                    onclick="">jQuery</button>
+            <button type="button"
+                    class="btn btn-primary"
+                    data-type="code-generate"
+                    data-value="wc"
+                    data-target="modal-code"
+                    onclick="">Web Component</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -503,8 +515,6 @@
           p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
           opts = Object.fromEntries( fd );
 
-      console.log( "UPDATE" );
-
       if ( "on" === opts.pauseonhover )
       {
         opts.pauseonhover = true;
@@ -524,6 +534,9 @@
       opts.perspective = JSON.stringify( p );
 
       sm.destroy();
+
+      console.log( opts );
+
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
 
       switch( opts.mode )
@@ -543,6 +556,8 @@
           document.getElementById( 'div-spacer' ).style.display = "none";
           document.getElementById( 'div-pingpongdelay' ).style.display = "none";
       }
+
+
 
       currentOpts = opts;
     };
