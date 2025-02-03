@@ -72,7 +72,7 @@ function Configuration( cd = {} )
         }
         else
         {
-            this.content = "SuperMarquee by SuperPlug.in !!!";
+            this.content = "SuperMarquee by SuperPlug.in is Super !!!";
         }
 
         this.content = this.content.replaceAll( "> ", ">&nbsp;" );

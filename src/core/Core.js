@@ -1,4 +1,4 @@
-import { templateVertical, templateHorizontal } from "./Template.js";
+import { templateVertical, templateHorizontal, getHorizontal } from "./Template.js";
 import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
@@ -25,6 +25,7 @@ function Core( root, config )
     this.config = config;
     this.dimensions = {};
 
+    this._uuid = Util.generateUUID();
     this._time = Date.now();
     this._rafId = null;
     this._shouldPlay = false;
@@ -248,6 +249,11 @@ function Core( root, config )
 
     }.bind( this );
 
+    this.getInstanceId = function()
+    {
+        return this._uuid;
+    };
+
     this.updateTickLogic = function()
     {
         if ( Configuration.MODE_PINGPONG === self.config.mode )
@@ -409,7 +415,9 @@ function Core( root, config )
                 }
                 else
                 {
-                    self.elems.shadowRoot.appendChild( templateHorizontal.content.cloneNode( true ) );
+                    const templ = getHorizontal( { instanceId : self._uuid } );
+                    self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
+                    //self.elems.shadowRoot.appendChild( templ.cloneNode( true ) );
                 }
                 self.elems.container = self.elems.shadowRoot.querySelector( 'div.supermarquee-container' );
                 self.elems.perspective = self.elems.shadowRoot.querySelector( 'div.supermarquee-perspective:first-child' );
@@ -429,7 +437,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "2.1";
+Core.prototype.VERSION = "3.0";
 
 Core.prototype.play = function()
 {

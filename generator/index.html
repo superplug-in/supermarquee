@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
   <link rel="stylesheet" href="pico/pico.min.css">
+  -->
   <title>SuperMarquee Generator</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.css" integrity="sha512-jtWR3pdYjGwfw9df601YF6uGrKdhXV37c+/6VNzNctmrXoO0nkgHcS03BFxfkWycOa2P2Nw9Y9PCT9vjG9jkVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="prism.css"  />
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <script type="application/javascript" src="bootstrap.bundle.min.js"></script>
   <style>
     .preview {
       background-color: #8089ff;
       color: white;
-      height: 256px;
       position: fixed;
       top: 0;
-      color: white;
       z-index: 100;
       font-size: 148px;
       width: 100%;
@@ -21,27 +23,12 @@
     }
 
     .main {
-      margin-top: 292px;
+      margin-top: 246px;
     }
 
-    h5 {
-      margin-bottom: 12px!important;
-    }
-    button {
-      background-color: #8089ff!important;
-    }
-
-    [type=radio]:checked {
-      border-color: #8089ff!important;
-    }
-
-    [role=link], a {
-      color: #8089ff!important;
-    }
-
-    :is(button,input[type=submit],input[type=button],[role=button]).secondary, input[type=reset]
-    {
-      color: white!important;
+    .form-label-head {
+      font-family: monospace;
+      font-weight: bolder;
     }
 
   </style>
@@ -50,312 +37,442 @@
 <div id="preview"
      class="preview">
 </div>
-<div class="main">
-  <main class="container">
-    <article>
-      <form id="form-editor">
-        <h5>Example Settings</h5>
-        <p style="margin-bottom: 0">Press buttons below to see some example settings. Find more fantastic examples in our <a href="https://superplug.in/supermarquee#showcase" target="_blank">showcase</a>.</p>
-        <div class="grid" style="margin-top: 12px">
-          <button data-type="example-setting"
-                  data-value="default"
-                  type="button">Default</button>
-          <button data-type="example-setting"
-                  data-value="rtl"
-                  type="button">RTL</button>
-          <button data-type="example-setting"
-                  data-value="starwars"
-                  type="button">Starwars</button>
-          <button data-type="example-setting"
-                  data-value="appearing"
-                  type="button">Appearing</button>
-        </div>
-        <h5>Customization</h5>
-        <p style="margin-bottom: 12px">Use form elements below to customize SuperMarquee. Have a look at the <a href="https://superplug.in/supermarquee/docs" target="_blank">documentation</a> to find out all possibilities of SuperMarquee.</p>
-        <label for="content">Content</label>
-        <input type="text"
-               id="content"
-               name="content"
-               placeholder="SuperMarquee By SuperPlug.in Is Super !!!" />
-        <fieldset>
-          <legend>Type</legend>
-          <div class="grid">
-            <label for="type-horizontal">
-              <input type="radio"
-                     id="type-horizontal"
-                     name="type"
-                     value="horizontal" checked>
-              Horizontal
-            </label>
-            <label for="type-vertical">
-              <input type="radio"
-                     id="type-vertical"
-                     name="type"
-                     value="vertical">
-              Vertical
-            </label>
+<div class="main" style="margin-bottom: 3rem;">
+  <div class="container">
+    <div class="card shadow">
+      <div class="card-header">
+        Configuration
+      </div>
+      <div class="card-body">
+        <h3 style="margin-bottom: 0; padding-bottom: 0">Configuration</h3>
+        <p>
+          Use form elements below to customize the SuperMarquee instance and auto-generate the code. Please have a look at the documentation to find out all possibilities of SuperMarquee.
+        </p>
+        <form id="form-editor">
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Presets</label>
+              <div>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="default"
+                        type="button">Default</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="rtl"
+                        type="button">RTL</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="starwars"
+                        type="button">Starwars</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="appearing"
+                        type="button">Appearing</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head"
+                     for="content">Content</label>
+              <input type="text"
+                     class="form-control"
+                     id="content"
+                     name="content"
+                     placeholder="SuperMarquee By SuperPlug.in Is Super !!!" />
+            </div>
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Mode</label>
+                <div class="grid">
+                  <label for="mode-continuous"
+                         class="form-check-label">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="mode-continuous"
+                           name="mode"
+                           value="continuous" checked>
+                    Continuous
+                  </label>
+                  <label for="mode-gapped"
+                         class="form-check-label">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="mode-gapped"
+                           name="mode"
+                           value="gapped">
+                    Gapped
+                  </label>
+                  <label for="mode-pingpong"
+                         class="form-check-label">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="mode-pingpong"
+                           name="mode"
+                           value="pingpong">
+                    Ping-Pong
+                  </label>
+                </div>
+              </fieldset>
+              <div class="row">
+                <div class="col-auto">
+                  <label for="spacer" class="form-label">Spacer</label>
+                </div>
+                <div class="col">
+                  <input type="text"
+                         class="form-control form-control-sm"
+                         id="spacer"
+                         name="spacer"
+                         placeholder="&amp;nbsp;" />
+                </div>
+              </div>
+            </div>
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>Direction</legend>
-          <div class="grid">
-            <label for="type-ltr">
-              <input type="radio"
-                     id="type-ltr"
-                     name="direction"
-                     value="ltr" checked>
-              Left-To-Right
-            </label>
-            <label for="type-rtl">
-              <input type="radio"
-                     id="type-rtl"
-                     name="direction"
-                     value="rtl">
-              Right-To-Left
-            </label>
-            <label for="type-btt">
-              <input type="radio"
-                     id="type-btt"
-                     name="direction"
-                     value="btt" disabled>
-              Bottom-To-Top
-            </label>
-            <label for="type-ttb">
-              <input type="radio"
-                     id="type-ttb"
-                     name="direction"
-                     value="ttb" disabled>
-              Top-To-Bottom
-            </label>
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Type</label>
+                <div class="grid">
+                  <label for="type-horizontal">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="type-horizontal"
+                           name="type"
+                           value="horizontal" checked>
+                    Horizontal
+                  </label>
+                  <label for="type-vertical">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="type-vertical"
+                           name="type"
+                           value="vertical">
+                    Vertical
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Direction</label>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="type-ltr">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-ltr"
+                             name="direction"
+                             value="ltr" checked>
+                      Left-To-Right
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="type-rtl">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-rtl"
+                             name="direction"
+                             value="rtl">
+                      Right-To-Left
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="type-btt">
+                      <input type="radio"
+                             id="type-btt"
+                             class="form-check-input"
+                             name="direction"
+                             value="btt" disabled>
+                      Bottom-To-Top
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="type-ttb">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-ttb"
+                             name="direction"
+                             value="ttb" disabled>
+                      Top-To-Bottom
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <fieldset>
+                <input type="hidden"
+                       id="speed"
+                       name="speed"
+                       value="0.1" />
+                <label class="form-label form-label-head">Speed</label>
+                <div class="btn-group"
+                     role="group"
+                     aria-label="Basic radio toggle button group">
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-superslow"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="superslow"
+                         for="btn-speed-superslow">Superslow</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-slow"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="slow"
+                         for="btn-speed-slow">Slow</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-medium"
+                         autocomplete="off" checked>
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="medium"
+                         for="btn-speed-medium">Medium</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-fast"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="fast"
+                         for="btn-speed-fast">Fast</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-superfast"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="superfast"
+                         for="btn-speed-superfast">Superfast</label>
+
+                </div>
+                <label for="speed-custom-range" style="width: 100%;">
+                  <input type="range"
+                         min="0"
+                         max="0.75"
+                         value="0.125"
+                         step="0.001"
+                         id="speed-custom-range"
+                         class="form-range"
+                         name="speed-custom-range" />
+                </label>
+              </fieldset>
+            </div>
           </div>
-        </fieldset>
-        <fieldset>
-          <input type="hidden"
-                 id="speed"
-                 name="speed"
-                 value="0.1" />
-          <legend>Speed</legend>
-          <div class="grid">
-            <button data-type="speed-preset"
-                    data-value="superslow"
-                    type="button">Superslow</button>
-            <button data-type="speed-preset"
-                    data-value="slow"
-                    type="button">Slow</button>
-            <button data-type="speed-preset"
-                    data-value="medium"
-                    type="button">Medium</button>
-            <button data-type="speed-preset"
-                    data-value="fast"
-                    type="button">Fast</button>
-            <button data-type="speed-preset"
-                    data-value="superfast"
-                    type="button">Superfast</button>
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Position</label>
+                <div class="form-check">
+                  <input class="form-check-input"
+                       type="radio"
+                       id="position-custom"
+                       name="position"
+                       value="custom" checked></input>
+                  <label class="form-check-label" for="position-custom">Custom</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input"
+                         type="radio"
+                         id="position-fixedTop"
+                         name="position"
+                         value="fixedTop"></input>
+                  <label class="form-check-label" for="position-fixedTop">Fixed Top</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input"
+                         type="radio"
+                         id="position-fixedBottom"
+                         name="position"
+                         value="fixedBottom"></input>
+                  <label class="form-check-label" for="position-fixedBottom">Fixed Bottom</label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Perspective</label>
+              <div class="row">
+                <div class="col-auto">
+                  Rotate X (%)
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateX"
+                         name="perspective.rotateX"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  Rotate Y (%)
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateY"
+                         name="perspective.rotateY"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  Rotate Z (%)
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateZ"
+                         name="perspective.rotateZ"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  Z
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.z"
+                         name="perspective.z"
+                         class="form-range"
+                         min="0"
+                         max="1200"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  Origin X (%)
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.originX"
+                         name="perspective.originX"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="50" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  Origin Y (%)
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.originY"
+                         name="perspective.originY"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="50" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Fading borders</label>
+
+              <label class="form-label form-label-head">Interaction</label>
+              <fieldset>
+                <label for="pauseonhover">
+                  <input type="checkbox"
+                         id="pauseonhover"
+                         name="pauseonhover"
+                         role="switch">
+                  Pause on hover
+                </label>
+              </fieldset>
+            </div>
           </div>
-          <p>
-            <mark><small>Either use presets by buttons above or customize the speed value using the slider below.</small></mark>
-          </p>
-          <label for="speed-custom-range">&nbsp;
-            <input type="range"
-                   min="0"
-                   max="0.75"
-                   value="0.125"
-                   step="0.001"
-                   id="speed-custom-range"
-                   name="speed-custom-range" />
-          </label>
-        </fieldset>
-        <fieldset>
-          <legend>Mode</legend>
-          <div class="grid">
-            <label for="mode-continuous">
-              <input type="radio"
-                     id="mode-continuous"
-                     name="mode"
-                     value="continuous" checked>
-              Continuous
-            </label>
-            <label for="mode-gapped">
-              <input type="radio"
-                     id="mode-gapped"
-                     name="mode"
-                     value="gapped">
-              Gapped
-            </label>
-            <label for="mode-pingpong">
-              <input type="radio"
-                     id="mode-pingpong"
-                     name="mode"
-                     value="pingpong">
-              Ping-Pong
-            </label>
+
+          <h5>Code Generation</h5>
+          <div class="row">
+            <div class="col-md-6">
+              <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
+            </div>
+            <div class="col-md-6" style="text-align: right">
+              <button type="button"
+                      class="btn btn-primary"
+                      data-type="code-generate"
+                      data-value="js"
+                      data-target="modal-code"
+                      onclick="">Vanilla JS</button>
+              <button type="button"
+                      data-type="code-generate"
+                      class="btn btn-primary"
+                      data-value="jq"
+                      data-target="modal-code"
+                      onclick="">jQuery</button>
+              <button type="button"
+                      class="btn btn-primary"
+                      data-type="code-generate"
+                      data-value="wc"
+                      data-target="modal-code"
+                      onclick="">Web Component</button>
+            </div>
           </div>
-        </fieldset>
-        <label for="spacer">Spacer&nbsp;<small>- Spacer content used in continuous mode</small></label>
-        <input type="text"
-               id="spacer"
-               name="spacer"
-               placeholder="&amp;nbsp;" />
-        <fieldset>
-          <legend>Position</legend>
-          <div class="grid">
-            <label for="position-custom">
-              <input type="radio"
-                     id="position-custom"
-                     name="position"
-                     value="custom" checked>
-              Custom
-            </label>
-            <label for="position-fixedTop">
-              <input type="radio"
-                     id="position-fixedTop"
-                     name="position"
-                     value="fixedTop">
-              Fixed Top
-            </label>
-            <label for="position-fixedBottom">
-              <input type="radio"
-                     id="position-fixedBottom"
-                     name="position"
-                     value="fixedBottom">
-              Fixed Bottom
-            </label>
-          </div>
-        </fieldset>
-        <fieldset>
-          Perspective
-        </fieldset>
-        <fieldset>
-          Z
-          <label for="perspective.z">
-            <input type="range"
-                   id="perspective.z"
-                   name="perspective.z"
-                   min="0"
-                   max="1200"
-                   value="0" />
-          </label>
-        </fieldset>
-        <fieldset>
-          Transform Origin X (%)
-          <label for="perspective.originX">
-            <input type="range"
-                   id="perspective.originX"
-                   name="perspective.originX"
-                   min="0"
-                   max="100"
-                   value="50" />
-          </label>
-        </fieldset>
-        <fieldset>
-          Transform Origin Y (%)
-          <label for="perspective.originY">
-            <input type="range"
-                   id="perspective.originY"
-                   name="perspective.originY"
-                   min="0"
-                   max="100"
-                   value="50" />
-          </label>
-        </fieldset>
-        <fieldset>
-          Rotate X (%)
-          <label for="perspective.rotateX">
-            <input type="range"
-                   id="perspective.rotateX"
-                   name="perspective.rotateX"
-                   min="0"
-                   max="100"
-                   value="0" />
-          </label>
-        </fieldset>
-        <fieldset>
-          Rotate Y (%)
-          <label for="perspective.rotateY">
-            <input type="range"
-                   id="perspective.rotateY"
-                   name="perspective.rotateY"
-                   min="0"
-                   max="100"
-                   value="0" />
-          </label>
-        </fieldset>
-        <fieldset>
-          Rotate Z (%)
-          <label for="perspective.rotateZ">
-            <input type="range"
-                   id="perspective.rotateZ"
-                   name="perspective.rotateZ"
-                   min="0"
-                   max="100"
-                   value="0" />
-          </label>
-        </fieldset>
-        <fieldset>
-          <label for="pauseonhover">
-            <input type="checkbox"
-                   id="pauseonhover"
-                   name="pauseonhover"
-                   role="switch">
-            Pause on hover
-          </label>
-        </fieldset>
-        <h5>Code Generation</h5>
-        <p style="margin-bottom: 12px;">Use buttons below to generate source of your created SuperMarquee instance.</p>
-        <div class="grid">
-          <button type="button"
-                  data-type="code-generate"
-                  data-value="js"
-                  data-target="modal-code"
-                  onclick="">Vanilla JS</button>
-          <button type="button"
-                  data-type="code-generate"
-                  data-value="jq"
-                  data-target="modal-code"
-                  onclick="">jQuery</button>
-          <button type="button"
-                  data-type="code-generate"
-                  data-value="wc"
-                  data-target="modal-code"
-                  onclick="">Web Component</button>
-        </div>
-      </form>
-    </article>
-  </main>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-<footer class="container">
-  <small>&copy; by superplug.in - a sub-division of <a href="https://aheadware.com">aheadware GmbH</a> • <a href="https://aheadware.com/imprint.php">Imprint</a></small>
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+  <div class="container">
+    <span class="text-body-secondary" style="font-size: smaller">&copy; by superplug.in - a sub-division of <a href="https://aheadware.com">aheadware GmbH</a> • <a href="https://aheadware.com/imprint.php">Imprint</a></span>
+  </div>
 </footer>
 
 <!-- Modal -->
-<dialog id="modal-code">
-  <article>
-    <a href="#close"
-       aria-label="Close"
-       class="close"
-       data-target="modal-code"
-       onClick="toggleModal(event)">
-    </a>
-    <h5>Generated code</h5>
-    <div>
-      <pre><code class="language-javascript" id="generated-code">
-      </code></pre>
+<div class="modal modal-lg"
+     id="code-modal"
+     tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Generated code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="language-javascript" id="generated-code">
+        </code></pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!--
+        <button type="button" class="btn btn-primary">Save changes</button>
+        -->
+      </div>
     </div>
-    <footer>
-      <a href="#cancel"
-         role="button"
-         class="secondary"
-         data-target="modal-code"
-         onClick="toggleModal(event)">
-        Cancel
-      </a>
-    </footer>
-  </article>
-</dialog>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
 <script src="pico/modal.min.js"></script>
-<script>
+<script type="module">
+  import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
   window.onload = function()
   {
     let sm = new SuperMarquee( document.getElementById( 'preview' ) ),
@@ -472,7 +589,8 @@
         }
 
         document.getElementById( 'generated-code' ).innerHTML = code;
-        toggleModal( e );
+        const codeModal = new bootstrap.Modal( document.getElementById( 'code-modal'));
+        codeModal.show();
         Prism.highlightAll();
       });
     });
@@ -530,6 +648,6 @@
     });
   };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" integrity="sha512-RDQSW3KoqJMiX0L/UBgwBmH1EmRYp8LBOiLaA8rBHIy+7OGP/7Gxg8vbt8wG4ZYd29P0Fnoq6+LOytCqx3cyoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="prism.js"></script>
 </body>
 </html>
