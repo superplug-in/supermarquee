@@ -375,12 +375,12 @@ Configuration.PERSPECTIVE_DEFAULT =  {
 
 Configuration.FADER_DEFAULT = {
     "left" : {
-        "size" : 10,
+        "size" : 0,
         "colorFrom" : "#ffffff",
         "colorTo" : "transparent"
     },
     "right" : {
-        "size" : 10,
+        "size" : 0,
         "colorFrom" : "#ffffff",
         "colorTo" : "transparent"
     },
@@ -391,8 +391,8 @@ Configuration.FADER_DEFAULT = {
     },
     "bottom" : {
         "size" : 0,
-        "colorFrom" : "#ffffff",
-        "colorTo" : "transparent"
+        "colorFrom" : "transparent",
+        "colorTo" : "#ffffff"
     }
 };
 

@@ -553,11 +553,22 @@ Core.prototype.updateFader = function()
     const gradientDirections = {
         "left" : "to right",
         "right" : "to left",
-        "top" : "to right",
-        "bottom" : "to left"
+        "top" : "180deg",
+        "bottom" : "180deg"
     }
-    const props = Object.keys( this.config.fader );
+    const props = this.config.type === Configuration.TYPE_HORIZONTAL ? [ 'left', 'right' ] : [ 'top', 'bottom' ];
     const fd = this.config.fader;
+
+    if ( this.config.type === Configuration.TYPE_HORIZONTAL )
+    {
+        this.elems.outerWrapper.classList.remove( `fader-top-${this.getInstanceId()}` );
+        this.elems.outerWrapper.classList.remove( `fader-bottom-${this.getInstanceId()}` );
+    }
+    else
+    {
+        this.elems.outerWrapper.classList.remove( `fader-left-${this.getInstanceId()}` );
+        this.elems.outerWrapper.classList.remove( `fader-right-${this.getInstanceId()}` );
+    }
 
     for ( let pi = 0; pi < props.length; pi++ )
     {
@@ -566,6 +577,7 @@ Core.prototype.updateFader = function()
         if ( fd[ prop ].size <= 0 )
         {
             // Remove class
+            this.elems.outerWrapper.classList.remove( 'fader-' + prop + '-' + this.getInstanceId() );
         }
         else
         {
