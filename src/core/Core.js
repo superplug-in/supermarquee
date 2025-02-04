@@ -229,9 +229,43 @@ function Core( root, config )
         this._pingPongNextDirection = -1;
         this._pingPongPauseDelay = self.config.pingPongDelay;
         this._time = Date.now();
+        
+        this.config.setPosition( this.config.position );
+        switch( this.config.position )
+        {
+            case Configuration.POSITION_FIXEDTOP:
+                this.elems.rootElement.style.position = 'fixed';
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'top' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                this.elems.rootElement.style.width = "100%";
+                this.elems.rootElement.style.top = 0;
+                this.elems.rootElement.style.bottom = 'initial';
+                this.elems.rootElement.style.left = 0;
+                break;
 
-        //this.elems.container.style.visibility = 'visible';
+            case Configuration.POSITION_FIXEDBOTTOM:
+                this.elems.rootElement.style.position = 'fixed';
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                this.elems.rootElement.style.width = "100%";
+                this.elems.rootElement.style.top = 'initial';
+                this.elems.rootElement.style.bottom = 0;
+                this.elems.rootElement.style.left = 0;
+                break;
+
+            default:
+            case Configuration.POSITION_CUSTOM:
+                this.elems.rootElement.style.removeProperty( 'position' );
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'top' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                break;
+        }
         this.elems.rootElement.style.position = prevPosition;
+
+
+
 
         // Hello
         if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
@@ -491,36 +525,6 @@ Core.prototype.setScrollSpeed = function( speed )
 Core.prototype.setPosition = function( position )
 {
     this.config.setPosition( position );
-    switch( this.config.position )
-    {
-        case Configuration.POSITION_FIXEDTOP:
-            this.elems.rootElement.style.position = 'fixed';
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-            this.elems.rootElement.style.width = "100%";
-            this.elems.rootElement.style.top = 0;
-            this.elems.rootElement.style.left = 0;
-            break;
-
-        case Configuration.POSITION_FIXEDBOTTOM:
-            this.elems.rootElement.style.position = 'fixed';
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-            this.elems.rootElement.style.width = "100%";
-            this.elems.rootElement.style.bottom = 0;
-            this.elems.rootElement.style.left = 0;
-            break;
-
-        default:
-        case Configuration.POSITION_CUSTOM:
-            this.elems.rootElement.style.removeProperty( 'position' );
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-        break;
-    }
     this.init();
 };
 
