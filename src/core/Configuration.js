@@ -114,6 +114,54 @@ function Configuration( cd = {} )
         }
     };
 
+    this.setFader = function( faderSettings = null )
+    {
+        const props = Object.keys( this.fader );
+        let fs = null;
+        if ( typeof faderSettings === 'string' || faderSettings instanceof String )
+        {
+            try
+            {
+                faderSettings = JSON.parse( faderSettings )
+            }
+            catch ( e )
+            {
+                faderSettings = null;
+            }
+        }
+
+        if ( typeof faderSettings === 'object' && !Array.isArray( faderSettings ) && faderSettings !== null )
+        {
+            fs = faderSettings;
+        }
+
+        if ( fs === null )
+        {
+            return false;
+        }
+
+        for ( let pi = 0; pi < props.length; pi++ )
+        {
+            if ( fs.hasOwnProperty( props[ pi ] ) )
+            {
+                if ( fs[ props[ pi ] ].hasOwnProperty( "size" ) )
+                {
+                    this.fader[ props[ pi ] ].size = parseFloat( fs[ props[ pi ] ].size );
+                }
+
+                if ( fs[ props[ pi ] ].hasOwnProperty( "colorFrom" ) )
+                {
+                    this.fader[ props[ pi ] ].colorFrom = fs[ props[ pi ] ].colorFrom;
+                }
+
+                if ( fs[ props[ pi ] ].hasOwnProperty( "colorTo" ) )
+                {
+                    this.fader[ props[ pi ] ].colorTo = fs[ props[ pi ] ].colorTo;
+                }
+            }
+        }
+    }
+
     this.setPosition = function( position )
     {
         if ( -1 < Configuration.POSITIONS.indexOf( position ) )
@@ -264,6 +312,9 @@ function Configuration( cd = {} )
     // Resolve rssFeedUrl
     this.rssFeedUrl = cd.hasOwnProperty( 'rssFeedUrl' ) ? cd.rssFeedUrl : null;
     this.rssFeedTemplate = cd.hasOwnProperty( 'rssFeedTemplate' ) ? Util.forceNbspInHtml( cd.rssFeedTemplate ) : this.rssFeedTemplate;
+
+    this.fader = JSON.parse( JSON.stringify( Configuration.FADER_DEFAULT ) );
+    this.setFader( cd.hasOwnProperty( 'fader' ) ? cd.fader : null );
 }
 
 Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -322,6 +373,29 @@ Configuration.PERSPECTIVE_DEFAULT =  {
     "rotateZ" : 0
 };
 
+Configuration.FADER_DEFAULT = {
+    "left" : {
+        "size" : 10,
+        "colorFrom" : "#ffffff",
+        "colorTo" : "transparent"
+    },
+    "right" : {
+        "size" : 10,
+        "colorFrom" : "#ffffff",
+        "colorTo" : "transparent"
+    },
+    "top" : {
+        "size" : 0,
+        "colorFrom" : "#ffffff",
+        "colorTo" : "transparent"
+    },
+    "bottom" : {
+        "size" : 0,
+        "colorFrom" : "#ffffff",
+        "colorTo" : "transparent"
+    }
+};
+
 Configuration.PINGPONG_DELAY_DEFAULT = 2000;
 
 Configuration.DEFAULT = {
@@ -340,7 +414,8 @@ Configuration.DEFAULT = {
     "rssFeedUrl" : null,
     "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
     "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
-    "spacer" : null
+    "spacer" : null,
+    "fader" : Configuration.FADER_DEFAULT
 };
 
 export { Configuration };

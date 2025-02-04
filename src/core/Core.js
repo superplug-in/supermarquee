@@ -265,7 +265,10 @@ function Core( root, config )
         this.elems.rootElement.style.position = prevPosition;
 
 
-
+        //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
+        //this.elems.outerWrapper.style.setProperty( '--faderLeftPercent', '22%' );
+        //this.setFader( "crap" );
+        this.setFader( this.config.fader );
 
         // Hello
         if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
@@ -537,6 +540,46 @@ Core.prototype.setPerspective  = function( perspective )
 {
     this.config.setPerspective( perspective );
     this.updatePerspective();
+};
+
+Core.prototype.setFader = function( fader )
+{
+    this.config.setFader( fader );
+    this.updateFader();
+};
+
+Core.prototype.updateFader = function()
+{
+    const gradientDirections = {
+        "left" : "to right",
+        "right" : "to left",
+        "top" : "to right",
+        "bottom" : "to left"
+    }
+    const props = Object.keys( this.config.fader );
+    const fd = this.config.fader;
+
+    for ( let pi = 0; pi < props.length; pi++ )
+    {
+        const prop = props[ pi ];
+        const propUp = String( prop ).charAt( 0 ).toUpperCase() + String( prop ).slice( 1 );
+        if ( fd[ prop ].size <= 0 )
+        {
+            // Remove class
+        }
+        else
+        {
+            // Add class
+            this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
+            this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
+
+            // Set gradient
+            this.elems.outerWrapper.style.setProperty(
+                `--fader${propUp}Gradient`,
+                `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
+            );
+        }
+    }
 };
 
 Core.prototype.onIntoView = function()

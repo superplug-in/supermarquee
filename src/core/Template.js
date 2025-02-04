@@ -15,21 +15,38 @@ function interpolate (template, params)
 const instanceId="dummy";
 templateHorizontal.innerHTML = `
     <style>
-        .fader-hori-${instanceId}::before,
-        .fader-hori-${instanceId}::after {
+        .fader-left-${instanceId} {
+            --faderLeft: 0%;
+            --faderLeftGradient : linear-gradient(to right, #ffffff, transparent);
+        }
+        .fader-left-${instanceId}::before {
             display: block;
             content: '';
-            width: 30%;
+            width: var(--faderLeft);
             height: 100%;
             position: absolute;
             top: 0;
             z-index: 1;
             pointer-events: none;
-        }
-        .fader-hori-${instanceId}::before {
             left: 0;
-            background-image: linear-gradient(to right, #ffffff, transparent);
+            background-image:  var( --faderLeftGradient );
         }
+        .fader-right-${instanceId} {
+            --faderRight: 0%;
+            --faderRightGradient : linear-gradient(to right, #ffffff, transparent);
+        }
+        .fader-right-${instanceId}::after {
+            display: block;
+            content: '';
+            width: var(--faderRight);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            pointer-events: none;
+            right: 0;
+            background-image:  var( --faderRightGradient );
+        }        
     </style>
     <div class="supermarquee-container"
          data-instance-id="${instanceId}"    
@@ -69,7 +86,7 @@ templateHorizontal.innerHTML = `
 
 
  */
-const tmplHori = '    <style>\n        .fader-hori-${instanceId}::before,\n        .fader-hori-${instanceId}::after {\n            display: block;\n            content: \'\';\n            width: 30%;\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n        }\n        .fader-hori-${instanceId}::before {\n            left: 0;\n            background-image: linear-gradient(to right, #ffffff, transparent);\n        }\n    </style>\n    <div class="supermarquee-container"\n         data-instance-id="${instanceId}"    \n         style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">\n        <div class="supermarquee-perspective">\n            <div class="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">\n                <div class="supermarquee-inner-container"\n                     style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">\n                    <div class="supermarquee-item"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                    <div class="supermarquee-item-clone"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
+const tmplHori = ' <style>\n        .fader-left-${instanceId} {\n            --faderLeft: 0%;\n            --faderLeftGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-left-${instanceId}::before {\n            display: block;\n            content: \'\';\n            width: var(--faderLeft);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            left: 0;\n            background-image:  var( --faderLeftGradient );\n        }\n        .fader-right-${instanceId} {\n            --faderRight: 0%;\n            --faderRightGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-right-${instanceId}::after {\n            display: block;\n            content: \'\';\n            width: var(--faderRight);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            right: 0;\n            background-image:  var( --faderRightGradient );\n        }        \n    </style>\n    <div class="supermarquee-container"\n         data-instance-id="${instanceId}"    \n         style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">\n        <div class="supermarquee-perspective">\n            <div class="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">\n                <div class="supermarquee-inner-container"\n                     style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">\n                    <div class="supermarquee-item"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                    <div class="supermarquee-item-clone"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
 
 function getHorizontal( data )
 {
