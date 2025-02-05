@@ -256,13 +256,13 @@ function Core( root, config )
 
             default:
             case Configuration.POSITION_CUSTOM:
+                this.elems.rootElement.style.position = prevPosition;
                 this.elems.rootElement.style.removeProperty( 'position' );
                 this.elems.rootElement.style.removeProperty( 'left' );
                 this.elems.rootElement.style.removeProperty( 'top' );
                 this.elems.rootElement.style.removeProperty( 'bottom' );
                 break;
         }
-        this.elems.rootElement.style.position = prevPosition;
 
 
         //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
