@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SuperMarquee Generator</title>
+  <link rel="stylesheet" href="prism.css"  />
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <script type="application/javascript" src="bootstrap.bundle.min.js"></script>
+  <style>
+    .preview {
+      background-color: #8089ff;
+      color: white;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      font-size: 148px;
+      width: 100%;
+      filter: drop-shadow(0px 0px 4px #444);
+    }
+
+    .main {
+      margin-top: 246px;
+    }
+
+    .form-label-head {
+      font-family: monospace;
+      font-weight: bolder;
+    }
+
+    #div-pingpongdelay {
+      display: none;
+    }
+
+    input[type=radio][disabled] + label {
+      color: #ccc;
+    }
+    .btn-primary {
+      border-color : #8089ff!important;
+      background-color : #8089ff!important;
+    }
+    .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active,
+    .btn-outline-primary {
+      color: #8089ff!important;
+      border-color : #8089ff!important;
+    }
+    .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+      color: #ffffff!important;
+      background-color : #8089ff!important;
+    }
+    .form-range::-webkit-slider-thumb {
+      background-color: #8089ff;
+    }
+    .form-check-input:checked {
+      background-color: #8089ff;
+      border-color: #8089ff;
+    }
+
+  </style>
+</head>
+<body>
+<div id="preview"
+     class="preview">
+</div>
+<div class="main" style="margin-bottom: 3rem;">
+  <div class="container">
+    <div class="card shadow">
+      <div class="card-header">
+        <h5 >SuperMarquee Visual Designer</h5><small>Use form elements below to customize the SuperMarquee instance and auto-generate the code.</small>
+      </div>
+      <div class="card-body">
+        <form id="form-editor">
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Presets</label>
+              <div>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="default"
+                        type="button">Default</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="rtl"
+                        type="button">RTL</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="starwars"
+                        type="button">Starwars</button>
+                <button data-type="example-setting"
+                        class="btn btn-sm btn-primary"
+                        data-value="appearing"
+                        type="button">Appearing</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head"
+                     for="content">Content</label>
+              <input type="text"
+                     class="form-control"
+                     id="content"
+                     name="content"
+                     placeholder="SuperMarquee By SuperPlug.in Is Super !!!" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label form-label-head">Mode</label>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-continuous"
+                             name="mode"
+                             value="continuous" checked>
+                      <label class="form-check-label"
+                             for="mode-continuous">Continuous</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-gapped"
+                             name="mode"
+                             value="gapped">
+                      <label class="form-check-label"
+                             for="mode-gapped">Gapped</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="mode-pingpong"
+                             name="mode"
+                             value="pingpong">
+                      <label class="form-check-label"
+                             for="mode-pingpong">Ping-Pong</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="div-spacer">
+                  <div class="col-auto">
+                    <label for="spacer"
+                           class="form-label"
+                           style="font-weight: bolder; font-size: x-small">Spacer</label>
+                  </div>
+                  <div class="col">
+                    <input type="text"
+                           class="form-control form-control-sm"
+                           id="spacer"
+                           name="spacer"
+                           placeholder="&amp;nbsp;" />
+                  </div>
+                </div>
+                <div class="row" id="div-pingpongdelay">
+                  <div class="col-auto">
+                    <label for="pingPongDelay"
+                           class="form-label"
+                           style="font-weight: bolder; font-size: x-small">PingPong Delay</label>
+                  </div>
+                  <div class="col">
+                    <div class="input-group">
+                      <input type="number"
+                             class="form-control form-control-sm"
+                             id="pingPongDelay"
+                             value="2000"
+                             name="pingPongDelay" />
+                      <span class="input-group-text">ms</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Type</label>
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="type-horizontal"
+                           name="type"
+                           value="horizontal" checked>
+                    <label class="form-check-label" for="type-horizontal">Horizontal</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input type="radio"
+                           class="form-check-input"
+                           id="type-vertical"
+                           name="type"
+                           value="vertical">
+                    <label class="form-check-label" for="type-vertical">Vertical</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Direction</label>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-check">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-ltr"
+                             name="direction"
+                             value="ltr" checked>
+                      <label class="form-label" for="type-ltr">
+                        Left-To-Right
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-rtl"
+                             name="direction"
+                             value="rtl">
+                      <label class="form-label" for="type-rtl">
+                        Right-To-Left
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check">
+                      <input type="radio"
+                             id="type-btt"
+                             class="form-check-input"
+                             name="direction"
+                             value="btt" disabled>
+                      <label class="form-label" for="type-btt">
+                        Bottom-To-Top
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input type="radio"
+                             class="form-check-input"
+                             id="type-ttb"
+                             name="direction"
+                             value="ttb" disabled>
+                      <label class="form-label"
+                             for="type-ttb">
+                        Top-To-Bottom
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <fieldset>
+                <input type="hidden"
+                       id="speed"
+                       name="speed"
+                       value="0.1" />
+                <label class="form-label form-label-head">Speed</label><br />
+                <div class="btn-group btn-group-sm"
+                     role="group"
+                     style="margin-bottom: 0.5rem;"
+                     aria-label="Basic radio toggle button group">
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-superslow"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="superslow"
+                         for="btn-speed-superslow">Superslow</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-slow"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="slow"
+                         for="btn-speed-slow">Slow</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-medium"
+                         autocomplete="off" checked>
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="medium"
+                         for="btn-speed-medium">Medium</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-fast"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="fast"
+                         for="btn-speed-fast">Fast</label>
+
+                  <input type="radio"
+                         class="btn-check"
+                         name="btnradio"
+                         id="btn-speed-superfast"
+                         autocomplete="off">
+                  <label class="btn btn-outline-primary"
+                         data-type="speed-preset"
+                         data-value="superfast"
+                         for="btn-speed-superfast">Superfast</label>
+
+                </div>
+                <label for="speed-custom-range" style="width: 100%;">
+                  <input type="range"
+                         min="0"
+                         max="0.75"
+                         value="0.125"
+                         step="0.001"
+                         id="speed-custom-range"
+                         class="form-range"
+                         name="speed-custom-range" />
+                </label>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 2rem">
+            <div class="col-md-4">
+              <fieldset>
+                <label class="form-label form-label-head">Position</label>
+                <div class="form-check">
+                  <input class="form-check-input"
+                       type="radio"
+                       id="position-custom"
+                       name="position"
+                       value="custom" checked></input>
+                  <label class="form-check-label" for="position-custom">Custom</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input"
+                         type="radio"
+                         id="position-fixedTop"
+                         name="position"
+                         value="fixedTop"></input>
+                  <label class="form-check-label" for="position-fixedTop">Fixed Top</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input"
+                         type="radio"
+                         id="position-fixedBottom"
+                         name="position"
+                         value="fixedBottom"></input>
+                  <label class="form-check-label" for="position-fixedBottom">Fixed Bottom</label>
+                </div>
+              </fieldset>
+              <label class="form-label form-label-head" style="margin-top: 1rem">Interaction</label>
+              <fieldset>
+                <label for="pauseonhover">
+                  <input type="checkbox"
+                         id="pauseonhover"
+                         name="pauseonhover"
+                         role="switch">
+                  Pause on hover
+                </label>
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Perspective</label>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Rotate&nbsp;X
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateX"
+                         name="perspective.rotateX"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Rotate&nbsp;Y
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateY"
+                         name="perspective.rotateY"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Rotate&nbsp;Z
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.rotateZ"
+                         name="perspective.rotateZ"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Z
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.z"
+                         name="perspective.z"
+                         class="form-range"
+                         min="0"
+                         max="1200"
+                         value="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Origin&nbsp;X
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.originX"
+                         name="perspective.originX"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="50" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto w-25">
+                  Origin&nbsp;Y
+                </div>
+                <div class="col">
+                  <input type="range"
+                         id="perspective.originY"
+                         name="perspective.originY"
+                         class="form-range"
+                         min="0"
+                         max="100"
+                         value="50" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label form-label-head">Fading edges</label>
+              <div id="fader-mode-horizontal-container">
+                <div style="font-weight: bolder; font-size: x-small; margin-bottom: 0.5rem">Left edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.left.size"
+                           name="fader.left.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.left.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.left.colorFromAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="255" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.left.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF" />
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.left.colorToAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="0" />
+                    </div>
+                  </div>
+                </div>
+                <div style="font-weight: bolder; font-size: x-small; margin-top: 0.5rem; margin-bottom: 0.5rem">Right edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.right.size"
+                           name="fader.right.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           id="fader.right.colorFrom"
+                           name="fader.right.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             id="fader.right.colorFromAlpha"
+                             name="fader.right.colorFromAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="255" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.right.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF" />
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.right.colorToAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="0" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="fader-mode-vertical-container" style="display: none">
+                <div style="font-weight: bolder; font-size: x-small; margin-bottom: 0.5rem">Top edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.top.size"
+                           name="fader.top.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.top.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.top.colorFromAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="255" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.top.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF" />
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.top.colorToAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="0" />
+                    </div>
+                  </div>
+                </div>
+                <div style="font-weight: bolder; font-size: x-small; margin-top: 0.5rem; margin-bottom: 0.5rem">Bottom edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.bottom.size"
+                           name="fader.bottom.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.bottom.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.bottom.colorToAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="255" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.bottom.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF" />
+                    <div class="form-check form-check-inline">
+                      <input type="range"
+                             name="fader.bottom.colorFromAlpha"
+                             class="form-range"
+                             min="0"
+                             max="255"
+                             value="0" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <h6>Code Generation</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <!--
+              <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
+            -->
+            <input class="form-control" type="text" name="license-key" placeholder="Enter your license key..." />
+          </div>
+          <div class="col-md-6" style="text-align: right">
+            <button type="button"
+                    class="btn btn-primary"
+                    data-type="code-generate"
+                    data-value="js"
+                    data-target="modal-code"
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;Vanilla JS</button>
+            <button type="button"
+                    data-type="code-generate"
+                    class="btn btn-primary"
+                    data-value="jq"
+                    data-target="modal-code"
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;jQuery</button>
+            <button type="button"
+                    class="btn btn-primary"
+                    data-type="code-generate"
+                    data-value="wc"
+                    data-target="modal-code"
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;Web Component</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+  <div class="container">
+    <span class="text-body-secondary" style="font-size: smaller">&copy; by superplug.in - a sub-division of <a href="https://aheadware.com">aheadware GmbH</a> • <a href="https://aheadware.com/imprint.php">Imprint</a></span>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal modal-lg"
+     id="code-modal"
+     tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Generated code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="language-javascript" id="generated-code">
+        </code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary pull-left"
+           data-id="btnBuy"
+           target="_blank"
+           href="https://superplug.in/supermarquee#pricing">Buy a license</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
+<script type="module">
+  import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
+  window.onload = function()
+  {
+    let sm = new SuperMarquee( document.getElementById( 'preview' ) ),
+        currentOpts = {},
+        self = this;
+
+    self.updatePreview = function()
+    {
+      const defaultFader = {
+        "left" : {},
+        "right" : {},
+        "top" : {},
+        "bottom" : {}
+      };
+      let fd = new FormData( document.getElementById( 'form-editor' ) ),
+          p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
+          opts = Object.fromEntries( fd );
+
+      if ( "on" === opts.pauseonhover )
+      {
+        opts.pauseonhover = true;
+      }
+      else
+      {
+        opts.pauseonhover = false;
+      }
+
+      // Perspective
+      for ( let pKey in p )
+      {
+        p[ pKey ] = document.getElementById( 'perspective.' + pKey ).value;
+        delete opts[ 'perspective.' + pKey ];
+      }
+      delete opts[ 'speed-flag' ];
+      opts.perspective = JSON.stringify( p );
+
+      // Fader
+      let previousHexColor = null;
+      for ( let optKey in opts )
+      {
+        if ( "fader." === optKey.slice( 0, 6 )  )
+        {
+          const parts = optKey.split( "." );
+
+          if ( false === opts.hasOwnProperty( 'fader' ) )
+          {
+            opts.fader = {};
+          }
+
+          if ( false === opts.fader.hasOwnProperty( parts[ 1 ] ) )
+          {
+            opts.fader[ parts[ 1 ] ] = {};
+          }
+
+          if( 'colorTo' === parts[ 2 ] || 'colorFrom' === parts[ 2 ] )
+          {
+            previousHexColor = opts[ optKey ];
+          }
+          else if ( 'colorToAlpha' === parts[ 2 ] ||  'colorFromAlpha' === parts[ 2 ] )
+          {
+            const hex = hexToRbg( previousHexColor );
+            const alpha = parseInt( opts[ optKey ] ) / 255;
+            opts.fader[ parts[ 1 ] ][ parts[ 2 ].slice( 0, -5 ) ] = `rgba( ${hex.r}, ${hex.g}, ${hex.b}, ${alpha} )`;
+          }
+          else
+          {
+            opts.fader[ parts[ 1 ] ][ parts[ 2 ] ] = opts[ optKey ];
+          }
+
+          delete opts[ optKey ];
+        }
+      }
+
+      sm.destroy();
+
+      sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
+
+      switch( opts.mode )
+      {
+        case "continuous":
+          document.getElementById( 'div-spacer' ).style.display = "block";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "none";
+        break;
+
+        case "pingpong":
+          document.getElementById( 'div-spacer' ).style.display = "none";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "block";
+          sm.setPingPongDelay( +document.getElementById( 'pingPongDelay' ).value );
+        break;
+
+        default:
+          document.getElementById( 'div-spacer' ).style.display = "none";
+          document.getElementById( 'div-pingpongdelay' ).style.display = "none";
+      }
+
+
+
+      currentOpts = opts;
+    };
+
+    document.querySelectorAll( '[data-type="speed-preset"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) => {
+        document.getElementById( 'speed' ).value = btn.getAttribute( 'data-value' );
+        self.updatePreview();
+        document.getElementById( 'speed-custom-range' ).value = sm.getScrollSpeed();
+      });
+    });
+
+    document.querySelectorAll( '[data-type="example-setting"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) =>
+      {
+        document.getElementById( 'form-editor' ).reset();
+
+        switch ( btn.getAttribute( 'data-value' ) )
+        {
+          case 'default':
+            // Nothing to set
+          break;
+
+          case 'rtl':
+            document.getElementById( 'content' ).value = 'שכל לחיבור קרימינולוגיה אנתרופולוגיה אם. בה כתב לחבר וכמקובל, ב שנתי רפואה ויקימדיה מתן, בה אחר ציור תרבות המדינה. ביוני המלחמה בלשנות מה ויש, ספרדית האנציקלופדיה כתב אם, בקר מדעי כימיה גם. שימושי האטמוספירה שמו על, גם אחר הטבע בחירות לעריכה. ראשי אנגלית תיקונים עזה של, על מפתח קסאם מיזמים זכר.';
+            document.getElementById( 'type-rtl' ).checked = true;
+          break;
+
+          case 'starwars':
+            document.getElementById( 'content' ).value = 'May the force be with you!';
+            document.getElementById( 'type-vertical' ).checked = true;
+            document.getElementById( 'perspective.z' ).value = 400;
+            document.getElementById( 'perspective.rotateX' ).value = 60;
+          break;
+
+          case 'appearing':
+            document.getElementById( 'perspective.z' ).value = 400;
+            document.getElementById( 'perspective.rotateY' ).value = 40;
+            document.getElementById( 'fader.right.size' ).value = 80;
+            document.getElementById( 'fader.right.colorFrom' ).value = '#8089ff';
+          break;
+        }
+
+        self.updatePreview();
+      });
+    });
+
+    document.querySelectorAll( '[data-type="code-generate"]' ).forEach( ( btn ) =>
+    {
+      btn.addEventListener( 'click', ( e ) =>
+      {
+        e.preventDefault();
+
+        let code = '';
+
+        const curOpts = JSON.parse( JSON.stringify( currentOpts ) );
+        if ( curOpts.fader )
+        {
+          curOpts.fader = JSON.stringify( curOpts.fader );
+        }
+
+        const lk = document.querySelector( '[name="license-key"]' ).value.trim();
+        if ( lk && lk.length > 0 )
+        {
+          curOpts.license = lk;
+        }
+
+        switch ( btn.getAttribute( 'data-value' ) )
+        {
+          case 'js':
+            code = '// Vanilla javascript \n' +
+                    'const sm = new SuperMarquee(\n' +
+                    '  document.getElementById( \'your-element\' ),\n' +
+                    '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
+                    ');\n';
+            break;
+
+          case 'jq':
+            code = '// jQuery \n' +
+                    '$( \'#your-element\' ).supermarquee( \n' +
+                    '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
+                    ');\n';
+            break;
+
+          case 'wc':
+            if ( curOpts.perspective )
+            {
+              curOpts.perspective = curOpts.perspective.replaceAll( '"', '\\"' );
+            }
+            if ( curOpts.fader )
+            {
+              curOpts.fader = curOpts.fader.replaceAll( '"', '\\"' );
+            }
+            code = '// WebComponent (Angular, Svelte, React, Vue.js)\n' +
+                    '&lt;super-marquee \n';
+            for ( let oKey in curOpts )
+            {
+              code += '  ' + oKey + '="' + curOpts[ oKey ] + '"\n';
+            }
+            code += '>&lt;/super-marquee>;\n';
+          break;
+        }
+
+        if ( curOpts.hasOwnProperty( 'license' ) )
+        {
+          document.getElementById( 'code-modal' ).querySelector( '[data-id="btnBuy"]' ).style.display = 'none';
+        }
+        else
+        {
+          document.getElementById( 'code-modal' ).querySelector( '[data-id="btnBuy"]' ).style.display = 'inline-block';
+        }
+        document.getElementById( 'generated-code' ).innerHTML = code;
+        const codeModal = new bootstrap.Modal( document.getElementById( 'code-modal'));
+        codeModal.show();
+        Prism.highlightAll();
+      });
+    });
+
+    document.querySelectorAll( 'input' ).forEach( ( i ) =>
+    {
+      switch ( i.getAttribute( 'name' ) )
+      {
+        case 'type':
+          i.addEventListener( 'change', (e) => {
+            if ( 'horizontal' === document.querySelector( 'input[name="type"]:checked' ).value )
+            {
+              document.getElementById( 'type-ltr' ).disabled = false;
+              document.getElementById( 'type-rtl' ).disabled = false;
+              document.getElementById( 'type-ttb' ).disabled = true;
+              document.getElementById( 'type-btt' ).disabled = true;
+              document.getElementById( 'type-ltr' ).checked = true;
+              document.getElementById( 'spacer' ).placeholder = '&nbsp;'
+              document.getElementById( 'fader-mode-vertical-container' ).style.display = 'none';
+              document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'block';
+            }
+            else
+            {
+              document.getElementById( 'type-ltr' ).disabled = true;
+              document.getElementById( 'type-rtl' ).disabled = true;
+              document.getElementById( 'type-ttb' ).disabled = false;
+              document.getElementById( 'type-btt' ).disabled = false;
+              document.getElementById( 'type-btt' ).checked = true;
+              document.getElementById( 'spacer' ).placeholder = '<br />';
+              document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'none';
+              document.getElementById( 'fader-mode-vertical-container' ).style.display = 'block';
+            }
+          });
+        break;
+
+        case 'mode':
+          i.addEventListener( 'change', (e) => {
+            if ( 'continuous' === document.querySelector( 'input[name="mode"]:checked' ).value )
+            {
+              document.getElementById( 'spacer' ).disabled = false;
+            }
+            else
+            {
+              document.getElementById( 'spacer' ).disabled = true;
+            }
+          });
+        break;
+
+        case 'speed-custom-range':
+          i.addEventListener( 'change', ( e ) =>
+          {
+            document.getElementById( 'speed' ).value = i.value;
+          });
+        break;
+      }
+
+      i.addEventListener( 'change', ( e ) => { self.updatePreview(); } )
+
+    });
+
+    function hexToRbg( hex ) {
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+  };
+</script>
+<script src="prism.js"></script>
+</body>
+</html>

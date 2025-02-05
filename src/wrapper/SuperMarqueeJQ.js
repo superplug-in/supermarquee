@@ -59,6 +59,10 @@ import SuperMarquee from "./../core/SuperMarquee.js";
         {
             this.ssInstance.setPerspective( perspective );
         },
+        setPingPongDelay : function( ppd )
+        {
+            this.ssInstance.setPingPongDelay( ppd );
+        },
         destroy: function()
         {
             this.ssInstance.destroy();

@@ -1,4 +1,4 @@
-import { templateVertical, templateHorizontal } from "./Template.js";
+import { getHorizontal, getVertical } from "./Template.js";
 import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
@@ -25,6 +25,7 @@ function Core( root, config )
     this.config = config;
     this.dimensions = {};
 
+    this._uuid = Util.generateUUID();
     this._time = Date.now();
     this._rafId = null;
     this._shouldPlay = false;
@@ -228,9 +229,46 @@ function Core( root, config )
         this._pingPongNextDirection = -1;
         this._pingPongPauseDelay = self.config.pingPongDelay;
         this._time = Date.now();
+        
+        this.config.setPosition( this.config.position );
+        switch( this.config.position )
+        {
+            case Configuration.POSITION_FIXEDTOP:
+                this.elems.rootElement.style.position = 'fixed';
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'top' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                this.elems.rootElement.style.width = "100%";
+                this.elems.rootElement.style.top = 0;
+                this.elems.rootElement.style.bottom = 'initial';
+                this.elems.rootElement.style.left = 0;
+                break;
 
-        //this.elems.container.style.visibility = 'visible';
-        this.elems.rootElement.style.position = prevPosition;
+            case Configuration.POSITION_FIXEDBOTTOM:
+                this.elems.rootElement.style.position = 'fixed';
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                this.elems.rootElement.style.width = "100%";
+                this.elems.rootElement.style.top = 'initial';
+                this.elems.rootElement.style.bottom = 0;
+                this.elems.rootElement.style.left = 0;
+                break;
+
+            default:
+            case Configuration.POSITION_CUSTOM:
+                this.elems.rootElement.style.position = prevPosition;
+                this.elems.rootElement.style.removeProperty( 'position' );
+                this.elems.rootElement.style.removeProperty( 'left' );
+                this.elems.rootElement.style.removeProperty( 'top' );
+                this.elems.rootElement.style.removeProperty( 'bottom' );
+                break;
+        }
+
+
+        //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
+        //this.elems.outerWrapper.style.setProperty( '--faderLeftPercent', '22%' );
+        //this.setFader( "crap" );
+        this.setFader( this.config.fader );
 
         // Hello
         if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
@@ -247,6 +285,11 @@ function Core( root, config )
         this.elems.outerWrapper.style.transform = 'rotateX(' + this.config.perspective.rotateX + 'deg) rotateY(' + this.config.perspective.rotateY + 'deg) rotateZ(' + this.config.perspective.rotateZ + 'deg)';
 
     }.bind( this );
+
+    this.getInstanceId = function()
+    {
+        return this._uuid;
+    };
 
     this.updateTickLogic = function()
     {
@@ -405,11 +448,15 @@ function Core( root, config )
                 self.elems.shadowRoot = self.elems.rootElement;//self.elems.rootElement.attachShadow( { mode : 'open' } );
                 if ( self.config.type === Configuration.TYPE_VERTICAL )
                 {
-                    self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
+                    const templ = getVertical( { instanceId : self._uuid } );
+                    self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
+                    //self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
                 }
                 else
                 {
-                    self.elems.shadowRoot.appendChild( templateHorizontal.content.cloneNode( true ) );
+                    const templ = getHorizontal( { instanceId : self._uuid } );
+                    self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
+                    //self.elems.shadowRoot.appendChild( templ.cloneNode( true ) );
                 }
                 self.elems.container = self.elems.shadowRoot.querySelector( 'div.supermarquee-container' );
                 self.elems.perspective = self.elems.shadowRoot.querySelector( 'div.supermarquee-perspective:first-child' );
@@ -429,7 +476,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "2.1";
+Core.prototype.VERSION = "3.0";
 
 Core.prototype.play = function()
 {
@@ -459,6 +506,16 @@ Core.prototype.pause = function()
     }
 };
 
+Core.prototype.setPingPongDelay = function( pingPongDelay )
+{
+    let ppd = +pingPongDelay;
+    if ( ppd <= 0 )
+    {
+        ppd = Configuration.PINGPONG_DELAY_DEFAULT;
+    }
+    this.config.pingPongDelay = ppd;
+};
+
 Core.prototype.setScrollContent = function( content )
 {
     this.config.setContent( content );
@@ -473,36 +530,6 @@ Core.prototype.setScrollSpeed = function( speed )
 Core.prototype.setPosition = function( position )
 {
     this.config.setPosition( position );
-    switch( this.config.position )
-    {
-        case Configuration.POSITION_FIXEDTOP:
-            this.elems.rootElement.style.position = 'fixed';
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-            this.elems.rootElement.style.width = "100%";
-            this.elems.rootElement.style.top = 0;
-            this.elems.rootElement.style.left = 0;
-            break;
-
-        case Configuration.POSITION_FIXEDBOTTOM:
-            this.elems.rootElement.style.position = 'fixed';
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-            this.elems.rootElement.style.width = "100%";
-            this.elems.rootElement.style.bottom = 0;
-            this.elems.rootElement.style.left = 0;
-            break;
-
-        default:
-        case Configuration.POSITION_CUSTOM:
-            this.elems.rootElement.style.removeProperty( 'position' );
-            this.elems.rootElement.style.removeProperty( 'left' );
-            this.elems.rootElement.style.removeProperty( 'top' );
-            this.elems.rootElement.style.removeProperty( 'bottom' );
-        break;
-    }
     this.init();
 };
 
@@ -515,6 +542,58 @@ Core.prototype.setPerspective  = function( perspective )
 {
     this.config.setPerspective( perspective );
     this.updatePerspective();
+};
+
+Core.prototype.setFader = function( fader )
+{
+    this.config.setFader( fader );
+    this.updateFader();
+};
+
+Core.prototype.updateFader = function()
+{
+    const gradientDirections = {
+        "left" : "to right",
+        "right" : "to left",
+        "top" : "180deg",
+        "bottom" : "180deg"
+    }
+    const props = this.config.type === Configuration.TYPE_HORIZONTAL ? [ 'left', 'right' ] : [ 'top', 'bottom' ];
+    const fd = this.config.fader;
+
+    if ( this.config.type === Configuration.TYPE_HORIZONTAL )
+    {
+        this.elems.outerWrapper.classList.remove( `fader-top-${this.getInstanceId()}` );
+        this.elems.outerWrapper.classList.remove( `fader-bottom-${this.getInstanceId()}` );
+    }
+    else
+    {
+        this.elems.outerWrapper.classList.remove( `fader-left-${this.getInstanceId()}` );
+        this.elems.outerWrapper.classList.remove( `fader-right-${this.getInstanceId()}` );
+    }
+
+    for ( let pi = 0; pi < props.length; pi++ )
+    {
+        const prop = props[ pi ];
+        const propUp = String( prop ).charAt( 0 ).toUpperCase() + String( prop ).slice( 1 );
+        if ( fd[ prop ].size <= 0 )
+        {
+            // Remove class
+            this.elems.outerWrapper.classList.remove( 'fader-' + prop + '-' + this.getInstanceId() );
+        }
+        else
+        {
+            // Add class
+            this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
+            this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
+
+            // Set gradient
+            this.elems.outerWrapper.style.setProperty(
+                `--fader${propUp}Gradient`,
+                `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
+            );
+        }
+    }
 };
 
 Core.prototype.onIntoView = function()
