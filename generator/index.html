@@ -509,12 +509,14 @@
                   </div>
                   <div class="col">
                     <input type="color"
+                           id="fader.right.colorFrom"
                            name="fader.right.colorFrom"
                            class="form-control-color"
                            style="height: 2rem"
                            value="#FFFFFF"/>
                     <div class="form-check form-check-inline">
                       <input type="range"
+                             id="fader.right.colorFromAlpha"
                              name="fader.right.colorFromAlpha"
                              class="form-range"
                              min="0"
@@ -672,7 +674,7 @@
             <!--
               <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
             -->
-            <input class="form-control" type="text" placeholder="Enter your license key..." />
+            <input class="form-control" type="text" name="license-key" placeholder="Enter your license key..." />
           </div>
           <div class="col-md-6" style="text-align: right">
             <button type="button"
@@ -733,10 +735,11 @@
         </code></pre>
       </div>
       <div class="modal-footer">
+        <a class="btn btn-primary pull-left"
+           data-id="btnBuy"
+           target="_blank"
+           href="https://superplug.in/supermarquee#pricing">Buy a license</a>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <!--
-        <button type="button" class="btn btn-primary">Save changes</button>
-        -->
       </div>
     </div>
   </div>
@@ -815,14 +818,11 @@
             opts.fader[ parts[ 1 ] ][ parts[ 2 ] ] = opts[ optKey ];
           }
 
-          //console.log( optKey, opts[ optKey ] );
           delete opts[ optKey ];
         }
       }
 
       sm.destroy();
-
-      console.log( opts );
 
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
 
@@ -885,6 +885,8 @@
           case 'appearing':
             document.getElementById( 'perspective.z' ).value = 400;
             document.getElementById( 'perspective.rotateY' ).value = 40;
+            document.getElementById( 'fader.right.size' ).value = 80;
+            document.getElementById( 'fader.right.colorFrom' ).value = '#8089ff';
           break;
         }
 
@@ -900,34 +902,62 @@
 
         let code = '';
 
+        const curOpts = JSON.parse( JSON.stringify( currentOpts ) );
+        if ( curOpts.fader )
+        {
+          curOpts.fader = JSON.stringify( curOpts.fader );
+        }
+
+        const lk = document.querySelector( '[name="license-key"]' ).value.trim();
+        if ( lk && lk.length > 0 )
+        {
+          curOpts.license = lk;
+        }
+
         switch ( btn.getAttribute( 'data-value' ) )
         {
           case 'js':
             code = '// Vanilla javascript \n' +
                     'const sm = new SuperMarquee(\n' +
                     '  document.getElementById( \'your-element\' ),\n' +
-                    '  ' + JSON.stringify( currentOpts, null, 4 ) + '\n' +
+                    '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
                     ');\n';
             break;
 
           case 'jq':
             code = '// jQuery \n' +
                     '$( \'#your-element\' ).supermarquee( \n' +
-                    '  ' + JSON.stringify( currentOpts, null, 4 ) + '\n' +
+                    '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
                     ');\n';
             break;
 
           case 'wc':
+            if ( curOpts.perspective )
+            {
+              curOpts.perspective = curOpts.perspective.replaceAll( '"', '\\"' );
+            }
+            if ( curOpts.fader )
+            {
+              curOpts.fader = curOpts.fader.replaceAll( '"', '\\"' );
+            }
             code = '// WebComponent (Angular, Svelte, React, Vue.js)\n' +
                     '&lt;super-marquee \n';
-            for ( let oKey in currentOpts )
+            for ( let oKey in curOpts )
             {
-              code += '  ' + oKey + '="' + currentOpts[ oKey ] + '"\n';
+              code += '  ' + oKey + '="' + curOpts[ oKey ] + '"\n';
             }
             code += '>&lt;/super-marquee>;\n';
           break;
         }
 
+        if ( curOpts.hasOwnProperty( 'license' ) )
+        {
+          document.getElementById( 'code-modal' ).querySelector( '[data-id="btnBuy"]' ).style.display = 'none';
+        }
+        else
+        {
+          document.getElementById( 'code-modal' ).querySelector( '[data-id="btnBuy"]' ).style.display = 'inline-block';
+        }
         document.getElementById( 'generated-code' ).innerHTML = code;
         const codeModal = new bootstrap.Modal( document.getElementById( 'code-modal'));
         codeModal.show();
