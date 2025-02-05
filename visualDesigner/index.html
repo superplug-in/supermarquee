@@ -3,9 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--
-  <link rel="stylesheet" href="pico/pico.min.css">
-  -->
   <title>SuperMarquee Generator</title>
   <link rel="stylesheet" href="prism.css"  />
   <link rel="stylesheet" href="bootstrap.min.css" />
@@ -37,6 +34,26 @@
 
     input[type=radio][disabled] + label {
       color: #ccc;
+    }
+    .btn-primary {
+      border-color : #8089ff!important;
+      background-color : #8089ff!important;
+    }
+    .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active,
+    .btn-outline-primary {
+      color: #8089ff!important;
+      border-color : #8089ff!important;
+    }
+    .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+      color: #ffffff!important;
+      background-color : #8089ff!important;
+    }
+    .form-range::-webkit-slider-thumb {
+      background-color: #8089ff;
+    }
+    .form-check-input:checked {
+      background-color: #8089ff;
+      border-color: #8089ff;
     }
 
   </style>
@@ -232,9 +249,10 @@
                        id="speed"
                        name="speed"
                        value="0.1" />
-                <label class="form-label form-label-head">Speed</label>
-                <div class="btn-group"
+                <label class="form-label form-label-head">Speed</label><br />
+                <div class="btn-group btn-group-sm"
                      role="group"
+                     style="margin-bottom: 0.5rem;"
                      aria-label="Basic radio toggle button group">
                   <input type="radio"
                          class="btn-check"
@@ -746,7 +764,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
-<script src="pico/modal.min.js"></script>
 <script type="module">
   import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
   window.onload = function()
