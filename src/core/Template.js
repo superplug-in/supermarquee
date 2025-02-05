@@ -11,8 +11,11 @@ function interpolate (template, params)
     return new Function(...keys, `return \`${template}\``)(...keyVals);
 }
 
+const instanceId = 'not-used';
 
-const instanceId="dummy";
+// Instruction
+// 1. Edit HTML below
+// 2. Copy paste it to template string below
 templateHorizontal.innerHTML = `
     <style>
         .fader-left-${instanceId} {
@@ -47,38 +50,6 @@ templateHorizontal.innerHTML = `
             right: 0;
             background-image:  var( --faderRightGradient );
         }
-        .fader-top-${instanceId} {
-            --faderTop: 0%;
-            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);
-        }
-        .fader-top-${instanceId}::before {
-            display: block;
-            content: '';
-            height: var(--faderTop);
-            top: 0;
-            left : 0;
-            right: 0;
-            position: absolute;
-            z-index: 1;
-            pointer-events: none;
-            background-image: var( --faderTopGradient );
-        } 
-        .fader-bottom-${instanceId} {
-            --faderBottom: 0%;
-            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);
-        }
-        .fader-bottom-${instanceId}::after {
-            display: block;
-            content: '';
-            height: var(--faderBottom);
-            bottom: 0;
-            left : 0;
-            right: 0;
-            position: absolute;
-            z-index: 1;
-            pointer-events: none;
-            background-image: var( --faderBottomGradient );
-        }  
     </style>
     <div class="supermarquee-container"
          data-instance-id="${instanceId}"    
@@ -128,59 +99,67 @@ function getHorizontal( data )
     return tmpl;
 }
 
-
+// Instruction
+// 1. Edit HTML below
+// 2. Copy paste it to template string below
 templateVertical.innerHTML = `
     <style>
-        .supermarquee-container
-        {
-            width: 100%;
-            display: block;
-            pointer-events: all;
-            height: inherit;
-            overflow: hidden;
-            visibility: hidden;
-        }        
-       .supermarquee-perspective
-        {
-        }        
-        .supermarquee-outer-wrapper
-        {
-            transform-style: preserve-3d;
-            -webkit-transform-style: preserve-3d;
-            overflow: hidden;
-            box-sizing: content-box;
-            width: inherit;
-            height: inherit;
+        .fader-top-${instanceId} {
+            --faderTop: 0%;
+            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);
         }
-        .supermarquee-outer-wrapper .supermarquee-inner-container
-        {
-            display: inline-block;
-            width: inherit;
-            max-height: 100%;
-            height: inherit;
-        }
-        
-        .supermarquee-inner-container .supermarquee-item
-        {        
+        .fader-top-${instanceId}::before {
             display: block;
+            content: '';
+            height: var(--faderTop);
+            top: 0;
+            left : 0;
+            right: 0;
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+            background-image: var( --faderTopGradient );
+        } 
+        .fader-bottom-${instanceId} {
+            --faderBottom: 0%;
+            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);
         }
-        
-        .supermarquee-inner-container .supermarquee-item-clone
-        {
+        .fader-bottom-${instanceId}::after {
             display: block;
-        }        
+            content: '';
+            height: var(--faderBottom);
+            bottom: 0;
+            left : 0;
+            right: 0;
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+            background-image: var( --faderBottomGradient );
+        }  
     </style>
     
-    <div class="supermarquee-container">
+    <div class="supermarquee-container"
+         style="width: 100%; display: block;pointer-events: all;height: inherit;overflow: hidden;visibility: hidden;">
         <div class="supermarquee-perspective">        
-            <div class="supermarquee-outer-wrapper">
-                <div class="supermarquee-inner-container">
-                    <div class="supermarquee-item"></div>
-                    <div class="supermarquee-item-clone"></div>
+            <div class="supermarquee-outer-wrapper"
+                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;width: inherit;height: inherit;">
+                <div class="supermarquee-inner-container"
+                     style="display: inline-block;width: inherit;max-height: 100%;height: inherit;">
+                    <div class="supermarquee-item" style="display: block;"></div>
+                    <div class="supermarquee-item-clone" style="display: block;"></div>
                 </div>
             </div>
         </div>
     </div>
 `;
 
-export { templateHorizontal, templateVertical, getHorizontal };
+const tmplVert = '    <style>\n        .fader-top-${instanceId} {\n            --faderTop: 0%;\n            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-top-${instanceId}::before {\n            display: block;\n            content: \'\';\n            height: var(--faderTop);\n            top: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderTopGradient );\n        } \n        .fader-bottom-${instanceId} {\n            --faderBottom: 0%;\n            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-bottom-${instanceId}::after {\n            display: block;\n            content: \'\';\n            height: var(--faderBottom);\n            bottom: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderBottomGradient );\n        }  \n    </style>\n    \n    <div class="supermarquee-container"\n         style="width: 100%; display: block;pointer-events: all;height: inherit;overflow: hidden;visibility: hidden;">\n        <div class="supermarquee-perspective">        \n            <div class="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;width: inherit;height: inherit;">\n                <div class="supermarquee-inner-container"\n                     style="display: inline-block;width: inherit;max-height: 100%;height: inherit;">\n                    <div class="supermarquee-item" style="display: block;"></div>\n                    <div class="supermarquee-item-clone" style="display: block;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
+function getVertical( data )
+{
+    const ih = interpolate( tmplVert.toString().trim(), data );
+    const tmpl = document.createElement( 'template' );
+    tmpl.innerHTML = ih;
+    return tmpl;
+}
+
+export { getHorizontal, getVertical };

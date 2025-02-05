@@ -49,12 +49,9 @@
   <div class="container">
     <div class="card shadow">
       <div class="card-header">
-        <h5>SuperMarquee Visual Designer</h5>
+        <h5 >SuperMarquee Visual Designer</h5><small>Use form elements below to customize the SuperMarquee instance and auto-generate the code.</small>
       </div>
       <div class="card-body">
-        <p>
-          Use form elements below to customize the SuperMarquee instance and auto-generate the code. Please have a look at the documentation to find out all possibilities of SuperMarquee.
-        </p>
         <form id="form-editor">
           <div class="row" style="margin-bottom: 2rem">
             <div class="col-md-4">
@@ -332,12 +329,22 @@
                   <label class="form-check-label" for="position-fixedBottom">Fixed Bottom</label>
                 </div>
               </fieldset>
+              <label class="form-label form-label-head" style="margin-top: 1rem">Interaction</label>
+              <fieldset>
+                <label for="pauseonhover">
+                  <input type="checkbox"
+                         id="pauseonhover"
+                         name="pauseonhover"
+                         role="switch">
+                  Pause on hover
+                </label>
+              </fieldset>
             </div>
             <div class="col-md-4">
               <label class="form-label form-label-head">Perspective</label>
               <div class="row">
-                <div class="col-auto">
-                  Rotate X (%)
+                <div class="col-auto w-25">
+                  Rotate&nbsp;X
                 </div>
                 <div class="col">
                   <input type="range"
@@ -350,8 +357,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-auto">
-                  Rotate Y (%)
+                <div class="col-auto w-25">
+                  Rotate&nbsp;Y
                 </div>
                 <div class="col">
                   <input type="range"
@@ -364,8 +371,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-auto">
-                  Rotate Z (%)
+                <div class="col-auto w-25">
+                  Rotate&nbsp;Z
                 </div>
                 <div class="col">
                   <input type="range"
@@ -378,7 +385,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-auto">
+                <div class="col-auto w-25">
                   Z
                 </div>
                 <div class="col">
@@ -392,8 +399,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-auto">
-                  Origin X (%)
+                <div class="col-auto w-25">
+                  Origin&nbsp;X
                 </div>
                 <div class="col">
                   <input type="range"
@@ -406,8 +413,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-auto">
-                  Origin Y (%)
+                <div class="col-auto w-25">
+                  Origin&nbsp;Y
                 </div>
                 <div class="col">
                   <input type="range"
@@ -421,18 +428,250 @@
               </div>
             </div>
             <div class="col-md-4">
-              <label class="form-label form-label-head">Fading borders</label>
-
-              <label class="form-label form-label-head">Interaction</label>
-              <fieldset>
-                <label for="pauseonhover">
-                  <input type="checkbox"
-                         id="pauseonhover"
-                         name="pauseonhover"
-                         role="switch">
-                  Pause on hover
-                </label>
-              </fieldset>
+              <label class="form-label form-label-head">Fading edges</label>
+              <div id="fader-mode-horizontal-container">
+                <div style="font-weight: bolder; font-size: x-small; margin-bottom: 0.5rem">Left edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.left.size"
+                           name="fader.left.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.left.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             data-type="transparentColorCheckbox"
+                             id="fader-left-color-from-transparent"
+                             name="fader.left.colorFrom.transparent"
+                             value="transparent" />
+                      <label class="form-check-label" for="fader-left-color-from-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.left.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"
+                           disabled />
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-left-color-to-transparent"
+                             data-type="transparentColorCheckbox"
+                             name="fader.left.colorTo.transparent"
+                             value="transparent" checked />
+                      <label class="form-check-label" for="fader-left-color-to-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-weight: bolder; font-size: x-small; margin-top: 0.5rem; margin-bottom: 0.5rem">Right edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.right.size"
+                           name="fader.right.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.right.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-right-color-from-transparent"
+                             data-type="transparentColorCheckbox"
+                             name="fader.right.colorFrom.transparent"
+                             value="transparent" />
+                      <label class="form-check-label" for="fader-right-color-from-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.right.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"
+                           disabled />
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-right-color-to-transparent"
+                             name="fader.right.colorTo.transparent"
+                             data-type="transparentColorCheckbox"
+                             value="transparent" checked />
+                      <label class="form-check-label" for="fader-right-color-to-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="fader-mode-vertical-container" style="display: none">
+                <div style="font-weight: bolder; font-size: x-small; margin-bottom: 0.5rem">Top edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.top.size"
+                           name="fader.top.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.top.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-top-color-from-transparent"
+                             name="fader.top.colorFrom.transparent"
+                             data-type="transparentColorCheckbox"
+                             value="transparent" />
+                      <label class="form-check-label" for="fader-top-color-from-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.top.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"
+                           disabled />
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-top-color-to-transparent"
+                             name="fader.top.colorTo.transparent"
+                             data-type="transparentColorCheckbox"
+                             value="transparent" checked />
+                      <label class="form-check-label" for="fader-top-color-to-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-weight: bolder; font-size: x-small; margin-top: 0.5rem; margin-bottom: 0.5rem">Bottom edge</div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    Size
+                  </div>
+                  <div class="col">
+                    <input type="range"
+                           id="fader.bottom.size"
+                           name="fader.bottom.size"
+                           class="form-range"
+                           min="0"
+                           max="100"
+                           value="0" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;from</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.bottom.colorTo"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"/>
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-bottom-color-to-transparent"
+                             data-type="transparentColorCheckbox"
+                             name="fader.bottom.colorTo.transparent" value="transparent" />
+                      <label class="form-check-label" for="fader-bottom-color-to-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-auto w-25">
+                    <div style="margin-top: 0.25rem"
+                         class="d-flex flex-grow-1">Color&nbsp;to</div>
+                  </div>
+                  <div class="col">
+                    <input type="color"
+                           name="fader.bottom.colorFrom"
+                           class="form-control-color"
+                           style="height: 2rem"
+                           value="#FFFFFF"
+                           disabled />
+                    <div class="form-check form-check-inline">
+                      <input type="checkbox"
+                             class="form-check-input"
+                             id="fader-bottom-color-from-transparent"
+                             name="fader.bottom.colorFrom.transparent"
+                             data-type="transparentColorCheckbox"
+                             value="transparent" checked />
+                      <label class="form-check-label" for="fader-bottom-color-from-transparent">transparent</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>
@@ -441,7 +680,10 @@
         <h6>Code Generation</h6>
         <div class="row">
           <div class="col-md-6">
-            <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
+            <!--
+              <p style="margin-bottom: 12px;">Click on the button to generate the code.</p>
+            -->
+            <input class="form-control" type="text" placeholder="Enter your license key..." />
           </div>
           <div class="col-md-6" style="text-align: right">
             <button type="button"
@@ -449,19 +691,31 @@
                     data-type="code-generate"
                     data-value="js"
                     data-target="modal-code"
-                    onclick="">Vanilla JS</button>
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;Vanilla JS</button>
             <button type="button"
                     data-type="code-generate"
                     class="btn btn-primary"
                     data-value="jq"
                     data-target="modal-code"
-                    onclick="">jQuery</button>
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;jQuery</button>
             <button type="button"
                     class="btn btn-primary"
                     data-type="code-generate"
                     data-value="wc"
                     data-target="modal-code"
-                    onclick="">Web Component</button>
+                    onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+              <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+              <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z"/>
+              <path d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+            </svg>&nbsp;Web Component</button>
           </div>
         </div>
       </div>
@@ -511,6 +765,12 @@
 
     self.updatePreview = function()
     {
+      const defaultFader = {
+        "left" : {},
+        "right" : {},
+        "top" : {},
+        "bottom" : {}
+      };
       let fd = new FormData( document.getElementById( 'form-editor' ) ),
           p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
           opts = Object.fromEntries( fd );
@@ -532,6 +792,36 @@
       }
       delete opts[ 'speed-flag' ];
       opts.perspective = JSON.stringify( p );
+
+      // Fader
+      for ( let optKey in opts )
+      {
+        if ( "fader." === optKey.slice( 0, 6 )  )
+        {
+          const parts = optKey.split( "." );
+
+          if ( false === opts.hasOwnProperty( 'fader' ) )
+          {
+            opts.fader = {};
+          }
+
+          if ( false === opts.fader.hasOwnProperty( parts[ 1 ] ) )
+          {
+            opts.fader[ parts[ 1 ] ] = {};
+          }
+
+          if ( parts.length === 4 && parts[ 3 ] === "transparent" )
+          {
+            opts.fader[ parts[ 1 ] ][ parts[ 2 ] ] = "transparent";
+          }
+          else
+          {
+            opts.fader[ parts[ 1 ] ][ parts[ 2 ] ] = opts[ optKey ];
+          }
+          //console.log( optKey, opts[ optKey ] );
+          delete opts[ optKey ];
+        }
+      }
 
       sm.destroy();
 
@@ -568,6 +858,22 @@
         document.getElementById( 'speed' ).value = btn.getAttribute( 'data-value' );
         self.updatePreview();
         document.getElementById( 'speed-custom-range' ).value = sm.getScrollSpeed();
+      });
+    });
+
+    document.querySelectorAll( '[data-type="transparentColorCheckbox"]' ).forEach( ( chbx ) =>
+    {
+      chbx.addEventListener( 'change', ( e ) => {
+        const parts = e.target.getAttribute( 'name' ).split( "." );
+        parts.pop();
+        if ( true === e.target.checked )
+        {
+          document.getElementsByName( parts.join( "." ) )[ 0 ].setAttribute( "disabled", true );
+        }
+        else
+        {
+          document.getElementsByName( parts.join( "." ) )[ 0 ].removeAttribute( "disabled" );
+        }
       });
     });
 
@@ -662,6 +968,8 @@
               document.getElementById( 'type-btt' ).disabled = true;
               document.getElementById( 'type-ltr' ).checked = true;
               document.getElementById( 'spacer' ).placeholder = '&nbsp;'
+              document.getElementById( 'fader-mode-vertical-container' ).style.display = 'none';
+              document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'block';
             }
             else
             {
@@ -671,6 +979,8 @@
               document.getElementById( 'type-btt' ).disabled = false;
               document.getElementById( 'type-btt' ).checked = true;
               document.getElementById( 'spacer' ).placeholder = '<br />';
+              document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'none';
+              document.getElementById( 'fader-mode-vertical-container' ).style.display = 'block';
             }
           });
         break;

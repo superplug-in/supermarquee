@@ -1,4 +1,4 @@
-import { templateVertical, templateHorizontal, getHorizontal } from "./Template.js";
+import { getHorizontal, getVertical } from "./Template.js";
 import { Configuration } from "./Configuration.js";
 import { Event } from "./Event.js";
 import { TickLogic } from "./TickLogic.js";
@@ -448,7 +448,9 @@ function Core( root, config )
                 self.elems.shadowRoot = self.elems.rootElement;//self.elems.rootElement.attachShadow( { mode : 'open' } );
                 if ( self.config.type === Configuration.TYPE_VERTICAL )
                 {
-                    self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
+                    const templ = getVertical( { instanceId : self._uuid } );
+                    self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
+                    //self.elems.shadowRoot.appendChild( templateVertical.content.cloneNode( true ) );
                 }
                 else
                 {
