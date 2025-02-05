@@ -154,9 +154,19 @@ function Configuration( cd = {} )
                     this.fader[ props[ pi ] ].colorFrom = fs[ props[ pi ] ].colorFrom;
                 }
 
+                if ( fs[ props[ pi ] ].hasOwnProperty( "colorFromAlpha" ) )
+                {
+                    this.fader[ props[ pi ] ].colorFromAlpha = fs[ props[ pi ] ].colorFromAlpha;
+                }
+
                 if ( fs[ props[ pi ] ].hasOwnProperty( "colorTo" ) )
                 {
                     this.fader[ props[ pi ] ].colorTo = fs[ props[ pi ] ].colorTo;
+                }
+
+                if ( fs[ props[ pi ] ].hasOwnProperty( "colorToAlpha" ) )
+                {
+                    this.fader[ props[ pi ] ].colorToAlpha = fs[ props[ pi ] ].colorToAlpha;
                 }
             }
         }
@@ -376,23 +386,23 @@ Configuration.PERSPECTIVE_DEFAULT =  {
 Configuration.FADER_DEFAULT = {
     "left" : {
         "size" : 0,
-        "colorFrom" : "#ffffff",
-        "colorTo" : "transparent"
+        "colorFrom" : "rgba( 255, 255, 255, 1 )",
+        "colorTo" : "rgba( 255, 255, 255, 0 )"
     },
     "right" : {
         "size" : 0,
-        "colorFrom" : "#ffffff",
-        "colorTo" : "transparent"
+        "colorFrom" : "rgba( 255, 255, 255, 255 )",
+        "colorTo" : "rgba( 255, 255, 255, 0 )"
     },
     "top" : {
         "size" : 0,
-        "colorFrom" : "#ffffff",
-        "colorTo" : "transparent"
+        "colorFrom" : "rgba( 255, 255, 255, 255 )",
+        "colorTo" : "rgba( 255, 255, 255, 0 )"
     },
     "bottom" : {
         "size" : 0,
-        "colorFrom" : "transparent",
-        "colorTo" : "#ffffff"
+        "colorFrom" : "rgba( 255, 255, 255, 255 )",
+        "colorTo" : "rgba( 255, 255, 255, 0 )"
     }
 };
 
