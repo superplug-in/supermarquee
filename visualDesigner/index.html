@@ -1137,7 +1137,9 @@
         switch ( btn.getAttribute( 'data-value' ) )
         {
           case 'js':
-            code = '// Vanilla javascript \n' +
+            code =  '// Vanilla javascript \n' +
+                    '// Make sure to include the library, e.g. from our CDN\n' +
+                    '// &lt;script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js">&lt;/script>\n' +
                     'const sm = new SuperMarquee(\n' +
                     '  document.getElementById( \'your-element\' ),\n' +
                     '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
@@ -1145,7 +1147,9 @@
             break;
 
           case 'jq':
-            code = '// jQuery \n' +
+            code =  '// jQuery \n' +
+                    '// Make sure to include the jQuery version of the library, e.g. from our CDN\n' +
+                    '// &lt;script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/jquery.supermarquee.min.js">&lt;/script>\n' +
                     '$( \'#your-element\' ).supermarquee( \n' +
                     '  ' + JSON.stringify( curOpts, null, 4 ) + '\n' +
                     ');\n';
@@ -1161,6 +1165,8 @@
               curOpts.fader = curOpts.fader.replaceAll( '"', '\\"' );
             }
             code = '// WebComponent (Angular, Svelte, React, Vue.js)\n' +
+                    '// Make sure to include the WebComponent version of the library, e.g. from our CDN\n' +
+                    '// &lt;script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarqueeWC.min.js">&lt;/script>\n' +
                     '&lt;super-marquee \n';
             for ( let oKey in curOpts )
             {
@@ -1211,6 +1217,7 @@
               contentInput.setAttribute( 'id', 'content' );
               contentInput.setAttribute( 'name', 'content' );
               contentInput.setAttribute( 'class', 'form-control' );
+              contentInput.setAttribute( 'placeholder', 'SuperMarquee By SuperPlug.in Is Super !!!' );
               contentInput.value = value.replace(/(\r\n|\n|\r)/gm, " ");
               contentInput.addEventListener( 'change', ( e ) => { this.updatePreview(); } )
               document.getElementById( 'content' ).remove();
@@ -1236,6 +1243,7 @@
               contentTa.setAttribute( 'id', 'content' );
               contentTa.setAttribute( 'name', 'content' );
               contentTa.setAttribute( 'class', 'form-control' );
+              contentTa.setAttribute( 'placeholder', 'SuperMarquee By SuperPlug.in Is Super !!!' );
               contentTa.value = value;
               contentTa.addEventListener( 'change', ( e ) => { this.updatePreview(); } )
               document.getElementById( 'content' ).remove();
