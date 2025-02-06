@@ -64,7 +64,9 @@
 <div id="preview"
      class="preview">
 </div>
-<div class="main" style="margin-bottom: 3rem;">
+<div id="main"
+     class="main"
+     style="margin-bottom: 3rem;">
   <div class="container">
     <div class="card shadow">
       <div class="card-header">
@@ -952,6 +954,7 @@
               unit = 'vh';
             break;
           }
+          document.getElementById( 'main' ).style.marginTop = ( e.target.value + unit );
           previewContainer.style[ e.target.name ] = ( e.target.value + unit );
         });
       });
@@ -1048,8 +1051,6 @@
           document.getElementById( 'div-spacer' ).style.display = "none";
           document.getElementById( 'div-pingpongdelay' ).style.display = "none";
       }
-
-
 
       currentOpts = opts;
     };
