@@ -1074,11 +1074,13 @@
         {
           case 'default':
             // Nothing to set
+            document.getElementById( 'type-horizontal' ).dispatchEvent( new Event( 'change' ) );
           break;
 
           case 'rtl':
             document.getElementById( 'content' ).value = 'שכל לחיבור קרימינולוגיה אנתרופולוגיה אם. בה כתב לחבר וכמקובל, ב שנתי רפואה ויקימדיה מתן, בה אחר ציור תרבות המדינה. ביוני המלחמה בלשנות מה ויש, ספרדית האנציקלופדיה כתב אם, בקר מדעי כימיה גם. שימושי האטמוספירה שמו על, גם אחר הטבע בחירות לעריכה. ראשי אנגלית תיקונים עזה של, על מפתח קסאם מיזמים זכר.';
             document.getElementById( 'type-rtl' ).checked = true;
+            document.getElementById( 'type-horizontal' ).dispatchEvent( new Event( 'change' ) );
           break;
 
           case 'starwars':
@@ -1086,8 +1088,7 @@
             document.getElementById( 'type-vertical' ).checked = true;
             document.getElementById( 'perspective.z' ).value = 400;
             document.getElementById( 'perspective.rotateX' ).value = 60;
-            document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'none';
-            document.getElementById( 'fader-mode-vertical-container' ).style.display = 'block';
+            document.getElementById( 'type-vertical' ).dispatchEvent( new Event( 'change' ) );
             break;
 
           case 'appearing':
@@ -1095,6 +1096,7 @@
             document.getElementById( 'perspective.rotateY' ).value = 40;
             document.getElementById( 'fader.right.size' ).value = 80;
             document.getElementById( 'fader.right.colorFrom' ).value = '#8089ff';
+            document.getElementById( 'type-horizontal' ).dispatchEvent( new Event( 'change' ) );
           break;
         }
 
