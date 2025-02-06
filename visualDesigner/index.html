@@ -4,18 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SuperMarquee Generator</title>
-  <link rel="stylesheet" href="prism.css"  />
-  <link rel="stylesheet" href="bootstrap.min.css" />
-  <script type="application/javascript" src="bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="ext/prism.css"  />
+  <link rel="stylesheet" href="ext/bootstrap.min.css" />
   <style>
     .preview {
-      background-color: #8089ff;
       color: white;
+      font-size: 148px;
+      font-family: Verdana;
+      background-color: #8089ff;
+      width: 100%;
+      height: auto;
+
       position: fixed;
       top: 0;
       z-index: 100;
-      font-size: 148px;
-      width: 100%;
       filter: drop-shadow(0px 0px 4px #444);
     }
 
@@ -90,6 +92,11 @@
                         class="btn btn-sm btn-primary"
                         data-value="appearing"
                         type="button">Appearing</button>
+              </div>
+              <div>
+                <button type="button"
+                        class="btn btn-link btn-sm"
+                        data-id="previewEditorPopover">Toggle preview settings</button>
               </div>
             </div>
             <div class="col-md-4">
@@ -763,23 +770,200 @@
   </div>
 </div>
 
+<section style="display: none">
+  <div id="popover">
+    <div class="row">
+      <div class="col-6">
+        <table class="table-borderless">
+          <tr>
+            <td colspan="2"><small><b>FONT</b></small></td>
+          </tr>
+          <tr>
+            <td>Color</td>
+            <td>
+              <input type="color"
+                     class="form-control form-control-sm"
+                     name="color"
+                     value="#ffffff"
+                     style="min-height: 12px; width: 64px" />
+            </td>
+          </tr>
+          <tr>
+            <td>Family</td>
+            <td>
+              <select class="form-control form-control-color form-control-sm"
+                      style="width: 100%"
+                      name="fontFamily">
+                <option>Arial</option>
+                <option selected>Verdana</option>
+                <option>Tahoma</option>
+                <option>Trebuchet MS</option>
+                <option>Times New Roman</option>
+                <option>Georgia</option>
+                <option>Garamond</option>
+                <option>Courier New</option>
+                <option>Brush Script MT</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Size</td>
+            <td>
+              <input class="form-range"
+                     name="fontSize"
+                     type="range"
+                     min="8"
+                     max="164"
+                     value="148" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Align
+            </td>
+            <td>
+              <div class="btn-group btn-group-sm">
+                <input type="radio"
+                       class="btn-check"
+                       name="textAlign"
+                       id="btn-preview-align-left"
+                       value="left"
+                       data-type="previewAlignment"
+                       disabled
+                       autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btn-preview-align-left">L</label>
+                <input type="radio"
+                       class="btn-check"
+                       name="textAlign"
+                       data-type="previewAlignment"
+                       disabled
+                       id="btn-preview-align-center"
+                       value="center" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-preview-align-center">C</label>
+                <input type="radio"
+                       class="btn-check"
+                       name="textAlign"
+                       id="btn-preview-align-right"
+                       value="right"
+                       data-type="previewAlignment"
+                       disabled
+                       autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-preview-align-right">R</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-6">
+        <table class="table-borderless">
+          <tr>
+            <td colspan="2"><small><b>BACKGROUND</b></small></td>
+          </tr>
+          <tr>
+            <td>Color</td>
+            <td>
+              <input type="color"
+                     class="form-control form-control-sm"
+                     name="backgroundColor"
+                     value="#8089ff"
+                     style="min-height: 12px; width: 64px" />
+            </td>
+          </tr>
+          <tr>
+            <td>Width</td>
+            <td>
+              <input class="form-range"
+                     name="width"
+                     type="range"
+                     min="20"
+                     max="100"
+                     value="100" />
+            </td>
+          </tr>
+          <tr>
+            <td>Height</td>
+            <td>
+              <input class="form-range"
+                     name="height"
+                     type="range"
+                     min="20"
+                     max="100"
+                     value="20" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/javascript" src="ext/bootstrap.bundle.min.js"></script>
+<script src="ext/prism.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarquee.min.js"></script>
 <script type="module">
   import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
   window.onload = function()
   {
+
+    const previewEditorLink = document.querySelector( '[data-id="previewEditorPopover"]' );
+    const previewSettings = new bootstrap.Popover(
+            previewEditorLink,
+            {
+              "html" : true,
+              "title" : "Preview Settings",
+              "content" : document.getElementById( 'popover' ),
+            }
+    );
+    previewEditorLink.addEventListener( 'shown.bs.popover', () => {
+      const previewContainer = document.getElementById( 'preview' );
+      const root = document.getElementById( 'popover' );
+      const inputs = root.querySelectorAll( 'input,select' );
+
+      if ( 'horizontal' === document.querySelector( 'input[name="type"]:checked' ).value )
+      {
+        const btns = root.querySelectorAll( '[data-type="previewAlignment"]' );
+        btns.forEach( (elem) => {
+          elem.setAttribute( 'disabled', true );
+        });
+      }
+      else
+      {
+        const btns = root.querySelectorAll( '[data-type="previewAlignment"]' );
+        btns.forEach( (elem) => {
+          elem.removeAttribute( 'disabled' );
+        });
+      }
+
+      inputs.forEach( ( elem ) => {
+        elem.addEventListener( 'change', ( e ) =>
+        {
+          let unit = '';
+          switch ( e.target.name )
+          {
+            case 'fontSize':
+              unit = 'px';
+            break;
+
+            case 'width':
+              unit = 'vw';
+            break;
+
+            case 'height':
+              unit = 'vh';
+            break;
+          }
+          previewContainer.style[ e.target.name ] = ( e.target.value + unit );
+        });
+      });
+    });
+
+
     let sm = new SuperMarquee( document.getElementById( 'preview' ) ),
         currentOpts = {},
         self = this;
 
     self.updatePreview = function()
     {
-      const defaultFader = {
-        "left" : {},
-        "right" : {},
-        "top" : {},
-        "bottom" : {}
-      };
       let fd = new FormData( document.getElementById( 'form-editor' ) ),
           p = { "z" : 0, "originX" : 50, "originY" : 50, "rotateX" : 0, "rotateY" : 0, "rotateZ" : 0 },
           opts = Object.fromEntries( fd );
@@ -839,8 +1023,12 @@
         }
       }
 
-      sm.destroy();
+      if ( opts.hasOwnProperty( 'type' ) && 'vertical' === opts.type )
+      {
+        opts.content = opts.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+      }
 
+      sm.destroy();
       sm = new SuperMarquee( document.getElementById( 'preview' ), opts );
 
       switch( opts.mode )
@@ -897,7 +1085,9 @@
             document.getElementById( 'type-vertical' ).checked = true;
             document.getElementById( 'perspective.z' ).value = 400;
             document.getElementById( 'perspective.rotateX' ).value = 60;
-          break;
+            document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'none';
+            document.getElementById( 'fader-mode-vertical-container' ).style.display = 'block';
+            break;
 
           case 'appearing':
             document.getElementById( 'perspective.z' ).value = 400;
@@ -998,6 +1188,20 @@
               document.getElementById( 'spacer' ).placeholder = '&nbsp;'
               document.getElementById( 'fader-mode-vertical-container' ).style.display = 'none';
               document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'block';
+              const btns = document.querySelectorAll( '[data-type="previewAlignment"]' );
+              btns.forEach( (elem) => {
+                elem.setAttribute( 'disabled', true );
+              });
+
+              const value = document.getElementById( 'content' ).value;
+              const contentInput = document.createElement( 'input' );
+              contentInput.setAttribute( 'id', 'content' );
+              contentInput.setAttribute( 'name', 'content' );
+              contentInput.setAttribute( 'class', 'form-control' );
+              contentInput.value = value.replace(/(\r\n|\n|\r)/gm, " ");
+              contentInput.addEventListener( 'change', ( e ) => { this.updatePreview(); } )
+              document.getElementById( 'content' ).remove();
+              document.querySelector( '[for="content"]' ).insertAdjacentElement( 'afterend', contentInput );
             }
             else
             {
@@ -1009,6 +1213,20 @@
               document.getElementById( 'spacer' ).placeholder = '<br />';
               document.getElementById( 'fader-mode-horizontal-container' ).style.display = 'none';
               document.getElementById( 'fader-mode-vertical-container' ).style.display = 'block';
+              const btns = document.querySelectorAll( '[data-type="previewAlignment"]' );
+              btns.forEach( (elem) => {
+                elem.removeAttribute( 'disabled' );
+              });
+
+              const value = document.getElementById( 'content' ).value;
+              const contentTa = document.createElement( 'textarea' );
+              contentTa.setAttribute( 'id', 'content' );
+              contentTa.setAttribute( 'name', 'content' );
+              contentTa.setAttribute( 'class', 'form-control' );
+              contentTa.value = value;
+              contentTa.addEventListener( 'change', ( e ) => { this.updatePreview(); } )
+              document.getElementById( 'content' ).remove();
+              document.querySelector( '[for="content"]' ).insertAdjacentElement( 'afterend', contentTa );
             }
           });
         break;
@@ -1054,6 +1272,5 @@
     }
   };
 </script>
-<script src="prism.js"></script>
 </body>
 </html>
