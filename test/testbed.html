@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testbed</title>
+</head>
+<body>
+
+<div id="sm"></div>
+
+<script type="module">
+    import { default as SuperMarquee } from "./../src/core/SuperMarquee.js";
+
+    window.onload = function()
+    {
+        const smInstance = new SuperMarquee(
+            document.getElementById( 'sm' ),
+            {
+                "content" : "Read the latest headlines from our blog.",
+                "spacer" : " +++ ",
+                "cssClass" : "myScroller"
+                //"type" : "vertical"
+            }
+        );
+    };
+</script>
+
+</body>
+</html>
