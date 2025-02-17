@@ -458,15 +458,15 @@ function Core( root, config )
                     self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
                     //self.elems.shadowRoot.appendChild( templ.cloneNode( true ) );
                 }
-                self.elems.container = self.elems.shadowRoot.querySelector( 'div.supermarquee-container' );
-                self.elems.perspective = self.elems.shadowRoot.querySelector( 'div.supermarquee-perspective:first-child' );
-                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( 'div.supermarquee-outer-wrapper:first-child' );
-                self.elems.innerContainer = self.elems.shadowRoot.querySelector( 'div.supermarquee-inner-container:first-child' );
+                self.elems.container = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-container"]' );
+                self.elems.perspective = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-perspective"]:first-child' );
+                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-outer-wrapper"]:first-child' );
+                self.elems.innerContainer = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-inner-container"]:first-child' );
             break;
         }
 
-        self.elems.scrollItem = self.elems.innerContainer.querySelector( 'div.supermarquee-item:first-child' );
-        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( 'div.supermarquee-item-clone' );
+        self.elems.scrollItem = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item"]:first-child' );
+        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item-clone"]' );
 
         window.addEventListener( 'resize', listenerWindowResize );
         document.addEventListener( 'visibilitychange', listenerDocumentVisibilityChange );

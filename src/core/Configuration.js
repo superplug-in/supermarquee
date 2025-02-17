@@ -425,7 +425,8 @@ Configuration.DEFAULT = {
     "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
     "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
     "spacer" : null,
-    "fader" : Configuration.FADER_DEFAULT
+    "fader" : Configuration.FADER_DEFAULT,
+    "cssClass" : null
 };
 
 export { Configuration };
