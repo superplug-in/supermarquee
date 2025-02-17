@@ -107,6 +107,10 @@ function Core( root, config )
 
     this.init = function()
     {
+        if ( this.config.cssClass && this.config.cssClass.length > 0 )
+        {
+            this.elems.rootElement.classList.add( this.config.cssClass );
+        }
         this.elems.container.style.visibility = 'hidden';
         let prevPosition = this.elems.rootElement.style.position;
         this.elems.rootElement.style.position = 'initial';

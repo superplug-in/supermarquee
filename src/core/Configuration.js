@@ -325,6 +325,13 @@ function Configuration( cd = {} )
 
     this.fader = JSON.parse( JSON.stringify( Configuration.FADER_DEFAULT ) );
     this.setFader( cd.hasOwnProperty( 'fader' ) ? cd.fader : null );
+
+    // Set cssClass
+    this.cssClass = null;
+    if ( cd.hasOwnProperty( 'cssClass') && ( typeof cd.cssClass === 'string' || cd.cssClass instanceof String ) && cd.cssClass.length > 0 )
+    {
+        this.cssClass = cd.cssClass;
+    }
 }
 
 Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
