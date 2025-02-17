@@ -180,6 +180,9 @@ function Core( root, config )
             this.elems.outerWrapper.style.maxHeight = maxHeight + 'px';
             this.elems.scrollItem.innerHTML = "";
 
+            // Replace linebreaks with <br>-tags
+            scrollContent = scrollContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
             switch ( this.config.mode )
             {
                 case Configuration.MODE_PINGPONG:
@@ -476,7 +479,7 @@ function Core( root, config )
     }
 }
 
-Core.prototype.VERSION = "3.0";
+Core.prototype.VERSION = "3.1";
 
 Core.prototype.play = function()
 {
