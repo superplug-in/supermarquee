@@ -289,7 +289,7 @@ function Core( root, config )
         if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
         {
             hasLicenseTextBeenShown = true;
-            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;" );
+            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;font-weight: bold;" );
         }
     }.bind ( this );
 

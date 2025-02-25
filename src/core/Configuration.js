@@ -43,7 +43,7 @@ function Configuration( cd = {} )
 
     this.hasLicense = function()
     {
-        return ( this.license !== null && this.license !== undefined );
+        return ( this.license !== null && this.license !== undefined && this.license.length > 6 );
     };
 
     this.getSpeedNoEasing = function()
