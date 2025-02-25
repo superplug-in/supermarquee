@@ -154,20 +154,11 @@ function Configuration( cd = {} )
                     this.fader[ props[ pi ] ].colorFrom = fs[ props[ pi ] ].colorFrom;
                 }
 
-                if ( fs[ props[ pi ] ].hasOwnProperty( "colorFromAlpha" ) )
-                {
-                    this.fader[ props[ pi ] ].colorFromAlpha = fs[ props[ pi ] ].colorFromAlpha;
-                }
-
                 if ( fs[ props[ pi ] ].hasOwnProperty( "colorTo" ) )
                 {
                     this.fader[ props[ pi ] ].colorTo = fs[ props[ pi ] ].colorTo;
                 }
 
-                if ( fs[ props[ pi ] ].hasOwnProperty( "colorToAlpha" ) )
-                {
-                    this.fader[ props[ pi ] ].colorToAlpha = fs[ props[ pi ] ].colorToAlpha;
-                }
             }
         }
     }
