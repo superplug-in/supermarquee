@@ -601,15 +601,22 @@ Core.prototype.updateFader = function()
         }
         else
         {
-            // Add class
-            this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
-            this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
+            if ( this.config.mode === Configuration.MODE_PINGPONG && false === this.config._gappedScrollingEnabled )
+            {
+                // Do not show fading borders in PINGPONG mode when there is no need for scrolling
+            }
+            else
+            {
+                // Add class
+                this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
+                this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
 
-            // Set gradient
-            this.elems.outerWrapper.style.setProperty(
-                `--fader${propUp}Gradient`,
-                `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
-            );
+                // Set gradient
+                this.elems.outerWrapper.style.setProperty(
+                    `--fader${propUp}Gradient`,
+                    `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
+                );
+            }
         }
     }
 };
