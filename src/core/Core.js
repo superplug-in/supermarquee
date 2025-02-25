@@ -86,22 +86,30 @@ function Core( root, config )
             }
         };
 
-    // Make sure scrolling is inly active, if element is in viewport
-    const observer = new IntersectionObserver((entries, observer) => {
-        let entry = entries.length ? entries[ 0 ] : null;
-        if ( entry )
+    // Make sure scrolling is only active, if element is in viewport
+    let observer = null;
+    document.addEventListener( 'DOMContentLoaded', () =>
+    {
+        if ( !observer )
         {
-            if ( true === entry.isIntersecting )
-            {
-                this.onIntoView();
-            }
-            else
-            {
-                this.onOutOfView();
-            }
-        }
+            observer = new IntersectionObserver((entries, observer) => {
+                let entry = entries.length ? entries[ 0 ] : null;
+                if ( entry )
+                {
+                    if ( true === entry.isIntersecting )
+                    {
+                        this.onIntoView();
+                    }
+                    else
+                    {
+                        this.onOutOfView();
+                    }
+                }
 
-    }, {rootMargin: "0px 0px 20px 0px"});
+            }, {rootMargin: "0px 0px 20px 0px"});
+            observer.observe( self.elems.container );
+        }
+    });
 
     setup();
 
@@ -434,7 +442,10 @@ function Core( root, config )
         this.elems.container.removeEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
         this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
-        observer.unobserve( this.elems.container );
+        if ( observer )
+        {
+            observer.unobserve( this.elems.container );
+        }
 
         this.elems.rootElement.innerHTML = "";
 
@@ -479,7 +490,7 @@ function Core( root, config )
         document.addEventListener( 'visibilitychange', listenerDocumentVisibilityChange );
         self.elems.container.addEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
         self.elems.container.addEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
-        observer.observe( self.elems.container );
+        //observer.observe( self.elems.container );
     }
 }
 
