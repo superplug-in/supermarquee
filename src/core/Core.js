@@ -278,11 +278,7 @@ function Core( root, config )
                 this.elems.rootElement.style.removeProperty( 'bottom' );
                 break;
         }
-
-
-        //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
-        //this.elems.outerWrapper.style.setProperty( '--faderLeftPercent', '22%' );
-        //this.setFader( "crap" );
+        
         this.setFader( this.config.fader );
 
         // Hello
