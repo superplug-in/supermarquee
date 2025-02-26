@@ -56,45 +56,24 @@
             background-image:  var( --faderRightGradient );
         }
     </style>
-    <div class="supermarquee-container"
+    <div data-id="supermarquee-container"
          data-instance-id="${instanceId}"    
          style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">
-        <div class="supermarquee-perspective">
-            <div class="supermarquee-outer-wrapper"
+        <div data-id="supermarquee-perspective">
+            <div data-id="supermarquee-outer-wrapper"
                  style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">
-                <div class="supermarquee-inner-container"
+                <div data-id="supermarquee-inner-container"
                      style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">
-                    <div class="supermarquee-item"
+                    <div data-id="supermarquee-item"
                          style="display: flex;flex: 0 0 auto;"></div>
-                    <div class="supermarquee-item-clone"
+                    <div data-id="supermarquee-item-clone"
                          style="display: flex;flex: 0 0 auto;"></div>
                 </div>
             </div>
         </div>
     </div>
 `;
-	/**
-
-	 <style>
-	 <div class="supermarquee-container"
-	 style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">
-	 <div class="supermarquee-perspective">
-	 <div class="supermarquee-outer-wrapper"
-	 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">
-	 <div class="supermarquee-inner-container"
-	 style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">
-	 <div class="supermarquee-item"
-	 style="display: flex;flex: 0 0 auto;"></div>
-	 <div class="supermarquee-item-clone"
-	 style="display: flex;flex: 0 0 auto;"></div>
-	 </div>
-	 </div>
-	 </div>
-	 </div>
-
-
-	 */
-	const tmplHori = ' <style>\n        .fader-left-${instanceId} {\n            --faderLeft: 0%;\n            --faderLeftGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-left-${instanceId}::before {\n            display: block;\n            content: \'\';\n            width: var(--faderLeft);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            left: 0;\n            background-image:  var( --faderLeftGradient );\n        }\n        .fader-right-${instanceId} {\n            --faderRight: 0%;\n            --faderRightGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-right-${instanceId}::after {\n            display: block;\n            content: \'\';\n            width: var(--faderRight);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            right: 0;\n            background-image:  var( --faderRightGradient );\n        }\n        .fader-top-${instanceId} {\n            --faderTop: 0%;\n            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-top-${instanceId}::before {\n            display: block;\n            content: \'\';\n            height: var(--faderTop);\n            top: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderTopGradient );\n        } \n        .fader-bottom-${instanceId} {\n            --faderBottom: 0%;\n            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-bottom-${instanceId}::after {\n            display: block;\n            content: \'\';\n            height: var(--faderBottom);\n            bottom: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderBottomGradient );\n        }  \n    </style>\n    <div class="supermarquee-container"\n         data-instance-id="${instanceId}"    \n         style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">\n        <div class="supermarquee-perspective">\n            <div class="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">\n                <div class="supermarquee-inner-container"\n                     style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">\n                    <div class="supermarquee-item"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                    <div class="supermarquee-item-clone"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
+	const tmplHori = '<style>\n        .fader-left-${instanceId} {\n            --faderLeft: 0%;\n            --faderLeftGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-left-${instanceId}::before {\n            display: block;\n            content: \'\';\n            width: var(--faderLeft);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            left: 0;\n            background-image:  var( --faderLeftGradient );\n        }\n        .fader-right-${instanceId} {\n            --faderRight: 0%;\n            --faderRightGradient : linear-gradient(to right, #ffffff, transparent);\n        }\n        .fader-right-${instanceId}::after {\n            display: block;\n            content: \'\';\n            width: var(--faderRight);\n            height: 100%;\n            position: absolute;\n            top: 0;\n            z-index: 1;\n            pointer-events: none;\n            right: 0;\n            background-image:  var( --faderRightGradient );\n        }\n    </style>\n    <div data-id="supermarquee-container"\n         data-instance-id="${instanceId}"    \n         style="width: 100%; display: block;pointer-events: all; overflow: hidden;visibility: hidden;">\n        <div data-id="supermarquee-perspective">\n            <div data-id="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;">\n                <div data-id="supermarquee-inner-container"\n                     style="display: flex;flex: 0 0 auto;white-space: nowrap;height: inherit;">\n                    <div data-id="supermarquee-item"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                    <div data-id="supermarquee-item-clone"\n                         style="display: flex;flex: 0 0 auto;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
 
 	function getHorizontal( data )
 	{
@@ -143,22 +122,22 @@
         }  
     </style>
     
-    <div class="supermarquee-container"
+    <div data-id="supermarquee-container"
          style="width: 100%; display: block;pointer-events: all;height: inherit;overflow: hidden;visibility: hidden;">
-        <div class="supermarquee-perspective">        
-            <div class="supermarquee-outer-wrapper"
+        <div data-id="supermarquee-perspective">        
+            <div data-id="supermarquee-outer-wrapper"
                  style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;width: inherit;height: inherit;">
-                <div class="supermarquee-inner-container"
+                <div data-id="supermarquee-inner-container"
                      style="display: inline-block;width: inherit;max-height: 100%;height: inherit;">
-                    <div class="supermarquee-item" style="display: block;"></div>
-                    <div class="supermarquee-item-clone" style="display: block;"></div>
+                    <div data-id="supermarquee-item" style="display: block;"></div>
+                    <div data-id="supermarquee-item-clone" style="display: block;"></div>
                 </div>
             </div>
         </div>
     </div>
 `;
 
-	const tmplVert = '    <style>\n        .fader-top-${instanceId} {\n            --faderTop: 0%;\n            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-top-${instanceId}::before {\n            display: block;\n            content: \'\';\n            height: var(--faderTop);\n            top: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderTopGradient );\n        } \n        .fader-bottom-${instanceId} {\n            --faderBottom: 0%;\n            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-bottom-${instanceId}::after {\n            display: block;\n            content: \'\';\n            height: var(--faderBottom);\n            bottom: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderBottomGradient );\n        }  \n    </style>\n    \n    <div class="supermarquee-container"\n         style="width: 100%; display: block;pointer-events: all;height: inherit;overflow: hidden;visibility: hidden;">\n        <div class="supermarquee-perspective">        \n            <div class="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;width: inherit;height: inherit;">\n                <div class="supermarquee-inner-container"\n                     style="display: inline-block;width: inherit;max-height: 100%;height: inherit;">\n                    <div class="supermarquee-item" style="display: block;"></div>\n                    <div class="supermarquee-item-clone" style="display: block;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
+	const tmplVert = '<style>\n        .fader-top-${instanceId} {\n            --faderTop: 0%;\n            --faderTopGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-top-${instanceId}::before {\n            display: block;\n            content: \'\';\n            height: var(--faderTop);\n            top: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderTopGradient );\n        } \n        .fader-bottom-${instanceId} {\n            --faderBottom: 0%;\n            --faderBottomGradient : linear-gradient(180deg, transparent, #ffffff);\n        }\n        .fader-bottom-${instanceId}::after {\n            display: block;\n            content: \'\';\n            height: var(--faderBottom);\n            bottom: 0;\n            left : 0;\n            right: 0;\n            position: absolute;\n            z-index: 1;\n            pointer-events: none;\n            background-image: var( --faderBottomGradient );\n        }  \n    </style>\n    \n    <div data-id="supermarquee-container"\n         style="width: 100%; display: block;pointer-events: all;height: inherit;overflow: hidden;visibility: hidden;">\n        <div data-id="supermarquee-perspective">        \n            <div data-id="supermarquee-outer-wrapper"\n                 style="transform-style: preserve-3d;-webkit-transform-style: preserve-3d;overflow: hidden;box-sizing: content-box;width: inherit;height: inherit;">\n                <div data-id="supermarquee-inner-container"\n                     style="display: inline-block;width: inherit;max-height: 100%;height: inherit;">\n                    <div data-id="supermarquee-item" style="display: block;"></div>\n                    <div data-id="supermarquee-item-clone" style="display: block;"></div>\n                </div>\n            </div>\n        </div>\n    </div>';
 	function getVertical( data )
 	{
 	    const ih = interpolate( tmplVert.toString().trim(), data );
@@ -253,7 +232,7 @@
 
 	    this.hasLicense = function()
 	    {
-	        return ( this.license !== null && this.license !== undefined );
+	        return ( this.license !== null && this.license !== undefined && this.license.length > 6 );
 	    };
 
 	    this.getSpeedNoEasing = function()
@@ -364,20 +343,11 @@
 	                    this.fader[ props[ pi ] ].colorFrom = fs[ props[ pi ] ].colorFrom;
 	                }
 
-	                if ( fs[ props[ pi ] ].hasOwnProperty( "colorFromAlpha" ) )
-	                {
-	                    this.fader[ props[ pi ] ].colorFromAlpha = fs[ props[ pi ] ].colorFromAlpha;
-	                }
-
 	                if ( fs[ props[ pi ] ].hasOwnProperty( "colorTo" ) )
 	                {
 	                    this.fader[ props[ pi ] ].colorTo = fs[ props[ pi ] ].colorTo;
 	                }
 
-	                if ( fs[ props[ pi ] ].hasOwnProperty( "colorToAlpha" ) )
-	                {
-	                    this.fader[ props[ pi ] ].colorToAlpha = fs[ props[ pi ] ].colorToAlpha;
-	                }
 	            }
 	        }
 	    };
@@ -535,6 +505,13 @@
 
 	    this.fader = JSON.parse( JSON.stringify( Configuration.FADER_DEFAULT ) );
 	    this.setFader( cd.hasOwnProperty( 'fader' ) ? cd.fader : null );
+
+	    // Set cssClass
+	    this.cssClass = null;
+	    if ( cd.hasOwnProperty( 'cssClass') && ( typeof cd.cssClass === 'string' || cd.cssClass instanceof String ) && cd.cssClass.length > 0 )
+	    {
+	        this.cssClass = cd.cssClass;
+	    }
 	}
 
 	Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -635,7 +612,8 @@
 	    "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
 	    "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
 	    "spacer" : null,
-	    "fader" : Configuration.FADER_DEFAULT
+	    "fader" : Configuration.FADER_DEFAULT,
+	    "cssClass" : null
 	};
 
 	function Event( i )
@@ -1042,27 +1020,39 @@
 	            }
 	        };
 
-	    // Make sure scrolling is inly active, if element is in viewport
-	    const observer = new IntersectionObserver((entries, observer) => {
-	        let entry = entries.length ? entries[ 0 ] : null;
-	        if ( entry )
+	    // Make sure scrolling is only active, if element is in viewport
+	    let observer = null;
+	    document.addEventListener( 'DOMContentLoaded', () =>
+	    {
+	        if ( !observer )
 	        {
-	            if ( true === entry.isIntersecting )
-	            {
-	                this.onIntoView();
-	            }
-	            else
-	            {
-	                this.onOutOfView();
-	            }
-	        }
+	            observer = new IntersectionObserver((entries, observer) => {
+	                let entry = entries.length ? entries[ 0 ] : null;
+	                if ( entry )
+	                {
+	                    if ( true === entry.isIntersecting )
+	                    {
+	                        this.onIntoView();
+	                    }
+	                    else
+	                    {
+	                        this.onOutOfView();
+	                    }
+	                }
 
-	    }, {rootMargin: "0px 0px 20px 0px"});
+	            }, {rootMargin: "0px 0px 20px 0px"});
+	            observer.observe( self.elems.container );
+	        }
+	    });
 
 	    setup();
 
 	    this.init = function()
 	    {
+	        if ( this.config.cssClass && this.config.cssClass.length > 0 )
+	        {
+	            this.elems.rootElement.classList.add( this.config.cssClass );
+	        }
 	        this.elems.container.style.visibility = 'hidden';
 	        let prevPosition = this.elems.rootElement.style.position;
 	        this.elems.rootElement.style.position = 'initial';
@@ -1135,6 +1125,9 @@
 	            let maxHeight = ( prevPosition === 'fixed' ) ? window.innerHeight : this.elems.container.clientHeight;
 	            this.elems.outerWrapper.style.maxHeight = maxHeight + 'px';
 	            this.elems.scrollItem.innerHTML = "";
+
+	            // Replace linebreaks with <br>-tags
+	            scrollContent = scrollContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
 	            switch ( this.config.mode )
 	            {
@@ -1219,18 +1212,14 @@
 	                this.elems.rootElement.style.removeProperty( 'bottom' );
 	                break;
 	        }
-
-
-	        //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
-	        //this.elems.outerWrapper.style.setProperty( '--faderLeftPercent', '22%' );
-	        //this.setFader( "crap" );
+	        
 	        this.setFader( this.config.fader );
 
 	        // Hello
 	        if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
 	        {
 	            hasLicenseTextBeenShown = true;
-	            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;" );
+	            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;font-weight: bold;" );
 	        }
 	    }.bind ( this );
 
@@ -1383,7 +1372,10 @@
 	        this.elems.container.removeEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
 	        this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
-	        observer.unobserve( this.elems.container );
+	        if ( observer )
+	        {
+	            observer.unobserve( this.elems.container );
+	        }
 
 	        this.elems.rootElement.innerHTML = "";
 
@@ -1414,25 +1406,25 @@
 	                    self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
 	                    //self.elems.shadowRoot.appendChild( templ.cloneNode( true ) );
 	                }
-	                self.elems.container = self.elems.shadowRoot.querySelector( 'div.supermarquee-container' );
-	                self.elems.perspective = self.elems.shadowRoot.querySelector( 'div.supermarquee-perspective:first-child' );
-	                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( 'div.supermarquee-outer-wrapper:first-child' );
-	                self.elems.innerContainer = self.elems.shadowRoot.querySelector( 'div.supermarquee-inner-container:first-child' );
+	                self.elems.container = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-container"]' );
+	                self.elems.perspective = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-perspective"]:first-child' );
+	                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-outer-wrapper"]:first-child' );
+	                self.elems.innerContainer = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-inner-container"]:first-child' );
 	            break;
 	        }
 
-	        self.elems.scrollItem = self.elems.innerContainer.querySelector( 'div.supermarquee-item:first-child' );
-	        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( 'div.supermarquee-item-clone' );
+	        self.elems.scrollItem = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item"]:first-child' );
+	        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item-clone"]' );
 
 	        window.addEventListener( 'resize', listenerWindowResize );
 	        document.addEventListener( 'visibilitychange', listenerDocumentVisibilityChange );
 	        self.elems.container.addEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
 	        self.elems.container.addEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
-	        observer.observe( self.elems.container );
+	        //observer.observe( self.elems.container );
 	    }
 	}
 
-	Core.prototype.VERSION = "3.0";
+	Core.prototype.VERSION = "3.1";
 
 	Core.prototype.play = function()
 	{
@@ -1539,15 +1531,20 @@
 	        }
 	        else
 	        {
-	            // Add class
-	            this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
-	            this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
+	            if ( this.config.mode === Configuration.MODE_PINGPONG && false === this.config._gappedScrollingEnabled )
+	            ;
+	            else
+	            {
+	                // Add class
+	                this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
+	                this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
 
-	            // Set gradient
-	            this.elems.outerWrapper.style.setProperty(
-	                `--fader${propUp}Gradient`,
-	                `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
-	            );
+	                // Set gradient
+	                this.elems.outerWrapper.style.setProperty(
+	                    `--fader${propUp}Gradient`,
+	                    `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
+	                );
+	            }
 	        }
 	    }
 	};
@@ -1591,9 +1588,9 @@
 	        {
 	            configData[ k ] = cfg[ k ];
 	        }
-	        else if ( rootElement.hasAttribute( 'data-' + k ) )
+	        else if ( rootElement.hasAttribute( 'data-' + k.toLowerCase() ) )
 	        {
-	            configData[ k ] = rootElement.getAttribute( 'data-' + k );
+	            configData[ k ] = rootElement.getAttribute( 'data-' + k.toLowerCase() );
 	        }
 	    }
 

@@ -17,9 +17,9 @@ function SuperMarquee( rootElement, cfg = {} )
         {
             configData[ k ] = cfg[ k ];
         }
-        else if ( rootElement.hasAttribute( 'data-' + k ) )
+        else if ( rootElement.hasAttribute( 'data-' + k.toLowerCase() ) )
         {
-            configData[ k ] = rootElement.getAttribute( 'data-' + k );
+            configData[ k ] = rootElement.getAttribute( 'data-' + k.toLowerCase() );
         }
     }
 

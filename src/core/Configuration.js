@@ -43,7 +43,7 @@ function Configuration( cd = {} )
 
     this.hasLicense = function()
     {
-        return ( this.license !== null && this.license !== undefined );
+        return ( this.license !== null && this.license !== undefined && this.license.length > 6 );
     };
 
     this.getSpeedNoEasing = function()
@@ -154,20 +154,11 @@ function Configuration( cd = {} )
                     this.fader[ props[ pi ] ].colorFrom = fs[ props[ pi ] ].colorFrom;
                 }
 
-                if ( fs[ props[ pi ] ].hasOwnProperty( "colorFromAlpha" ) )
-                {
-                    this.fader[ props[ pi ] ].colorFromAlpha = fs[ props[ pi ] ].colorFromAlpha;
-                }
-
                 if ( fs[ props[ pi ] ].hasOwnProperty( "colorTo" ) )
                 {
                     this.fader[ props[ pi ] ].colorTo = fs[ props[ pi ] ].colorTo;
                 }
 
-                if ( fs[ props[ pi ] ].hasOwnProperty( "colorToAlpha" ) )
-                {
-                    this.fader[ props[ pi ] ].colorToAlpha = fs[ props[ pi ] ].colorToAlpha;
-                }
             }
         }
     }
@@ -325,6 +316,13 @@ function Configuration( cd = {} )
 
     this.fader = JSON.parse( JSON.stringify( Configuration.FADER_DEFAULT ) );
     this.setFader( cd.hasOwnProperty( 'fader' ) ? cd.fader : null );
+
+    // Set cssClass
+    this.cssClass = null;
+    if ( cd.hasOwnProperty( 'cssClass') && ( typeof cd.cssClass === 'string' || cd.cssClass instanceof String ) && cd.cssClass.length > 0 )
+    {
+        this.cssClass = cd.cssClass;
+    }
 }
 
 Configuration.SYSTEM_WEBCOMPONENT = 'webcomponent';
@@ -425,7 +423,8 @@ Configuration.DEFAULT = {
     "rssFeedTemplate" : '<a href="${link}" target="_blank">${title}</a>',
     "pingPongDelay" : Configuration.PINGPONG_DELAY_DEFAULT,
     "spacer" : null,
-    "fader" : Configuration.FADER_DEFAULT
+    "fader" : Configuration.FADER_DEFAULT,
+    "cssClass" : null
 };
 
 export { Configuration };

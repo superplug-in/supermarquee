@@ -1156,21 +1156,20 @@
             break;
 
           case 'wc':
-            if ( curOpts.perspective )
-            {
-              curOpts.perspective = curOpts.perspective.replaceAll( '"', '\\"' );
-            }
-            if ( curOpts.fader )
-            {
-              curOpts.fader = curOpts.fader.replaceAll( '"', '\\"' );
-            }
             code = '// WebComponent (Angular, Svelte, React, Vue.js)\n' +
                     '// Make sure to include the WebComponent version of the library, e.g. from our CDN\n' +
                     '// &lt;script src="https://cdn.jsdelivr.net/npm/sp-supermarquee@latest/dist/SuperMarqueeWC.min.js">&lt;/script>\n' +
                     '&lt;super-marquee \n';
             for ( let oKey in curOpts )
             {
-              code += '  ' + oKey + '="' + curOpts[ oKey ] + '"\n';
+              if ( -1 < [ 'fader', 'perspective' ].indexOf( oKey  ) )
+              {
+                code += '  ' + oKey + '=\'' + curOpts[ oKey ] + '\'\n';
+              }
+              else
+              {
+                code += '  ' + oKey + '="' + curOpts[ oKey ] + '"\n';
+              }
             }
             code += '>&lt;/super-marquee>;\n';
           break;

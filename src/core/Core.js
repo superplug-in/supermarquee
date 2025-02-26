@@ -86,27 +86,39 @@ function Core( root, config )
             }
         };
 
-    // Make sure scrolling is inly active, if element is in viewport
-    const observer = new IntersectionObserver((entries, observer) => {
-        let entry = entries.length ? entries[ 0 ] : null;
-        if ( entry )
+    // Make sure scrolling is only active, if element is in viewport
+    let observer = null;
+    document.addEventListener( 'DOMContentLoaded', () =>
+    {
+        if ( !observer )
         {
-            if ( true === entry.isIntersecting )
-            {
-                this.onIntoView();
-            }
-            else
-            {
-                this.onOutOfView();
-            }
-        }
+            observer = new IntersectionObserver((entries, observer) => {
+                let entry = entries.length ? entries[ 0 ] : null;
+                if ( entry )
+                {
+                    if ( true === entry.isIntersecting )
+                    {
+                        this.onIntoView();
+                    }
+                    else
+                    {
+                        this.onOutOfView();
+                    }
+                }
 
-    }, {rootMargin: "0px 0px 20px 0px"});
+            }, {rootMargin: "0px 0px 20px 0px"});
+            observer.observe( self.elems.container );
+        }
+    });
 
     setup();
 
     this.init = function()
     {
+        if ( this.config.cssClass && this.config.cssClass.length > 0 )
+        {
+            this.elems.rootElement.classList.add( this.config.cssClass );
+        }
         this.elems.container.style.visibility = 'hidden';
         let prevPosition = this.elems.rootElement.style.position;
         this.elems.rootElement.style.position = 'initial';
@@ -179,6 +191,9 @@ function Core( root, config )
             let maxHeight = ( prevPosition === 'fixed' ) ? window.innerHeight : this.elems.container.clientHeight;
             this.elems.outerWrapper.style.maxHeight = maxHeight + 'px';
             this.elems.scrollItem.innerHTML = "";
+
+            // Replace linebreaks with <br>-tags
+            scrollContent = scrollContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
             switch ( this.config.mode )
             {
@@ -263,18 +278,14 @@ function Core( root, config )
                 this.elems.rootElement.style.removeProperty( 'bottom' );
                 break;
         }
-
-
-        //this.elems.outerWrapper.classList.add( 'fader-left-' + this.getInstanceId() );
-        //this.elems.outerWrapper.style.setProperty( '--faderLeftPercent', '22%' );
-        //this.setFader( "crap" );
+        
         this.setFader( this.config.fader );
 
         // Hello
         if ( false === this.config.hasLicense() && window.console && false === hasLicenseTextBeenShown )
         {
             hasLicenseTextBeenShown = true;
-            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;" );
+            console.log( "%c»SuperMarquee« by SuperPlug.in. Unlicensed version for non commercial use only.", "font-family: monospace sans-serif; background-color: #8089ff; color: white;font-weight: bold;" );
         }
     }.bind ( this );
 
@@ -427,7 +438,10 @@ function Core( root, config )
         this.elems.container.removeEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
         this.elems.container.removeEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
 
-        observer.unobserve( this.elems.container );
+        if ( observer )
+        {
+            observer.unobserve( this.elems.container );
+        }
 
         this.elems.rootElement.innerHTML = "";
 
@@ -458,25 +472,25 @@ function Core( root, config )
                     self.elems.shadowRoot.appendChild( templ.content.cloneNode( true ) );
                     //self.elems.shadowRoot.appendChild( templ.cloneNode( true ) );
                 }
-                self.elems.container = self.elems.shadowRoot.querySelector( 'div.supermarquee-container' );
-                self.elems.perspective = self.elems.shadowRoot.querySelector( 'div.supermarquee-perspective:first-child' );
-                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( 'div.supermarquee-outer-wrapper:first-child' );
-                self.elems.innerContainer = self.elems.shadowRoot.querySelector( 'div.supermarquee-inner-container:first-child' );
+                self.elems.container = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-container"]' );
+                self.elems.perspective = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-perspective"]:first-child' );
+                self.elems.outerWrapper = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-outer-wrapper"]:first-child' );
+                self.elems.innerContainer = self.elems.shadowRoot.querySelector( '[data-id="supermarquee-inner-container"]:first-child' );
             break;
         }
 
-        self.elems.scrollItem = self.elems.innerContainer.querySelector( 'div.supermarquee-item:first-child' );
-        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( 'div.supermarquee-item-clone' );
+        self.elems.scrollItem = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item"]:first-child' );
+        self.elems.scrollItemClone = self.elems.innerContainer.querySelector( '[data-id="supermarquee-item-clone"]' );
 
         window.addEventListener( 'resize', listenerWindowResize );
         document.addEventListener( 'visibilitychange', listenerDocumentVisibilityChange );
         self.elems.container.addEventListener( 'mouseenter', listenerElemsContainerMouseEnter );
         self.elems.container.addEventListener( 'mouseleave', listenerElemsContainerMouseLeave );
-        observer.observe( self.elems.container );
+        //observer.observe( self.elems.container );
     }
 }
 
-Core.prototype.VERSION = "3.0";
+Core.prototype.VERSION = "3.1";
 
 Core.prototype.play = function()
 {
@@ -583,15 +597,22 @@ Core.prototype.updateFader = function()
         }
         else
         {
-            // Add class
-            this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
-            this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
+            if ( this.config.mode === Configuration.MODE_PINGPONG && false === this.config._gappedScrollingEnabled )
+            {
+                // Do not show fading borders in PINGPONG mode when there is no need for scrolling
+            }
+            else
+            {
+                // Add class
+                this.elems.outerWrapper.classList.add( 'fader-' + prop + '-' + this.getInstanceId() );
+                this.elems.outerWrapper.style.setProperty( `--fader${propUp}`, `${fd[ prop ].size}%` );
 
-            // Set gradient
-            this.elems.outerWrapper.style.setProperty(
-                `--fader${propUp}Gradient`,
-                `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
-            );
+                // Set gradient
+                this.elems.outerWrapper.style.setProperty(
+                    `--fader${propUp}Gradient`,
+                    `linear-gradient( ${gradientDirections[ prop ]}, ${fd[ prop ].colorFrom}, ${fd[ prop ].colorTo})`
+                );
+            }
         }
     }
 };

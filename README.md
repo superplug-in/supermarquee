@@ -26,6 +26,8 @@ Get some inspiration of what is possible with the following showcase demos.
 - [MarqueeWall (codepen.io)](https://codepen.io/benny00100/pen/podybRG)
 - [MarqueeWiggle (codepen.io)](https://codepen.io/benny00100/pen/JjObvZK)
 
+🚀 [Try out the new Visual Editor](https://www.superplug.in/supermarquee/visual-designer)
+
 ## Features
 
 The most popular features of SuperMarquee:
